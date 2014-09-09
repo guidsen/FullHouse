@@ -1,6 +1,10 @@
 /*
+ <<<<<<< HEAD
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
+ =======
+ * To change this template, choose Tools | Templates
+ >>>>>>> cc9a444dfbced1c0216d6bd8a9ef7b36cf016f62
  * and open the template in the editor.
  */
 package fullhouse;
@@ -53,5 +57,4 @@ public class Rating {
     public int getWinner() {
         return this.playerWon;
     }
-
 }
