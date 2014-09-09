@@ -15,9 +15,15 @@ public class FullHouse {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Rating rating = new Rating(160, 105, 0);
-        System.out.println(rating.getScoreA());
-        System.out.println(rating.getScoreB());
+        Integer[] players = {1560, 1400, 977, 632, 1274};
+        
+        int total = 0;
+        for(int player : players) {
+            total += player;
+        }
+        
+        Rating rating = new Rating(total, 6, 2);
+        System.out.println(rating.calculate());
     }
 
 }

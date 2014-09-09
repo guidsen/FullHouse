@@ -1,12 +1,3 @@
-/*
- <<<<<<< HEAD
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- =======
- * To change this template, choose Tools | Templates
- >>>>>>> cc9a444dfbced1c0216d6bd8a9ef7b36cf016f62
- * and open the template in the editor.
- */
 package fullhouse;
 
 /**
@@ -16,45 +7,19 @@ package fullhouse;
  */
 public class Rating {
 
-    private final int scoreA;
-    private final int scoreB;
-    private final int playerWon;
+    private final int totalRatings;
+    private final int winRatio;
+    private final int playedGames;
 
-    /**
-     * @param scoreA score of playerA
-     * @param scoreB score of playerB
-     * @param playerWon 0 is playerA, 1 is playerB
-     */
-    Rating(int scoreA, int scoreB, int playerWon) {
-        this.scoreA = scoreA;
-        this.scoreB = scoreB;
-        this.playerWon = playerWon;
+    Rating(int totalRatings, int winRatio, int playedGames) {
+        this.totalRatings = totalRatings;
+        this.winRatio = winRatio;
+        this.playedGames = playedGames;
     }
 
-    /**
-     * Gets the score of playerA
-     *
-     * @return scoreA
-     */
-    public int getScoreA() {
-        return this.scoreA;
+    public int calculate() {
+        int newRating = this.totalRatings + (400 * this.winRatio) / this.playedGames;
+        return newRating;
     }
 
-    /**
-     * Gets the score of playerB
-     *
-     * @return scoreB
-     */
-    public int getScoreB() {
-        return this.scoreB;
-    }
-
-    /**
-     * Gets the winner. 0 is playerA, 1 is playerB
-     *
-     * @return
-     */
-    public int getWinner() {
-        return this.playerWon;
-    }
 }
