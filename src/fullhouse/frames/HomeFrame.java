@@ -33,6 +33,7 @@ public class HomeFrame extends javax.swing.JFrame {
         tableLayoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Full House");
 
         playersOverviewButton.setText("Spelersoverzicht");
         playersOverviewButton.addActionListener(new java.awt.event.ActionListener() {
