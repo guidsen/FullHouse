@@ -19,5 +19,7 @@ public class FullHouse {
     public static void main(String[] args) {
         JFrame frame = new HomeFrame();
         frame.setVisible(true);
+        
+        System.out.println("Ik ben hodo (c) Steve");
     }
 }
