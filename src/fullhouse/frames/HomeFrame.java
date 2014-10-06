@@ -4,6 +4,9 @@
  */
 package fullhouse.frames;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Point;
 import javax.swing.JFrame;
 
 /**
@@ -31,6 +34,7 @@ public class HomeFrame extends javax.swing.JFrame {
         playersOverviewButton = new javax.swing.JButton();
         plannedTournamentsButton = new javax.swing.JButton();
         tableLayoutButton = new javax.swing.JButton();
+        mainPanel = new fullhouse.frames.HomePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Full House");
@@ -66,7 +70,9 @@ public class HomeFrame extends javax.swing.JFrame {
                     .addComponent(tableLayoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(playersOverviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,28 +83,43 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tableLayoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void playersOverviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playersOverviewButtonActionPerformed
-        JFrame frame = new PlayersFrame();
-        frame.setVisible(true);
+        changeView(new PlayerCollectionPanel());
     }//GEN-LAST:event_playersOverviewButtonActionPerformed
 
     private void plannedTournamentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedTournamentsButtonActionPerformed
-        // TODO add your handling code here:
-        JFrame frame = new TournamentsFrame();
-        frame.setVisible(true);
+        changeView(new TournamentCollectionPanel());
     }//GEN-LAST:event_plannedTournamentsButtonActionPerformed
 
     private void tableLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableLayoutButtonActionPerformed
         JFrame frame = new TableLayoutFrame();
         frame.setVisible(true);
     }//GEN-LAST:event_tableLayoutButtonActionPerformed
+
+    public void changeView(javax.swing.JPanel panel)
+    {
+        add(panel, BorderLayout.SOUTH);
+        
+        Dimension size = mainPanel.getSize();
+        Point point = mainPanel.getLocation();
+
+        panel.setLocation(point.x, point.y);
+        panel.setSize(size.width, size.height);
+        
+        revalidate();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private fullhouse.frames.HomePanel mainPanel;
     private javax.swing.JButton plannedTournamentsButton;
     private javax.swing.JButton playersOverviewButton;
     private javax.swing.JButton tableLayoutButton;
