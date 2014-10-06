@@ -36,17 +36,15 @@ public class HomePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
-                .addGap(138, 138, 138))
+                .addGap(0, 309, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
                 .addComponent(jButton1)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addGap(0, 277, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

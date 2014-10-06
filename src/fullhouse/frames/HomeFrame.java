@@ -20,6 +20,8 @@ public class HomeFrame extends javax.swing.JFrame {
      */
     public HomeFrame() {
         initComponents();
+        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -34,7 +36,8 @@ public class HomeFrame extends javax.swing.JFrame {
         playersOverviewButton = new javax.swing.JButton();
         plannedTournamentsButton = new javax.swing.JButton();
         tableLayoutButton = new javax.swing.JButton();
-        mainPanel = new fullhouse.frames.HomePanel();
+        jButton1 = new javax.swing.JButton();
+        mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Full House");
@@ -60,33 +63,54 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Home");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 759, Short.MAX_VALUE)
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tableLayoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(playersOverviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                    .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(tableLayoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(playersOverviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tableLayoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(playersOverviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tableLayoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 130, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -94,34 +118,47 @@ public class HomeFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void playersOverviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playersOverviewButtonActionPerformed
-        changeView(new PlayerCollectionPanel());
+        changeView(new PlayerPanel());
     }//GEN-LAST:event_playersOverviewButtonActionPerformed
 
     private void plannedTournamentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedTournamentsButtonActionPerformed
-        changeView(new TournamentCollectionPanel());
+        changeView(new TournamentPanel());
     }//GEN-LAST:event_plannedTournamentsButtonActionPerformed
 
     private void tableLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableLayoutButtonActionPerformed
-        JFrame frame = new TableLayoutFrame();
-        frame.setVisible(true);
+        // moet nog komen
     }//GEN-LAST:event_tableLayoutButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        changeView(new HomePanel());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void changeView(javax.swing.JPanel panel)
-    {
-        add(panel, BorderLayout.SOUTH);
+    {        
+        size = mainPanel.getSize();
+        point = mainPanel.getLocation();
         
-        Dimension size = mainPanel.getSize();
-        Point point = mainPanel.getLocation();
+        remove(mainPanel);
+        
+        mainPanel = panel;
+        
+        add(panel, BorderLayout.PAGE_END);
 
         panel.setLocation(point.x, point.y);
         panel.setSize(size.width, size.height);
         
         revalidate();
+        validate();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private fullhouse.frames.HomePanel mainPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel mainPanel;
     private javax.swing.JButton plannedTournamentsButton;
     private javax.swing.JButton playersOverviewButton;
     private javax.swing.JButton tableLayoutButton;
     // End of variables declaration//GEN-END:variables
+
+    private Dimension size;
+    private Point point;
 }
