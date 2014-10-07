@@ -4,16 +4,22 @@
  */
 package fullhouse.frames;
 
+import fullhouse.models.Player;
+import fullhouse.repositories.DbRepositoryInterface;
+import fullhouse.repositories.PlayerDbRepository;
+
 /**
  *
  * @author steve
  */
 public class PlayerFormPanel extends javax.swing.JPanel {
 
+    private final PlayerDbRepository playerRepo = new PlayerDbRepository();
+    
     /**
      * Creates new form PlayerFormFrame
      */
-    public PlayerFormPanel() {
+    public PlayerFormPanel(PlayerDbRepository repo) {
         initComponents();
     }
 
@@ -51,6 +57,11 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         jLabel3.setText("Geboortedatum");
 
         jButton1.setText("Toevoegen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Adres");
 
@@ -132,6 +143,11 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        playerRepo.addPlayer();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
