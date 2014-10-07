@@ -6,7 +6,9 @@
 package fullhouse;
 
 import fullhouse.repositories.DbRepository;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -19,13 +21,14 @@ public class QueryBuilder<T extends DbRepository> {
     protected T repository;
     protected HashMap<Integer, String> columns;
 
-    public QueryBuilder(HashMap<String, Object> values, T repository) {
-        this.values = values;
+    public QueryBuilder(T repository) {
         this.repository = repository;
         this.columns = repository.getColumns();
     }
 
-    public void getValues() throws SQLException {
+    public void insert(HashMap<String, Object> values) throws SQLException {
+        repository.getTable();
+
         System.out.println(repository.getInsertString());
         Connection conn = DataSource.getConnection();
         PreparedStatement stat = conn.prepareStatement(repository.getInsertString());
@@ -36,5 +39,12 @@ public class QueryBuilder<T extends DbRepository> {
         }
         
         System.out.println(stat);
+    }
+    
+    /*
+    *   Alias for the insert method.
+    */
+    public void add(HashMap<String, Object> values) throws SQLException {
+        insert(values);
     }
 }
