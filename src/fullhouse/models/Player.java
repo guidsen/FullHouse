@@ -14,8 +14,6 @@ import java.util.Map;
  */
 public class Player extends Eloquent<Player> {
 
-    protected String table = "player";
-    protected String[] fillable = {"first_name", "last_name"};
     private String firstName;
     private String lastName;
     private String dateOfBirth;
