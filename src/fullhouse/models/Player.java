@@ -3,15 +3,77 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fullhouse.models;
 
-import fullhouse.Eloquent;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Guido
  */
-public class Player extends Eloquent {
+public class Player extends Eloquent<Player> {
+
     protected String table = "player";
+    protected String[] fillable = {"first_name", "last_name"};
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
+    private String address;
+    private String phoneNum;
+    private String email;
+
+    @Override
+    protected Player getModel() {
+        return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
