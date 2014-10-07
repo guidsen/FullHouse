@@ -5,7 +5,13 @@
  */
 package fullhouse.repositories;
 
+import fullhouse.QueryBuilder;
 import fullhouse.models.Player;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,12 +19,38 @@ import fullhouse.models.Player;
  */
 public class PlayerDbRepository extends DbRepository<Player> {
 
+    @Override
+    protected String[] getColumnNames() {
+        String[] columnNames = {"first_name", "last_name", "date_of_birth", "address", "zip_code", "place", "phone_num", "email", "paid"};
+        return columnNames;
+    }
+
+    @Override
+    public String getInsertString() {
+        return "INSERT INTO player (first_name, last_name, date_of_birth, address, zip_code, place, phone_num, email, paid) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+
     public PlayerDbRepository() {
         super(new Player());
     }
-    
+
     public void addPlayer() {
-        System.out.println("Add player.");
+        try {
+            System.out.println("Add player.");
+            Player player = new Player();
+            player.setFirstName("Guido");
+            player.setLastName("Schmitz");
+
+            HashMap<String, Object> playerMap = new HashMap<>();
+            playerMap.put("first_name", player.getFirstName());
+            playerMap.put("last_name", player.getLastName());
+
+            QueryBuilder<PlayerDbRepository> query = new QueryBuilder<>(playerMap, this);
+            query.getValues();
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
 }
