@@ -6,6 +6,7 @@
 
 package fullhouse.frames;
 
+import fullhouse.repositories.PlayerDbRepository;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 public class PlayerPanel extends javax.swing.JPanel {
     private Dimension size;
     private Point point;
+    private PlayerDbRepository playerRepo = new PlayerDbRepository();
 
     /**
      * Creates new form PlayerPanel
@@ -77,8 +79,10 @@ public class PlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerButtonActionPerformed
-        // TODO add your handling code here:
         changeView(new PlayerItemPanel());
+        System.out.println("addPlayerButton");
+        playerRepo.addPlayer();
+        
     }//GEN-LAST:event_addPlayerButtonActionPerformed
 
     public void changeView(javax.swing.JPanel panel)
