@@ -6,8 +6,15 @@
 package fullhouse.repositories;
 
 import fullhouse.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,18 +25,42 @@ public abstract class DbRepository<T> implements DbRepositoryInterface<T> {
 
     protected T model;
 
-    public abstract String getInsertString();
-
-    protected abstract String[] getColumnNames();
-
     protected DbRepository(T model) {
         this.model = model;
     }
 
+    public abstract String getInsertString();
+
+    public String getTable() {
+        return model.getClass().getSimpleName().toLowerCase();
+    }
+
+    public ArrayList<String> getColumnNames() {
+        ArrayList<String> columns = new ArrayList<>();
+
+        try {
+            Connection conn = DataSource.getConnection();
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT * FROM " + getTable() + " LIMIT 0,1");
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+
+            for (int i = 2; i < columnCount + 1; i++) {
+                String columnName = rsmd.getColumnName(i);
+                columns.add(columnName);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return columns;
+    }
+
     public HashMap<Integer, String> getColumns() {
         HashMap<Integer, String> columnsMap = new HashMap<>();
-        for (int i = 0; i < getColumnNames().length; i++) {
-            columnsMap.put(i + 1, getColumnNames()[i]);
+        for (int i = 0; i < getColumnNames().size(); i++) {
+            columnsMap.put(i + 1, getColumnNames().get(i));
         }
         return columnsMap;
     }
@@ -37,8 +68,5 @@ public abstract class DbRepository<T> implements DbRepositoryInterface<T> {
     @Override
     public T getModel() {
         return model;
-    }
-
-    public void add(T model) throws Exception {
     }
 }
