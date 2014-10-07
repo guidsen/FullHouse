@@ -9,7 +9,6 @@ import fullhouse.QueryBuilder;
 import fullhouse.models.Player;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,12 +17,6 @@ import java.util.logging.Logger;
  * @author Guido
  */
 public class PlayerDbRepository extends DbRepository<Player> {
-
-    @Override
-    protected String[] getColumnNames() {
-        String[] columnNames = {"first_name", "last_name", "date_of_birth", "address", "zip_code", "place", "phone_num", "email", "paid"};
-        return columnNames;
-    }
 
     @Override
     public String getInsertString() {
@@ -46,8 +39,8 @@ public class PlayerDbRepository extends DbRepository<Player> {
             playerMap.put("first_name", player.getFirstName());
             playerMap.put("last_name", player.getLastName());
 
-            QueryBuilder<PlayerDbRepository> query = new QueryBuilder<>(playerMap, this);
-            query.getValues();
+            QueryBuilder<PlayerDbRepository> query = new QueryBuilder<>(this);
+            query.insert(playerMap);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
