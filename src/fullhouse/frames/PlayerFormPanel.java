@@ -4,8 +4,6 @@
  */
 package fullhouse.frames;
 
-import fullhouse.models.Player;
-import fullhouse.repositories.DbRepositoryInterface;
 import fullhouse.repositories.PlayerDbRepository;
 
 /**
