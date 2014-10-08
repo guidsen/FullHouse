@@ -22,11 +22,11 @@ public class PlayerDbRepository extends DbRepository<Player> {
         super(new Player());
     }
 
-    @Override
-    public String getInsertString() {
-        return "INSERT INTO player (first_name, last_name, date_of_birth, address, zip_code, place, phone_num, email, paid) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    }
+//    @Override
+//    public String getInsertString() {
+//        return "INSERT INTO player (first_name, last_name, date_of_birth, address, zip_code, place, phone_num, email, paid) "
+//                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//    }
 
     @Override
     public String getUpdateString() {
