@@ -30,12 +30,11 @@ public class QueryBuilder<T extends DbRepository> {
     public void insert(HashMap<String, Object> values) throws SQLException {
         repository.getTable();
 
-        System.out.println(repository.getInsertString());
         Connection conn = DataSource.getConnection();
         PreparedStatement stat = conn.prepareStatement(repository.getInsertString());
 
         for (Map.Entry<Integer, String> entry : columns.entrySet()) {
-            System.out.println(entry.getKey() + " : " + values.get(entry.getValue()));
+            //System.out.println(entry.getKey() + " : " + values.get(entry.getValue()));
             stat.setObject(entry.getKey(), values.get(entry.getValue()));
         }
         

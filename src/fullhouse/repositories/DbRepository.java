@@ -30,14 +30,24 @@ public abstract class DbRepository<T> {
     }
 
     public String getInsertString() {
-        StringBuilder insertString = new StringBuilder();
-        insertString.append("INSERT INTO " + getTable() + " (");
-        for(int i=0; i<getColumnNames().size(); i++) {
-            
-        }
-        insertString.append("test");
+        StringBuilder columnsString = new StringBuilder();
+        StringBuilder valuesString = new StringBuilder();
         
-        return insertString.toString();
+        ArrayList<String> columns = getColumnNames();
+        
+        for(int i=0; i<columns.size(); i++) {
+            columnsString.append(columns.get(i));
+            valuesString.append("?");
+            if(i != columns.size() - 1)
+            {
+                columnsString.append(", ");
+                valuesString.append(", ");
+            }
+        }
+        
+        String insertString = "INSERT INTO " + getTable() + " ("+columnsString.toString()+") VALUES ("+valuesString+")";
+        
+        return insertString;
     }
     
     public abstract String getUpdateString();
