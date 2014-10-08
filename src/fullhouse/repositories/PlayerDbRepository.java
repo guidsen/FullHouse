@@ -18,14 +18,19 @@ import java.util.logging.Logger;
  */
 public class PlayerDbRepository extends DbRepository<Player> {
 
+    public PlayerDbRepository() {
+        super(new Player());
+    }
+
     @Override
     public String getInsertString() {
         return "INSERT INTO player (first_name, last_name, date_of_birth, address, zip_code, place, phone_num, email, paid) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    public PlayerDbRepository() {
-        super(new Player());
+    @Override
+    public String getUpdateString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void addPlayer() {
@@ -34,10 +39,12 @@ public class PlayerDbRepository extends DbRepository<Player> {
             Player player = new Player();
             player.setFirstName("Guido");
             player.setLastName("Schmitz");
+            player.setAddress("Hodorlaan 29");
 
             HashMap<String, Object> playerMap = new HashMap<>();
             playerMap.put("first_name", player.getFirstName());
             playerMap.put("last_name", player.getLastName());
+            playerMap.put("address", player.getAddress());
 
             QueryBuilder<PlayerDbRepository> query = new QueryBuilder<>(this);
             query.insert(playerMap);
@@ -45,5 +52,4 @@ public class PlayerDbRepository extends DbRepository<Player> {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

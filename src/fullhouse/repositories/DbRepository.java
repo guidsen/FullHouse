@@ -30,6 +30,7 @@ public abstract class DbRepository<T> implements DbRepositoryInterface<T> {
     }
 
     public abstract String getInsertString();
+    public abstract String getUpdateString();
 
     public String getTable() {
         return model.getClass().getSimpleName().toLowerCase();
