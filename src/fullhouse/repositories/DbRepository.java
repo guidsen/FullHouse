@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @author Guido
  * @param <T>
  */
-public abstract class DbRepository<T> implements DbRepositoryInterface<T> {
+public abstract class DbRepository<T> {
 
     protected T model;
 
@@ -29,7 +29,17 @@ public abstract class DbRepository<T> implements DbRepositoryInterface<T> {
         this.model = model;
     }
 
-    public abstract String getInsertString();
+    public String getInsertString() {
+        StringBuilder insertString = new StringBuilder();
+        insertString.append("INSERT INTO " + getTable() + " (");
+        for(int i=0; i<getColumnNames().size(); i++) {
+            
+        }
+        insertString.append("test");
+        
+        return insertString.toString();
+    }
+    
     public abstract String getUpdateString();
 
     public String getTable() {
@@ -64,10 +74,5 @@ public abstract class DbRepository<T> implements DbRepositoryInterface<T> {
             columnsMap.put(i + 1, getColumnNames().get(i));
         }
         return columnsMap;
-    }
-
-    @Override
-    public T getModel() {
-        return model;
     }
 }
