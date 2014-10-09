@@ -28,23 +28,44 @@ public class QueryBuilder<T extends DbRepository> {
     }
 
     public void insert(HashMap<String, Object> values) throws SQLException {
-        repository.getTable();
+        System.out.println("insert");
+//        Connection conn = DataSource.getConnection();
+//        PreparedStatement stat = conn.prepareStatement(repository.getInsertString());
+//
+//        for (Map.Entry<Integer, String> entry : columns.entrySet()) {
+//            stat.setObject(entry.getKey(), values.get(entry.getValue()));
+//        }
+//
+//        System.out.println(stat);
+    }
 
+    /*
+     *   Alias for the insert method.
+     */
+    public void add(HashMap<String, Object> values) throws SQLException {
+        insert(values);
+    }
+
+    public void get(int id) throws SQLException {
         Connection conn = DataSource.getConnection();
-        PreparedStatement stat = conn.prepareStatement(repository.getInsertString());
-
-        for (Map.Entry<Integer, String> entry : columns.entrySet()) {
-            //System.out.println(entry.getKey() + " : " + values.get(entry.getValue()));
-            stat.setObject(entry.getKey(), values.get(entry.getValue()));
-        }
+        PreparedStatement stat = conn.prepareStatement("SELECT * FROM " + repository.getTable() + " WHERE id = ?");
+        stat.setInt(1, id);
         
         System.out.println(stat);
     }
-    
+
+    public void where(String column, String operator, Object value) {
+    }
+
     /*
-    *   Alias for the insert method.
-    */
-    public void add(HashMap<String, Object> values) throws SQLException {
-        insert(values);
+     *  Will take operator '=' as default 
+     */
+    public void where(String column, Object value) {
+    }
+
+    public void update(HashMap<String, Object> values) {
+    }
+
+    public void delete(int id) {
     }
 }
