@@ -5,6 +5,8 @@
  */
 package fullhouse.models;
 
+import fullhouse.QueryBuilder;
+import fullhouse.repositories.PlayerDbRepository;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import java.util.Map;
  *
  * @author Guido
  */
-public class Player extends Eloquent<Player> {
+public class Player extends QueryBuilder<PlayerDbRepository> {
 
     private String firstName;
     private String lastName;
@@ -21,11 +23,10 @@ public class Player extends Eloquent<Player> {
     private String phoneNum;
     private String email;
 
-    @Override
-    protected Player getModel() {
-        return this;
+    public Player() {
+        super(new PlayerDbRepository());
     }
-
+    
     public String getFirstName() {
         return firstName;
     }
