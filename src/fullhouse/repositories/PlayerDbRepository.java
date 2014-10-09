@@ -5,7 +5,6 @@
  */
 package fullhouse.repositories;
 
-import fullhouse.QueryBuilder;
 import fullhouse.models.Player;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -40,8 +39,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             playerMap.put("last_name", player.getLastName());
             playerMap.put("address", player.getAddress());
 
-            QueryBuilder<PlayerDbRepository> query = new QueryBuilder<>(this);
-            query.insert(playerMap);
+            player.insert(playerMap);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
