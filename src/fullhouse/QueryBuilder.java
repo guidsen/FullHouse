@@ -16,27 +16,24 @@ import java.util.Map;
  *
  * @author Guido
  */
-public class QueryBuilder<T extends DbRepository> {
+public abstract class QueryBuilder<T extends DbRepository> {
 
-    protected HashMap<String, Object> values;
-    protected T repository;
-    protected HashMap<Integer, String> columns;
-
-    public QueryBuilder(T repository) {
-        this.repository = repository;
-        this.columns = repository.getColumns();
-    }
+    public abstract T getRepository();
 
     public void insert(HashMap<String, Object> values) throws SQLException {
-        System.out.println("insert");
-//        Connection conn = DataSource.getConnection();
-//        PreparedStatement stat = conn.prepareStatement(repository.getInsertString());
-//
-//        for (Map.Entry<Integer, String> entry : columns.entrySet()) {
-//            stat.setObject(entry.getKey(), values.get(entry.getValue()));
-//        }
-//
-//        System.out.println(stat);
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement(getRepository().getInsertString());
+
+        HashMap<Integer, String> columns = getRepository().getColumns();
+
+        for (Map.Entry<Integer, String> entry : columns.entrySet()) {
+            stat.setObject(entry.getKey(), values.get(entry.getValue()));
+        }
+
+        System.out.println(stat);
+
+        stat.close();
+        conn.close();
     }
 
     /*
@@ -46,11 +43,11 @@ public class QueryBuilder<T extends DbRepository> {
         insert(values);
     }
 
-    public void get(int id) throws SQLException {
+    public void find(int id) throws SQLException {
         Connection conn = DataSource.getConnection();
-        PreparedStatement stat = conn.prepareStatement("SELECT * FROM " + repository.getTable() + " WHERE id = ?");
+        PreparedStatement stat = conn.prepareStatement("SELECT * FROM " + getRepository().getTable() + " WHERE id = ?");
         stat.setInt(1, id);
-        
+
         System.out.println(stat);
     }
 

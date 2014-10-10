@@ -17,8 +17,9 @@ import java.util.logging.Logger;
  */
 public class PlayerDbRepository extends DbRepository<Player> {
 
-    public PlayerDbRepository() {
-        super(new Player());
+    @Override
+    public Player getModel(){
+        return new Player();
     }
 
     @Override
@@ -30,16 +31,18 @@ public class PlayerDbRepository extends DbRepository<Player> {
         try {
             System.out.println("Add player.");
             Player player = new Player();
-            player.setFirstName("Guido");
-            player.setLastName("Schmitz");
-            player.setAddress("Hodorlaan 29");
+            player.find(3);
+//            player.setFirstName("Guido");
+//            player.setLastName("Schmitz");
+//            player.setAddress("Hodorlaan 29");
+//
+//            HashMap<String, Object> playerMap = new HashMap<>();
+//            playerMap.put("first_name", player.getFirstName());
+//            playerMap.put("last_name", player.getLastName());
+//            playerMap.put("address", player.getAddress());
 
-            HashMap<String, Object> playerMap = new HashMap<>();
-            playerMap.put("first_name", player.getFirstName());
-            playerMap.put("last_name", player.getLastName());
-            playerMap.put("address", player.getAddress());
-
-            player.insert(playerMap);
+            //player.select(3);
+            
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -7,8 +7,6 @@ package fullhouse.models;
 
 import fullhouse.QueryBuilder;
 import fullhouse.repositories.PlayerDbRepository;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -23,8 +21,9 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     private String phoneNum;
     private String email;
 
-    public Player() {
-        super(new PlayerDbRepository());
+    @Override
+    public PlayerDbRepository getRepository() {
+        return new PlayerDbRepository();
     }
     
     public String getFirstName() {

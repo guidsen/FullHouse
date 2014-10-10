@@ -7,6 +7,7 @@ package fullhouse.repositories;
 
 import fullhouse.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -23,11 +24,7 @@ import java.util.logging.Logger;
  */
 public abstract class DbRepository<T> {
 
-    protected T model;
-
-    protected DbRepository(T model) {
-        this.model = model;
-    }
+    public abstract T getModel();
 
     public String getInsertString() {
         StringBuilder columnsString = new StringBuilder();
@@ -53,7 +50,7 @@ public abstract class DbRepository<T> {
     public abstract String getUpdateString();
 
     public String getTable() {
-        return model.getClass().getSimpleName().toLowerCase();
+        return getModel().getClass().getSimpleName().toLowerCase();
     }
 
     public ArrayList<String> getColumnNames() {
@@ -61,8 +58,8 @@ public abstract class DbRepository<T> {
 
         try {
             Connection conn = DataSource.getConnection();
-            Statement stat = conn.createStatement();
-            ResultSet rs = stat.executeQuery("SELECT * FROM " + getTable() + " LIMIT 0,1");
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM " + getTable() + " LIMIT 0,1");
+            ResultSet rs = stat.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
 
@@ -70,7 +67,6 @@ public abstract class DbRepository<T> {
                 String columnName = rsmd.getColumnName(i);
                 columns.add(columnName);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
