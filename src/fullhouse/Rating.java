@@ -7,19 +7,38 @@ package fullhouse;
  */
 public class Rating {
 
-    private final int totalRatings;
-    private final int winRatio;
-    private final int playedGames;
-
-    Rating(int totalRatings, int winRatio, int playedGames) {
-        this.totalRatings = totalRatings;
-        this.winRatio = winRatio;
-        this.playedGames = playedGames;
+    private int own;
+    private int opponents;
+    private int result;
+    
+    private int min = 500;
+    private int max = 2000;
+    private double score = 0.5;
+    private int max_score = 100;
+    
+    public Rating(int own, int opponents)
+    {
+        this.own = own;
+        this.opponents = opponents;
+        
+        calculate();
     }
+    
+    public int calculate()
+    {
+	double defider = max / opponents;
+	double own_score = max / own;
+        
+	result = (int) Math.round( score * 100 / defider * own_score / ( ( max / min + 1 ) - ( max / own ) ) );	
 
-    public int calculate() {
-        int newRating = this.totalRatings + (400 * this.winRatio) / this.playedGames;
-        return newRating;
+	if(result > max_score)
+	{
+            result = max_score; 
+	}
+        
+        System.out.println(result);
+        
+        return result;
     }
 
 }

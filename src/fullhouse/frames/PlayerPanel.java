@@ -26,6 +26,9 @@ public class PlayerPanel extends javax.swing.JPanel {
      */
     public PlayerPanel() {
         initComponents();
+        
+        playerCancelButton.setVisible(false);
+        savePlayerButton.setVisible(false);
     }
 
     /**
@@ -40,7 +43,9 @@ public class PlayerPanel extends javax.swing.JPanel {
         deletePlayerButton = new javax.swing.JButton();
         addPlayerButton = new javax.swing.JButton();
         editPlayerButton = new javax.swing.JButton();
-        jPanel1 = new fullhouse.frames.PlayerCollectionPanel();
+        savePlayerButton = new javax.swing.JButton();
+        playerCancelButton = new javax.swing.JButton();
+        subPanel = new javax.swing.JPanel();
 
         deletePlayerButton.setText("Verwijder speler");
 
@@ -53,6 +58,28 @@ public class PlayerPanel extends javax.swing.JPanel {
 
         editPlayerButton.setText("Wijzig speler");
 
+        savePlayerButton.setText("Opslaan");
+        savePlayerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savePlayerButtonActionPerformed(evt);
+            }
+        });
+
+        playerCancelButton.setText("Annuleer");
+
+        subPanel.setBackground(new java.awt.Color(255, 0, 0));
+
+        javax.swing.GroupLayout subPanelLayout = new javax.swing.GroupLayout(subPanel);
+        subPanel.setLayout(subPanelLayout);
+        subPanelLayout.setHorizontalGroup(
+            subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        subPanelLayout.setVerticalGroup(
+            subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 359, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,8 +90,12 @@ public class PlayerPanel extends javax.swing.JPanel {
                 .addComponent(editPlayerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deletePlayerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(savePlayerButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(playerCancelButton)
+                .addContainerGap(386, Short.MAX_VALUE))
+            .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,27 +103,48 @@ public class PlayerPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addPlayerButton)
                     .addComponent(editPlayerButton)
-                    .addComponent(deletePlayerButton))
+                    .addComponent(deletePlayerButton)
+                    .addComponent(savePlayerButton)
+                    .addComponent(playerCancelButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
+                .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerButtonActionPerformed
-        changeView(new PlayerItemPanel());
-        System.out.println("addPlayerButton");
+        changeView(new PlayerFormPanel(playerRepo));
         playerRepo.addPlayer();
         
+        addPlayerButton.setVisible(false);
+        deletePlayerButton.setVisible(false);
+        editPlayerButton.setVisible(false);
+        playerCancelButton.setVisible(true);
+        savePlayerButton.setVisible(true);
     }//GEN-LAST:event_addPlayerButtonActionPerformed
+
+    private void savePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePlayerButtonActionPerformed
+        // TODO add your handling code here:
+        changeView(new PlayerCollectionPanel());
+        
+        addPlayerButton.setVisible(true);
+        deletePlayerButton.setVisible(true);
+        editPlayerButton.setVisible(true);
+        playerCancelButton.setVisible(false);
+        savePlayerButton.setVisible(false);
+    }//GEN-LAST:event_savePlayerButtonActionPerformed
 
     public void changeView(javax.swing.JPanel panel)
     {        
-        size = jPanel1.getSize();
-        point = jPanel1.getLocation();
+        revalidate();
         
-        remove(jPanel1);
+        size = subPanel.getSize();
+        point = subPanel.getLocation();
         
-        add(panel, BorderLayout.PAGE_END);
+        remove(subPanel);
+        
+        subPanel = panel;
+        
+        add(panel);
 
         panel.setLocation(point.x, point.y);
         panel.setSize(size.width, size.height);
@@ -105,6 +157,8 @@ public class PlayerPanel extends javax.swing.JPanel {
     private javax.swing.JButton addPlayerButton;
     private javax.swing.JButton deletePlayerButton;
     private javax.swing.JButton editPlayerButton;
-    private fullhouse.frames.PlayerCollectionPanel jPanel1;
+    private javax.swing.JButton playerCancelButton;
+    private javax.swing.JButton savePlayerButton;
+    private javax.swing.JPanel subPanel;
     // End of variables declaration//GEN-END:variables
 }

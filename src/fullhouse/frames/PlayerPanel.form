@@ -22,9 +22,13 @@
               <Component id="editPlayerButton" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="deletePlayerButton" min="-2" pref="150" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="savePlayerButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="playerCancelButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="386" max="32767" attributes="0"/>
           </Group>
-          <Component id="jPanel1" alignment="0" pref="669" max="32767" attributes="0"/>
+          <Component id="subPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -34,9 +38,11 @@
                   <Component id="addPlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="editPlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="deletePlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="savePlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="playerCancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" pref="359" max="32767" attributes="0"/>
+              <Component id="subPanel" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,7 +66,38 @@
         <Property name="text" type="java.lang.String" value="Wijzig speler"/>
       </Properties>
     </Component>
-    <Component class="fullhouse.frames.PlayerCollectionPanel" name="jPanel1">
+    <Component class="javax.swing.JButton" name="savePlayerButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Opslaan"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePlayerButtonActionPerformed"/>
+      </Events>
     </Component>
+    <Component class="javax.swing.JButton" name="playerCancelButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Annuleer"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="subPanel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="359" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
   </SubComponents>
 </Form>

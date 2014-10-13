@@ -18,8 +18,21 @@ public class FullHouse {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame frame = new HomeFrame();
+        HomeFrame frame = new HomeFrame();
+        
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
+
+        frame.revalidate();
+        
+        frame.changeView(new fullhouse.frames.HomePanel());
+        
+        for(int i = 5; i <= 20; i++)
+        {
+            for(int y = 5; y <= 20; y++)
+            {
+                //new Rating(i*100, y*100);
+            }
+        }
     }
 }
