@@ -6,6 +6,8 @@
 package fullhouse;
 
 import fullhouse.modules.HomeFrame;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 
 /**
@@ -33,5 +35,22 @@ public class FullHouse {
                 //new Rating(i*100, y*100);
             }
         }
+    }
+    
+    public static Timestamp toSqlDate(int year, int month, int day, int hour, int minute) {
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.clear();
+        
+        cal.set(java.util.Calendar.YEAR, year);
+        cal.set(java.util.Calendar.MONTH, month-1);
+        cal.set(java.util.Calendar.DAY_OF_MONTH, day);
+        cal.set(java.util.Calendar.HOUR_OF_DAY, hour);
+        cal.set(java.util.Calendar.MINUTE, minute);
+        
+        return new Timestamp(cal.getTimeInMillis());
+    }
+    
+    public static String fromSqlDate(Timestamp date) {
+        return new SimpleDateFormat("dd-MM-YYYY HH:mm").format(date);
     }
 }

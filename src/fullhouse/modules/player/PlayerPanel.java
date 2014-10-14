@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fullhouse.modules.player;
 
 import fullhouse.Panel;
@@ -11,6 +10,7 @@ import fullhouse.repositories.PlayerDbRepository;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.sql.Timestamp;
 import javax.swing.JPanel;
 
 /**
@@ -18,6 +18,7 @@ import javax.swing.JPanel;
  * @author Liam Hubers
  */
 public class PlayerPanel extends javax.swing.JPanel {
+
     private PlayerDbRepository playerRepo = new PlayerDbRepository();
     private Panel panel = new Panel();
 
@@ -26,10 +27,10 @@ public class PlayerPanel extends javax.swing.JPanel {
      */
     public PlayerPanel() {
         initComponents();
-        
+
         panel.initializeButtons(
-            new javax.swing.JButton[] { addPlayerButton, editPlayerButton, deletePlayerButton },
-            new javax.swing.JButton[] { playerCancelButton, savePlayerButton }    
+                new javax.swing.JButton[]{addPlayerButton, editPlayerButton, deletePlayerButton},
+                new javax.swing.JButton[]{playerCancelButton, savePlayerButton}
         );
     }
 
@@ -119,6 +120,9 @@ public class PlayerPanel extends javax.swing.JPanel {
     private void addPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerButtonActionPerformed
         subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
         playerRepo.addPlayer();
+
+        System.out.println(fullhouse.FullHouse.fromSqlDate(Timestamp.valueOf("2014-10-14 14:50:00.0")));
+
         panel.toForm();
     }//GEN-LAST:event_addPlayerButtonActionPerformed
 
@@ -133,7 +137,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
         panel.toForm();
     }//GEN-LAST:event_editPlayerButtonActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPlayerButton;
     private javax.swing.JButton deletePlayerButton;
