@@ -53,9 +53,7 @@ public class Panel extends JPanel {
     {
         size = target.getSize();
         point = target.getLocation();
-        
-        System.out.println(target);
-        
+  
         main.remove(target);        
         main.add(panel);
 

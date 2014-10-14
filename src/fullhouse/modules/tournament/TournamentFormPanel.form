@@ -19,40 +19,27 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel1" max="32767" attributes="0"/>
-                          <Component id="jLabel2" max="32767" attributes="0"/>
-                          <Component id="jLabel3" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="max_players" pref="142" max="32767" attributes="0"/>
-                          <Component id="entry_fee" alignment="0" max="32767" attributes="0"/>
-                          <Component id="date" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel1" max="32767" attributes="0"/>
+                      <Component id="jLabel2" max="32767" attributes="0"/>
+                      <Component id="jLabel3" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="label" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel5" alignment="0" pref="114" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="name" pref="141" max="32767" attributes="0"/>
-                                  <Component id="place" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="addTournament" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="label" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel5" alignment="0" pref="114" max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="date" alignment="1" pref="141" max="32767" attributes="0"/>
+                  <Component id="place" max="32767" attributes="0"/>
+                  <Component id="name" max="32767" attributes="0"/>
+                  <Component id="entry_fee" alignment="1" max="32767" attributes="0"/>
+                  <Component id="max_players" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="344" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,7 +60,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="date" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -85,9 +72,7 @@
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="max_players" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="124" max="32767" attributes="0"/>
-              <Component id="addTournament" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="158" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,18 +109,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="date">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="(dd-mm-jjjj)"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="place">
     </Component>
     <Component class="javax.swing.JTextField" name="name">
     </Component>
-    <Component class="javax.swing.JButton" name="addTournament">
+    <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Voeg toernooi toe"/>
+        <Property name="text" type="java.lang.String" value="(dd-mm-jjjj)"/>
       </Properties>
     </Component>
   </SubComponents>

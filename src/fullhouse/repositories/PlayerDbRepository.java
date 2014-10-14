@@ -22,16 +22,14 @@ public class PlayerDbRepository extends DbRepository<Player> {
         return new Player();
     }
 
-    @Override
-    public String getUpdateString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public void addPlayer() {
         try {
             System.out.println("Add player.");
-            Player player = new Player();
-            player.find(3);
+            //HashMap<String, Object> player = new Player().where("first_name", "=", "Hodor");
+            //System.out.println(player.get("first_name"));
+            new Player().delete(123);
+//            Player player = new Player();
+//            player.setId(3);
 //            player.setFirstName("Guido");
 //            player.setLastName("Schmitz");
 //            player.setAddress("Hodorlaan 29");
@@ -40,8 +38,8 @@ public class PlayerDbRepository extends DbRepository<Player> {
 //            playerMap.put("first_name", player.getFirstName());
 //            playerMap.put("last_name", player.getLastName());
 //            playerMap.put("address", player.getAddress());
-
-            //player.select(3);
+//
+//            player.update(playerMap, player.getId());
             
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);

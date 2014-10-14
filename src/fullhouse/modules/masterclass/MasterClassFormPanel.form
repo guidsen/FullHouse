@@ -18,21 +18,16 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" pref="87" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="name" max="32767" attributes="0"/>
-                          <Component id="date" max="32767" attributes="0"/>
-                          <Component id="min_rating" pref="130" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Component id="addMasterclass" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" pref="87" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="name" max="32767" attributes="0"/>
+                  <Component id="date" max="32767" attributes="0"/>
+                  <Component id="min_rating" pref="130" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="163" max="32767" attributes="0"/>
           </Group>
@@ -56,9 +51,7 @@
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="min_rating" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="183" max="32767" attributes="0"/>
-              <Component id="addMasterclass" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="217" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,11 +77,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="min_rating">
-    </Component>
-    <Component class="javax.swing.JButton" name="addMasterclass">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Voeg masteclass toe"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

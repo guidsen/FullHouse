@@ -29,25 +29,39 @@ public abstract class DbRepository<T> {
     public String getInsertString() {
         StringBuilder columnsString = new StringBuilder();
         StringBuilder valuesString = new StringBuilder();
-        
+
         ArrayList<String> columns = getColumnNames();
-        
-        for(int i=0; i<columns.size(); i++) {
+
+        for (int i = 0; i < columns.size(); i++) {
             columnsString.append(columns.get(i));
             valuesString.append("?");
-            if(i != columns.size() - 1)
-            {
+            if (i != columns.size() - 1) {
                 columnsString.append(", ");
                 valuesString.append(", ");
             }
         }
-        
-        String insertString = "INSERT INTO " + getTable() + " ("+columnsString.toString()+") VALUES ("+valuesString+")";
-        
+
+        String insertString = "INSERT INTO " + getTable() + " (" + columnsString.toString() + ") VALUES (" + valuesString + ")";
+
         return insertString;
     }
-    
-    public abstract String getUpdateString();
+
+    public String getUpdateString() {
+        String queryString = "";
+
+        ArrayList<String> columns = getColumnNames();
+
+        for (int i = 0; i < columns.size(); i++) {
+            queryString += columns.get(i) + " = ?";
+            if (i != columns.size() - 1) {
+                queryString += ", ";
+            }
+        }
+
+        String updateString = "UPDATE " + getTable() + " SET " + queryString + " WHERE id = ?";
+
+        return updateString;
+    }
 
     public String getTable() {
         return getModel().getClass().getSimpleName().toLowerCase();

@@ -2,12 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fullhouse.frames;
+package fullhouse.modules;
 
 import fullhouse.Panel;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Point;
 import javax.swing.JFrame;
 
 /**
@@ -128,17 +125,18 @@ public class HomeFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void playersOverviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playersOverviewButtonActionPerformed
-        PlayerPanel PlayerPanel = new PlayerPanel();
+        fullhouse.modules.player.PlayerPanel PlayerPanel = new fullhouse.modules.player.PlayerPanel();
         mainPanel = Panel.changeView(this, mainPanel, PlayerPanel);
         PlayerPanel.revalidate();
-        PlayerPanel.subPanel = Panel.changeView(PlayerPanel, PlayerPanel.subPanel, new PlayerCollectionPanel());
+        PlayerPanel.subPanel = Panel.changeView(PlayerPanel, PlayerPanel.subPanel, new fullhouse.modules.player.PlayerCollectionPanel());
     }//GEN-LAST:event_playersOverviewButtonActionPerformed
 
     private void plannedTournamentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedTournamentsButtonActionPerformed
         //changeView(new TournamentPanel());
-        TournamentPanel TournamentPanel = new TournamentPanel();
+        fullhouse.modules.tournament.TournamentPanel TournamentPanel = new fullhouse.modules.tournament.TournamentPanel();
         mainPanel = Panel.changeView(this, mainPanel, TournamentPanel);
         TournamentPanel.revalidate();
+        TournamentPanel.subPanel = Panel.changeView(TournamentPanel, TournamentPanel.subPanel, new fullhouse.modules.tournament.TournamentCollectionPanel());
     }//GEN-LAST:event_plannedTournamentsButtonActionPerformed
 
     private void tableLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableLayoutButtonActionPerformed
@@ -154,6 +152,10 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private void plannedMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedMasterclassButtonActionPerformed
         // TODO add your handling code here:
+        fullhouse.modules.masterclass.MasterclassPanel MasterclassPanel = new fullhouse.modules.masterclass.MasterclassPanel();
+        mainPanel = Panel.changeView(this, mainPanel, MasterclassPanel);
+        MasterclassPanel.revalidate();
+        MasterclassPanel.subPanel = Panel.changeView(MasterclassPanel, MasterclassPanel.subPanel, new fullhouse.modules.masterclass.MasterclassCollectionPanel());
     }//GEN-LAST:event_plannedMasterclassButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
