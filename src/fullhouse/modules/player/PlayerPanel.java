@@ -73,6 +73,11 @@ public class PlayerPanel extends javax.swing.JPanel {
         });
 
         playerCancelButton.setText("Annuleer");
+        playerCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playerCancelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout subPanelLayout = new javax.swing.GroupLayout(subPanel);
         subPanel.setLayout(subPanelLayout);
@@ -133,6 +138,12 @@ public class PlayerPanel extends javax.swing.JPanel {
         subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
         panel.toForm();
     }//GEN-LAST:event_editPlayerButtonActionPerformed
+
+    private void playerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerCancelButtonActionPerformed
+        // TODO add your handling code here:
+        subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
+        panel.toCollection();
+    }//GEN-LAST:event_playerCancelButtonActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPlayerButton;
