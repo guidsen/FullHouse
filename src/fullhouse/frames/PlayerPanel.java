@@ -6,6 +6,7 @@
 
 package fullhouse.frames;
 
+import fullhouse.Panel;
 import fullhouse.repositories.PlayerDbRepository;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -17,9 +18,8 @@ import javax.swing.JPanel;
  * @author Liam Hubers
  */
 public class PlayerPanel extends javax.swing.JPanel {
-    private Dimension size;
-    private Point point;
     private PlayerDbRepository playerRepo = new PlayerDbRepository();
+    private Panel panel = new Panel();
 
     /**
      * Creates new form PlayerPanel
@@ -27,8 +27,10 @@ public class PlayerPanel extends javax.swing.JPanel {
     public PlayerPanel() {
         initComponents();
         
-        playerCancelButton.setVisible(false);
-        savePlayerButton.setVisible(false);
+        panel.initializeButtons(
+            new javax.swing.JButton[] { addPlayerButton, editPlayerButton, deletePlayerButton },
+            new javax.swing.JButton[] { playerCancelButton, savePlayerButton }    
+        );
     }
 
     /**
@@ -66,8 +68,6 @@ public class PlayerPanel extends javax.swing.JPanel {
         });
 
         playerCancelButton.setText("Annuleer");
-
-        subPanel.setBackground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout subPanelLayout = new javax.swing.GroupLayout(subPanel);
         subPanel.setLayout(subPanelLayout);
@@ -112,53 +112,23 @@ public class PlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerButtonActionPerformed
-        changeView(new PlayerFormPanel(playerRepo));
+        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
         playerRepo.addPlayer();
-        
-        addPlayerButton.setVisible(false);
-        deletePlayerButton.setVisible(false);
-        editPlayerButton.setVisible(false);
-        playerCancelButton.setVisible(true);
-        savePlayerButton.setVisible(true);
+        panel.toForm();
     }//GEN-LAST:event_addPlayerButtonActionPerformed
 
     private void savePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePlayerButtonActionPerformed
         // TODO add your handling code here:
-        changeView(new PlayerCollectionPanel());
-        
-        addPlayerButton.setVisible(true);
-        deletePlayerButton.setVisible(true);
-        editPlayerButton.setVisible(true);
-        playerCancelButton.setVisible(false);
-        savePlayerButton.setVisible(false);
+        subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
+        panel.toCollection();
     }//GEN-LAST:event_savePlayerButtonActionPerformed
-
-    public void changeView(javax.swing.JPanel panel)
-    {        
-        revalidate();
-        
-        size = subPanel.getSize();
-        point = subPanel.getLocation();
-        
-        remove(subPanel);
-        
-        subPanel = panel;
-        
-        add(panel);
-
-        panel.setLocation(point.x, point.y);
-        panel.setSize(size.width, size.height);
-        
-        revalidate();
-        validate();
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPlayerButton;
     private javax.swing.JButton deletePlayerButton;
     private javax.swing.JButton editPlayerButton;
     private javax.swing.JButton playerCancelButton;
     private javax.swing.JButton savePlayerButton;
-    private javax.swing.JPanel subPanel;
+    public javax.swing.JPanel subPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,10 +22,9 @@ public class FullHouse {
         
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
-
         frame.revalidate();
-        
-        frame.changeView(new fullhouse.frames.HomePanel());
+
+        frame.mainPanel = Panel.changeView(frame, frame.mainPanel, new fullhouse.frames.HomePanel());
         
         for(int i = 5; i <= 20; i++)
         {

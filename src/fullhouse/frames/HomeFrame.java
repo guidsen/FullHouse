@@ -4,6 +4,7 @@
  */
 package fullhouse.frames;
 
+import fullhouse.Panel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -128,13 +129,16 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private void playersOverviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playersOverviewButtonActionPerformed
         PlayerPanel PlayerPanel = new PlayerPanel();
-        changeView(PlayerPanel); 
+        mainPanel = Panel.changeView(this, mainPanel, PlayerPanel);
         PlayerPanel.revalidate();
-        PlayerPanel.changeView(new fullhouse.frames.PlayerCollectionPanel());
+        PlayerPanel.subPanel = Panel.changeView(PlayerPanel, PlayerPanel.subPanel, new PlayerCollectionPanel());
     }//GEN-LAST:event_playersOverviewButtonActionPerformed
 
     private void plannedTournamentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedTournamentsButtonActionPerformed
-        changeView(new TournamentPanel());
+        //changeView(new TournamentPanel());
+        TournamentPanel TournamentPanel = new TournamentPanel();
+        mainPanel = Panel.changeView(this, mainPanel, TournamentPanel);
+        TournamentPanel.revalidate();
     }//GEN-LAST:event_plannedTournamentsButtonActionPerformed
 
     private void tableLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableLayoutButtonActionPerformed
@@ -143,30 +147,15 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        changeView(new HomePanel());
+        HomePanel HomePanel = new HomePanel();
+        mainPanel = Panel.changeView(this, mainPanel, HomePanel);
+        HomePanel.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void plannedMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedMasterclassButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_plannedMasterclassButtonActionPerformed
 
-    public void changeView(javax.swing.JPanel panel)
-    {     
-        size = mainPanel.getSize();
-        point = mainPanel.getLocation();
-        
-        remove(mainPanel);
-        
-        mainPanel = panel;
-        
-        add(panel, BorderLayout.PAGE_END);
-
-        panel.setLocation(point.x, point.y);
-        panel.setSize(size.width, size.height);
-        
-        revalidate();
-        validate();
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     public javax.swing.JPanel mainPanel;
@@ -175,7 +164,4 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JButton playersOverviewButton;
     private javax.swing.JButton tableLayoutButton;
     // End of variables declaration//GEN-END:variables
-
-    public Dimension size;
-    public Point point;
 }
