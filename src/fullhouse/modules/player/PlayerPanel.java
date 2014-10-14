@@ -7,11 +7,8 @@ package fullhouse.modules.player;
 
 import fullhouse.Panel;
 import fullhouse.repositories.PlayerDbRepository;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.sql.Timestamp;
-import javax.swing.JPanel;
 
 /**
  *
@@ -47,10 +44,15 @@ public class PlayerPanel extends javax.swing.JPanel {
         addPlayerButton = new javax.swing.JButton();
         editPlayerButton = new javax.swing.JButton();
         savePlayerButton = new javax.swing.JButton();
-        playerCancelButton = new javax.swing.JButton();
         subPanel = new javax.swing.JPanel();
+        playerCancelButton = new javax.swing.JButton();
 
         deletePlayerButton.setText("Verwijder speler");
+        deletePlayerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePlayerButtonActionPerformed(evt);
+            }
+        });
 
         addPlayerButton.setText("Voeg speler toe");
         addPlayerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -73,8 +75,6 @@ public class PlayerPanel extends javax.swing.JPanel {
             }
         });
 
-        playerCancelButton.setText("Annuleer");
-
         javax.swing.GroupLayout subPanelLayout = new javax.swing.GroupLayout(subPanel);
         subPanel.setLayout(subPanelLayout);
         subPanelLayout.setHorizontalGroup(
@@ -85,6 +85,13 @@ public class PlayerPanel extends javax.swing.JPanel {
             subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 359, Short.MAX_VALUE)
         );
+
+        playerCancelButton.setText("Annuleer");
+        playerCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playerCancelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -120,9 +127,7 @@ public class PlayerPanel extends javax.swing.JPanel {
     private void addPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerButtonActionPerformed
         subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
         playerRepo.addPlayer();
-
         System.out.println(fullhouse.FullHouse.fromSqlDate(Timestamp.valueOf("2014-10-14 14:50:00.0")));
-
         panel.toForm();
     }//GEN-LAST:event_addPlayerButtonActionPerformed
 
@@ -137,6 +142,16 @@ public class PlayerPanel extends javax.swing.JPanel {
         subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
         panel.toForm();
     }//GEN-LAST:event_editPlayerButtonActionPerformed
+
+    private void deletePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePlayerButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deletePlayerButtonActionPerformed
+
+    private void playerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerCancelButtonActionPerformed
+        // TODO add your handling code here:
+        subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
+        panel.toCollection();
+    }//GEN-LAST:event_playerCancelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPlayerButton;

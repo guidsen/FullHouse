@@ -52,6 +52,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Verwijder speler"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePlayerButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="addPlayerButton">
       <Properties>
@@ -77,14 +80,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePlayerButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="playerCancelButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Annuleer"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playerCancelButtonActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JPanel" name="subPanel">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -103,5 +98,13 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JButton" name="playerCancelButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Annuleer"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playerCancelButtonActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
