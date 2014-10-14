@@ -59,6 +59,11 @@ public class PlayerPanel extends javax.swing.JPanel {
         });
 
         editPlayerButton.setText("Wijzig speler");
+        editPlayerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editPlayerButtonActionPerformed(evt);
+            }
+        });
 
         savePlayerButton.setText("Opslaan");
         savePlayerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +127,12 @@ public class PlayerPanel extends javax.swing.JPanel {
         subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
         panel.toCollection();
     }//GEN-LAST:event_savePlayerButtonActionPerformed
+
+    private void editPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPlayerButtonActionPerformed
+        // TODO add your handling code here:
+        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
+        panel.toForm();
+    }//GEN-LAST:event_editPlayerButtonActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPlayerButton;

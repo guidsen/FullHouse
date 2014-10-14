@@ -17,16 +17,16 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="addPlayerButton" min="-2" pref="150" max="-2" attributes="0"/>
+              <Component id="addMasterclassButton" min="-2" pref="204" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="editPlayerButton" min="-2" pref="150" max="-2" attributes="0"/>
+              <Component id="editMasterclassButton" min="-2" pref="189" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="deletePlayerButton" min="-2" pref="150" max="-2" attributes="0"/>
+              <Component id="deleteMasterclassButton" min="-2" pref="180" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="savePlayerButton" min="-2" max="-2" attributes="0"/>
+              <Component id="saveMasterclassButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="playerCancelButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="386" max="32767" attributes="0"/>
+              <Component id="cancelMasterclassButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
           </Group>
           <Component id="subPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -35,11 +35,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addPlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="editPlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="deletePlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="savePlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="playerCancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addMasterclassButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="editMasterclassButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="deleteMasterclassButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="saveMasterclassButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelMasterclassButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="subPanel" max="32767" attributes="0"/>
@@ -48,39 +48,42 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="deletePlayerButton">
+    <Component class="javax.swing.JButton" name="cancelMasterclassButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Verwijder speler"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="addPlayerButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Voeg speler toe"/>
+        <Property name="text" type="java.lang.String" value="Annuleer"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPlayerButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelMasterclassButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="editPlayerButton">
+    <Component class="javax.swing.JButton" name="deleteMasterclassButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Wijzig speler"/>
+        <Property name="text" type="java.lang.String" value="Verwijder masterclass"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="addMasterclassButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Voeg masterclass toe"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editPlayerButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMasterclassButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="savePlayerButton">
+    <Component class="javax.swing.JButton" name="editMasterclassButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Wijzig masterclass"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editMasterclassButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="saveMasterclassButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Opslaan"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePlayerButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveMasterclassButtonActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="playerCancelButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Annuleer"/>
-      </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="subPanel">
       <AuxValues>
@@ -95,7 +98,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="359" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="271" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
