@@ -2,18 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fullhouse.frames;
+package fullhouse.modules.masterclass;
 
 /**
  *
  * @author steve
  */
-public class MasteclassFormPanel extends javax.swing.JPanel {
+public class MasterClassFormPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form MasteclassFormPanel
      */
-    public MasteclassFormPanel() {
+    public MasterClassFormPanel() {
         initComponents();
     }
 

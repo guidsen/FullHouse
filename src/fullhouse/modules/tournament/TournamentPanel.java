@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package fullhouse.frames;
+package fullhouse.modules.tournament;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -37,7 +37,7 @@ public class TournamentPanel extends javax.swing.JPanel {
         editPlayerButton = new javax.swing.JButton();
         deletePlayerButton = new javax.swing.JButton();
         addPlayerButton = new javax.swing.JButton();
-        jPanel1 = new fullhouse.frames.TournamentCollectionPanel();
+        jPanel1 = new fullhouse.modules.tournament.TournamentCollectionPanel();
 
         editPlayerButton.setText("Wijzig toernooi");
 
@@ -100,6 +100,6 @@ public class TournamentPanel extends javax.swing.JPanel {
     private javax.swing.JButton addPlayerButton;
     private javax.swing.JButton deletePlayerButton;
     private javax.swing.JButton editPlayerButton;
-    private fullhouse.frames.TournamentCollectionPanel jPanel1;
+    private fullhouse.modules.tournament.TournamentCollectionPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

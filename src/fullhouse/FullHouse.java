@@ -5,7 +5,7 @@
  */
 package fullhouse;
 
-import fullhouse.frames.HomeFrame;
+import fullhouse.modules.HomeFrame;
 import javax.swing.JFrame;
 
 /**
@@ -24,7 +24,7 @@ public class FullHouse {
         frame.setVisible(true);
         frame.revalidate();
 
-        frame.mainPanel = Panel.changeView(frame, frame.mainPanel, new fullhouse.frames.HomePanel());
+        frame.mainPanel = Panel.changeView(frame, frame.mainPanel, new fullhouse.modules.HomePanel());
         
         for(int i = 5; i <= 20; i++)
         {

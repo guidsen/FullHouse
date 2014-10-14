@@ -60,7 +60,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPlayerButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="fullhouse.frames.TournamentCollectionPanel" name="jPanel1">
+    <Component class="fullhouse.modules.tournament.TournamentCollectionPanel" name="jPanel1">
     </Component>
   </SubComponents>
 </Form>

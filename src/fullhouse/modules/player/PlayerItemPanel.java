@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-package fullhouse.frames;
+package fullhouse.modules.player;
 
 /**
  *
- * @author Guido
+ * @author Liam Hubers
  */
-public class PlayerCollectionPanel extends javax.swing.JPanel {
+public class PlayerItemPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form PlayerCollectionPanel1
+     * Creates new form PlayerItemPanel
      */
-    public PlayerCollectionPanel() {
+    public PlayerItemPanel() {
         initComponents();
     }
 
@@ -28,34 +28,28 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        playerCollectionTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
-        playerCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Naam", "Rating", "Toernooi deelnamens"
-            }
-        ));
-        jScrollPane1.setViewportView(playerCollectionTable);
+        jLabel1.setText("test");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 381, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 286, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable playerCollectionTable;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
