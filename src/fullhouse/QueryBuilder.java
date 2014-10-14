@@ -33,36 +33,62 @@ public abstract class QueryBuilder<T extends DbRepository> {
         System.out.println(stat);
 
         stat.close();
-        conn.close();
     }
 
-    /*
-     *   Alias for the insert method.
-     */
-    public void add(HashMap<String, Object> values) throws SQLException {
-        insert(values);
+    public void update(HashMap<String, Object> values, int id) throws SQLException {
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement(getRepository().getUpdateString());
+
+        HashMap<Integer, String> columns = getRepository().getColumns();
+
+        for (Map.Entry<Integer, String> entry : columns.entrySet()) {
+            stat.setObject(entry.getKey(), values.get(entry.getValue()));
+        }
+
+        stat.setInt(columns.size() + 1, id);
+
+        System.out.println(stat);
+
+        stat.close();
     }
 
-    public void find(int id) throws SQLException {
+    public HashMap<String, Object> find(int id) throws SQLException {
         Connection conn = DataSource.getConnection();
         PreparedStatement stat = conn.prepareStatement("SELECT * FROM " + getRepository().getTable() + " WHERE id = ?");
         stat.setInt(1, id);
 
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("first_name", "Hodor");
+
         System.out.println(stat);
+        stat.close();
+        return resultMap;
     }
 
-    public void where(String column, String operator, Object value) {
+    public HashMap<String, Object> where(String column, String operator, Object value) throws SQLException {
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement("SELECT * FROM " + getRepository().getTable() + " WHERE ? " + operator + " ?");
+        stat.setString(1, column);
+        stat.setObject(2, value);
+
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("first_name", "Hodor");
+
+        System.out.println(stat);
+        stat.close();
+        return resultMap;
     }
 
-    /*
-     *  Will take operator '=' as default 
-     */
-    public void where(String column, Object value) {
+    public HashMap<String, Object> where(String column, Object value) throws SQLException {
+        return where(column, "=", value);
     }
 
-    public void update(HashMap<String, Object> values) {
-    }
+    public void delete(int id) throws SQLException{
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement("DELETE FROM " + getRepository().getTable() + " WHERE id = ?");
+        stat.setInt(1, id);
 
-    public void delete(int id) {
+        System.out.println(stat);
+        stat.close();
     }
 }

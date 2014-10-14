@@ -14,6 +14,7 @@ import fullhouse.repositories.PlayerDbRepository;
  */
 public class Player extends QueryBuilder<PlayerDbRepository> {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String dateOfBirth;
@@ -25,7 +26,15 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     public PlayerDbRepository getRepository() {
         return new PlayerDbRepository();
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
