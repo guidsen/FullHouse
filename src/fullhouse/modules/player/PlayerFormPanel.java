@@ -5,6 +5,7 @@
 package fullhouse.modules.player;
 
 import fullhouse.repositories.PlayerDbRepository;
+import java.awt.Color;
 
 /**
  *
@@ -49,6 +50,7 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         rating = new javax.swing.JTextField();
+        emailMessage = new javax.swing.JLabel();
 
         jLabel1.setText("Voornaam");
 
@@ -65,6 +67,12 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         jLabel7.setText("Telefoon");
 
         jLabel8.setText("Email");
+
+        mail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                mailFocusLost(evt);
+            }
+        });
 
         jLabel9.setText("(dd-mm-jjjj)");
 
@@ -98,8 +106,12 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                     .addComponent(mail, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                     .addComponent(rating))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 81, Short.MAX_VALUE))
+                    .addComponent(emailMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +148,8 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailMessage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -145,10 +158,21 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mailFocusLost
+        // TODO add your handling code here:
+        if (mail.getText().trim().length()==0) { //spaties zijn ook leeg
+            emailMessage.setText("Email is verplicht");
+        }
+        else{
+            emailMessage.setText("");
+        }
+    }//GEN-LAST:event_mailFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adress;
     private javax.swing.JTextField city;
     private javax.swing.JTextField dateOfBirth;
+    private javax.swing.JLabel emailMessage;
     private javax.swing.JTextField firstname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -42,8 +42,14 @@
                   <Component id="rating" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel9" min="-2" pref="86" max="-2" attributes="0"/>
-              <EmptySpace pref="91" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel9" min="-2" pref="86" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="81" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="emailMessage" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -90,6 +96,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="mail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailMessage" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -157,6 +164,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="mail">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="mailFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -169,6 +179,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="rating">
+    </Component>
+    <Component class="javax.swing.JLabel" name="emailMessage">
     </Component>
   </SubComponents>
 </Form>
