@@ -4,6 +4,9 @@
  */
 package fullhouse.modules.masterclass;
 
+import javax.swing.JLabel;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author steve
@@ -15,6 +18,10 @@ public class MasterclassCollectionPanel extends javax.swing.JPanel {
      */
     public MasterclassCollectionPanel() {
         initComponents();
+        
+        TableCellRenderer r = MasterclassCollectionTable.getTableHeader().getDefaultRenderer();
+        JLabel l = (JLabel) r;
+        l.setHorizontalAlignment(JLabel.LEFT);
     }
 
     /**

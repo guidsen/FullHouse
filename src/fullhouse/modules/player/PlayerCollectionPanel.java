@@ -6,6 +6,9 @@
 
 package fullhouse.modules.player;
 
+import javax.swing.JLabel;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author Guido
@@ -17,6 +20,10 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
      */
     public PlayerCollectionPanel() {
         initComponents();
+        
+        TableCellRenderer r = playerCollectionTable.getTableHeader().getDefaultRenderer();
+        JLabel l = (JLabel) r;
+        l.setHorizontalAlignment(JLabel.LEFT);
     }
 
     /**
@@ -33,12 +40,15 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
 
         playerCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Piet", "1234", "15"},
+                {"Jan", "956", "3"},
+                {"Kees", "1124", "6"}
             },
             new String [] {
                 "Naam", "Rating", "Toernooi deelnamens"
             }
         ));
+        playerCollectionTable.setAlignmentX(2.0F);
         jScrollPane1.setViewportView(playerCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
