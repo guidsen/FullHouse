@@ -33,7 +33,9 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Toernooi#1", "512", "300"},
+                {"Toernooi#2", "512", "450"},
+                {"Toernooi#3", "512", "100"}
             },
             new String [] {
                 "Naam", "Aantal spelers", "Min. ranking"
