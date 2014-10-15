@@ -120,9 +120,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="placeField">
     </Component>
-    <Component class="javax.swing.JTextField" name="nameField">
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nameFieldFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -139,3 +136,6 @@
     </Component>
   </SubComponents>
 </Form>
+    <Component class="javax.swing.JTextField" name="nameField">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nameFieldFocusLost"/>
