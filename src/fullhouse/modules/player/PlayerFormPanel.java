@@ -48,26 +48,44 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         mail = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        rating = new javax.swing.JTextField();
         emailMessage = new javax.swing.JLabel();
 
         jLabel1.setText("Voornaam");
 
         jLabel2.setText("Achternaam");
 
+        firstname.setText("Stan");
+
+        lastname.setText("van Swag");
+
         jLabel3.setText("Geboortedatum");
+
+        dateOfBirth.setText("23-04-1987");
+        dateOfBirth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateOfBirthActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Adres");
 
+        adress.setText("Hodorlaan 24");
+
         jLabel5.setText("Postcode");
+
+        zipcode.setText("2571AB");
 
         jLabel6.setText("Plaats");
 
+        city.setText("Stadskanaal");
+
         jLabel7.setText("Telefoon");
+
+        number.setText("0619249402");
 
         jLabel8.setText("Email");
 
+        mail.setText("svswag@gmail.com");
         mail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 mailFocusLost(evt);
@@ -76,8 +94,6 @@ public class PlayerFormPanel extends javax.swing.JPanel {
 
         jLabel9.setText("(dd-mm-jjjj)");
 
-        jLabel10.setText("Rating");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +101,6 @@ public class PlayerFormPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -103,8 +118,7 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                     .addComponent(zipcode)
                     .addComponent(city)
                     .addComponent(number)
-                    .addComponent(mail, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addComponent(rating))
+                    .addComponent(mail, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -150,11 +164,7 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailMessage))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -168,6 +178,10 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_mailFocusLost
 
+    private void dateOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateOfBirthActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adress;
     private javax.swing.JTextField city;
@@ -175,7 +189,6 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     private javax.swing.JLabel emailMessage;
     private javax.swing.JTextField firstname;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -187,7 +200,6 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     private javax.swing.JTextField lastname;
     private javax.swing.JTextField mail;
     private javax.swing.JTextField number;
-    private javax.swing.JTextField rating;
     private javax.swing.JTextField zipcode;
     // End of variables declaration//GEN-END:variables
 }
