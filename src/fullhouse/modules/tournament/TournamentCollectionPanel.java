@@ -40,10 +40,12 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
 
         TournamentCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Toernooi #1", "37/256", "300"},
+                {"Toernooi #2", "13/64", "450"},
+                {"Toernooi #3", "8/32", "100"}
             },
             new String [] {
-                "Naam", "Aantal spelers", "Min. ranking"
+                "Naam", "Aantal spelers (ingeschreven/max)", "Min. ranking"
             }
         ));
         jScrollPane1.setViewportView(TournamentCollectionTable);
