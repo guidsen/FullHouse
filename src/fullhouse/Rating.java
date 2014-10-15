@@ -11,10 +11,10 @@ public class Rating {
     private int opponents;
     private int result;
     
-    private int min = 500;
-    private int max = 2000;
-    private double score = 0.5;
-    private int max_score = 100;
+    private double min = 500;
+    private double max = 2000;
+    private double score = 0.8;
+    private int max_score = 150;
     
     public Rating(int own, int opponents)
     {
@@ -36,7 +36,7 @@ public class Rating {
             result = max_score; 
 	}
         
-        System.out.println(result);
+        System.out.println(opponents+" "+result);
         
         return result;
     }
