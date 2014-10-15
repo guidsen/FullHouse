@@ -18,6 +18,7 @@ public class HomeFrame extends javax.swing.JFrame {
      */
     public HomeFrame() {
         initComponents();
+        homeButton.setEnabled(false);
     }
 
     /**
@@ -32,7 +33,7 @@ public class HomeFrame extends javax.swing.JFrame {
         playersOverviewButton = new javax.swing.JButton();
         plannedTournamentsButton = new javax.swing.JButton();
         tableLayoutButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        homeButton = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         plannedMasterclassButton = new javax.swing.JButton();
 
@@ -60,10 +61,10 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Home");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        homeButton.setText("Home");
+        homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                homeButtonActionPerformed(evt);
             }
         });
 
@@ -75,7 +76,7 @@ public class HomeFrame extends javax.swing.JFrame {
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 324, Short.MAX_VALUE)
         );
 
         plannedMasterclassButton.setText("Geplande masterclass");
@@ -94,7 +95,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(playersOverviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(plannedMasterclassButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tableLayoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -108,7 +109,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(playersOverviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -117,7 +118,7 @@ public class HomeFrame extends javax.swing.JFrame {
                         .addComponent(plannedMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tableLayoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 86, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -125,6 +126,12 @@ public class HomeFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void playersOverviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playersOverviewButtonActionPerformed
+        playersOverviewButton.setEnabled(false);
+        plannedTournamentsButton.setEnabled(true);
+        tableLayoutButton.setEnabled(true);
+        plannedMasterclassButton.setEnabled(true);
+        homeButton.setEnabled(true);
+        
         fullhouse.modules.player.PlayerPanel PlayerPanel = new fullhouse.modules.player.PlayerPanel();
         mainPanel = Panel.changeView(this, mainPanel, PlayerPanel);
         PlayerPanel.revalidate();
@@ -132,7 +139,12 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_playersOverviewButtonActionPerformed
 
     private void plannedTournamentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedTournamentsButtonActionPerformed
-        //changeView(new TournamentPanel());
+        plannedTournamentsButton.setEnabled(false);
+        playersOverviewButton.setEnabled(true);
+        tableLayoutButton.setEnabled(true);
+        plannedMasterclassButton.setEnabled(true);
+        homeButton.setEnabled(true);
+        
         fullhouse.modules.tournament.TournamentPanel TournamentPanel = new fullhouse.modules.tournament.TournamentPanel();
         mainPanel = Panel.changeView(this, mainPanel, TournamentPanel);
         TournamentPanel.revalidate();
@@ -140,26 +152,42 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_plannedTournamentsButtonActionPerformed
 
     private void tableLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableLayoutButtonActionPerformed
+        tableLayoutButton.setEnabled(false);
+        playersOverviewButton.setEnabled(true);
+        plannedTournamentsButton.setEnabled(true);
+        plannedMasterclassButton.setEnabled(true);
+        homeButton.setEnabled(true);
+        
         // moet nog komen
     }//GEN-LAST:event_tableLayoutButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        HomePanel HomePanel = new HomePanel();
-        mainPanel = Panel.changeView(this, mainPanel, HomePanel);
-        HomePanel.revalidate();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void plannedMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedMasterclassButtonActionPerformed
-        // TODO add your handling code here:
+        plannedMasterclassButton.setEnabled(false);
+        playersOverviewButton.setEnabled(true);
+        tableLayoutButton.setEnabled(true);
+        plannedTournamentsButton.setEnabled(true);
+        homeButton.setEnabled(true);
+        
         fullhouse.modules.masterclass.MasterclassPanel MasterclassPanel = new fullhouse.modules.masterclass.MasterclassPanel();
         mainPanel = Panel.changeView(this, mainPanel, MasterclassPanel);
         MasterclassPanel.revalidate();
         MasterclassPanel.subPanel = Panel.changeView(MasterclassPanel, MasterclassPanel.subPanel, new fullhouse.modules.masterclass.MasterclassCollectionPanel());
     }//GEN-LAST:event_plannedMasterclassButtonActionPerformed
 
+    private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
+        homeButton.setEnabled(false);
+        playersOverviewButton.setEnabled(true);
+        tableLayoutButton.setEnabled(true);
+        plannedMasterclassButton.setEnabled(true);
+        plannedMasterclassButton.setEnabled(true);
+
+        HomePanel HomePanel = new HomePanel();
+        mainPanel = Panel.changeView(this, mainPanel, HomePanel);
+        HomePanel.revalidate();
+    }//GEN-LAST:event_homeButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton homeButton;
     public javax.swing.JPanel mainPanel;
     private javax.swing.JButton plannedMasterclassButton;
     private javax.swing.JButton plannedTournamentsButton;
