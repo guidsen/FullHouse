@@ -4,6 +4,8 @@
  */
 package fullhouse.modules.tournament;
 
+import java.awt.Color;
+
 /**
  *
  * @author steve
@@ -37,6 +39,8 @@ public class TournamentFormPanel extends javax.swing.JPanel {
         place = new javax.swing.JTextField();
         name = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        nameMessage = new javax.swing.JLabel();
+        max_playersMessage = new javax.swing.JLabel();
 
         label.setText("Naam");
 
@@ -48,7 +52,21 @@ public class TournamentFormPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Plaats");
 
+        max_players.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                max_playersFocusLost(evt);
+            }
+        });
+
+        name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nameFocusLost(evt);
+            }
+        });
+
         jLabel4.setText("(dd-mm-jjjj)");
+
+        nameMessage.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -72,8 +90,11 @@ public class TournamentFormPanel extends javax.swing.JPanel {
                     .addComponent(entry_fee)
                     .addComponent(max_players))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4)
+                    .addComponent(nameMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(max_playersMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,7 +102,8 @@ public class TournamentFormPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -98,10 +120,32 @@ public class TournamentFormPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(max_players, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(max_players, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(max_playersMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(158, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusLost
+        // TODO add your handling code here:
+        if(name.getText().trim().length() == 0){
+            nameMessage.setText("Naam is verplicht!");
+        }
+        else{
+            nameMessage.setText("");
+        }
+    }//GEN-LAST:event_nameFocusLost
+
+    private void max_playersFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_max_playersFocusLost
+        // TODO add your handling code here:
+        if(max_players.getText().trim().length() == 0){
+            max_playersMessage.setText("Vul een maximum in!");
+        }
+        else{
+            max_playersMessage.setText("");
+        }
+    }//GEN-LAST:event_max_playersFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField date;
     private javax.swing.JTextField entry_fee;
@@ -112,7 +156,9 @@ public class TournamentFormPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel label;
     private javax.swing.JTextField max_players;
+    private javax.swing.JLabel max_playersMessage;
     private javax.swing.JTextField name;
+    private javax.swing.JLabel nameMessage;
     private javax.swing.JTextField place;
     // End of variables declaration//GEN-END:variables
 }
