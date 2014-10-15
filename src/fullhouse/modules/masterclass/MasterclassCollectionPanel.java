@@ -38,10 +38,11 @@ public class MasterclassCollectionPanel extends javax.swing.JPanel {
 
         MasterclassCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Noobs les geven", "2 januari 2015", "5", "800"},
+                {"Tips voor de pros", "19 januari 2015", "9", "1400"}
             },
             new String [] {
-                "Naam", "Datum", "Minimum rating"
+                "Naam", "Datum", "Aantal inschrijvingen", "Minimum rating"
             }
         ));
         jScrollPane1.setViewportView(MasterclassCollectionTable);

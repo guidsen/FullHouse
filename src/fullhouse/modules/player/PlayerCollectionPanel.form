@@ -36,7 +36,7 @@
         <Component class="javax.swing.JTable" name="playerCollectionTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="3">
+              <Table columnCount="4" rowCount="3">
                 <Column editable="true" title="Naam" type="java.lang.Object">
                   <Data value="Piet"/>
                   <Data value="Jan"/>
@@ -51,6 +51,11 @@
                   <Data value="15"/>
                   <Data value="3"/>
                   <Data value="6"/>
+                </Column>
+                <Column editable="true" title="Gewonnen inleggeld" type="java.lang.Object">
+                  <Data value="1400"/>
+                  <Data value="120"/>
+                  <Data value="900"/>
                 </Column>
               </Table>
             </Property>

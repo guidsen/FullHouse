@@ -29,30 +29,30 @@ public class HomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TournamentCollectionTable = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TournamentCollectionTable1 = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Aankomende toernooien");
 
-        TournamentCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
+        TournamentCollectionTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Toernooi #1", "24 december 2014", "37/256", "1000"},
-                {"For the noobs #2", "29 december 2014", "13/64", "600"}
+                {"Toernooi #1", "Den Haag", "24 december 2014", "37/256", "1000"},
+                {"For the noobs #2", "Almere", "29 december 2014", "13/64", "600"}
             },
             new String [] {
-                "Naam", "Datum", "Aantal spelers (ingeschreven/max)", "Min. ranking"
+                "Naam", "Plaats", "Datum", "Aantal spelers (ingeschreven/max)", "Min. ranking"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, true, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(TournamentCollectionTable);
+        jScrollPane1.setViewportView(TournamentCollectionTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -62,22 +62,22 @@ public class HomePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(198, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+                .addGap(2, 2, 2)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TournamentCollectionTable;
+    private javax.swing.JTable TournamentCollectionTable1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

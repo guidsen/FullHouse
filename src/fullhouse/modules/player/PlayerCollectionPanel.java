@@ -40,12 +40,12 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
 
         playerCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Piet", "1234", "15"},
-                {"Jan", "956", "3"},
-                {"Kees", "1124", "6"}
+                {"Piet", "1234", "15", "1400"},
+                {"Jan", "956", "3", "120"},
+                {"Kees", "1124", "6", "900"}
             },
             new String [] {
-                "Naam", "Rating", "Toernooi deelnamens"
+                "Naam", "Rating", "Toernooi deelnamens", "Gewonnen inleggeld"
             }
         ));
         playerCollectionTable.setAlignmentX(2.0F);
