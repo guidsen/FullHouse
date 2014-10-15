@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -33,13 +33,34 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="TournamentCollectionTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="0">
-                <Column editable="true" title="Naam" type="java.lang.Object"/>
-                <Column editable="true" title="Aantal spelers" type="java.lang.Object"/>
-                <Column editable="true" title="Min. ranking" type="java.lang.Object"/>
+              <Table columnCount="4" rowCount="4">
+                <Column editable="false" title="Naam" type="java.lang.Object">
+                  <Data value="Toernooi #1"/>
+                  <Data value="For the noobs #2"/>
+                  <Data value="Toernooi #3"/>
+                  <Data value="Bazen only #4"/>
+                </Column>
+                <Column editable="false" title="Datum" type="java.lang.Object">
+                  <Data value="24 december 2014"/>
+                  <Data value="29 december 2014"/>
+                  <Data value="5 januari 2015"/>
+                  <Data value="19 februari 2015"/>
+                </Column>
+                <Column editable="false" title="Aantal spelers (ingeschreven/max)" type="java.lang.Object">
+                  <Data value="37/256"/>
+                  <Data value="13/64"/>
+                  <Data value="8/32"/>
+                  <Data value="1/32"/>
+                </Column>
+                <Column editable="false" title="Min. ranking" type="java.lang.Object">
+                  <Data value="1000"/>
+                  <Data value="600"/>
+                  <Data value="800"/>
+                  <Data value="1600"/>
+                </Column>
               </Table>
             </Property>
           </Properties>

@@ -6,6 +6,9 @@
 
 package fullhouse.modules.tournament;
 
+import javax.swing.JLabel;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author Guido
@@ -17,6 +20,10 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
      */
     public TournamentCollectionPanel() {
         initComponents();
+        
+        TableCellRenderer r = TournamentCollectionTable.getTableHeader().getDefaultRenderer();
+        JLabel l = (JLabel) r;
+        l.setHorizontalAlignment(JLabel.LEFT);
     }
 
     /**
@@ -29,17 +36,28 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TournamentCollectionTable = new javax.swing.JTable();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TournamentCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Toernooi #1", "24 december 2014", "37/256", "1000"},
+                {"For the noobs #2", "29 december 2014", "13/64", "600"},
+                {"Toernooi #3", "5 januari 2015", "8/32", "800"},
+                {"Bazen only #4", "19 februari 2015", "1/32", "1600"}
             },
             new String [] {
-                "Naam", "Aantal spelers", "Min. ranking"
+                "Naam", "Datum", "Aantal spelers (ingeschreven/max)", "Min. ranking"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TournamentCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -55,7 +73,7 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TournamentCollectionTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
