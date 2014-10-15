@@ -40,14 +40,23 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
 
         TournamentCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Toernooi #1", "37/256", "300"},
-                {"Toernooi #2", "13/64", "450"},
-                {"Toernooi #3", "8/32", "100"}
+                {"Toernooi #1", "24 december 2014", "37/256", "1000"},
+                {"For the noobs #2", "29 december 2014", "13/64", "600"},
+                {"Toernooi #3", "5 januari 2015", "8/32", "800"},
+                {"Bazen only #4", "19 februari 2015", "1/32", "1600"}
             },
             new String [] {
-                "Naam", "Aantal spelers (ingeschreven/max)", "Min. ranking"
+                "Naam", "Datum", "Aantal spelers (ingeschreven/max)", "Min. ranking"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TournamentCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

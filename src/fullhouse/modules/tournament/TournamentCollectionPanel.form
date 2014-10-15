@@ -36,21 +36,30 @@
         <Component class="javax.swing.JTable" name="TournamentCollectionTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="3">
-                <Column editable="true" title="Naam" type="java.lang.Object">
+              <Table columnCount="4" rowCount="4">
+                <Column editable="false" title="Naam" type="java.lang.Object">
                   <Data value="Toernooi #1"/>
-                  <Data value="Toernooi #2"/>
+                  <Data value="For the noobs #2"/>
                   <Data value="Toernooi #3"/>
+                  <Data value="Bazen only #4"/>
                 </Column>
-                <Column editable="true" title="Aantal spelers (ingeschreven/max)" type="java.lang.Object">
+                <Column editable="false" title="Datum" type="java.lang.Object">
+                  <Data value="24 december 2014"/>
+                  <Data value="29 december 2014"/>
+                  <Data value="5 januari 2015"/>
+                  <Data value="19 februari 2015"/>
+                </Column>
+                <Column editable="false" title="Aantal spelers (ingeschreven/max)" type="java.lang.Object">
                   <Data value="37/256"/>
                   <Data value="13/64"/>
                   <Data value="8/32"/>
+                  <Data value="1/32"/>
                 </Column>
-                <Column editable="true" title="Min. ranking" type="java.lang.Object">
-                  <Data value="300"/>
-                  <Data value="450"/>
-                  <Data value="100"/>
+                <Column editable="false" title="Min. ranking" type="java.lang.Object">
+                  <Data value="1000"/>
+                  <Data value="600"/>
+                  <Data value="800"/>
+                  <Data value="1600"/>
                 </Column>
               </Table>
             </Property>

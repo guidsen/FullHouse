@@ -4,8 +4,6 @@
  */
 package fullhouse.modules.tournament;
 
-import java.awt.Color;
-
 /**
  *
  * @author steve
