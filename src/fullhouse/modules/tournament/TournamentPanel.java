@@ -118,7 +118,7 @@ public class TournamentPanel extends javax.swing.JPanel {
 
     private void addTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTournamentButtonActionPerformed
         // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new TournamentFormPanel());
+        subPanel = Panel.changeView(this, subPanel, new TournamentTabsPanel());
         panel.toForm();
     }//GEN-LAST:event_addTournamentButtonActionPerformed
 
@@ -136,7 +136,7 @@ public class TournamentPanel extends javax.swing.JPanel {
 
     private void editTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTournamentButtonActionPerformed
         // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new TournamentFormPanel());
+        subPanel = Panel.changeView(this, subPanel, new TournamentTabsPanel());
         panel.toForm();
     }//GEN-LAST:event_editTournamentButtonActionPerformed
 
