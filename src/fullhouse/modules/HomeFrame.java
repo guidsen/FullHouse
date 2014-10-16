@@ -32,7 +32,6 @@ public class HomeFrame extends javax.swing.JFrame {
 
         playersOverviewButton = new javax.swing.JButton();
         plannedTournamentsButton = new javax.swing.JButton();
-        tableLayoutButton = new javax.swing.JButton();
         homeButton = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         plannedMasterclassButton = new javax.swing.JButton();
@@ -51,13 +50,6 @@ public class HomeFrame extends javax.swing.JFrame {
         plannedTournamentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 plannedTournamentsButtonActionPerformed(evt);
-            }
-        });
-
-        tableLayoutButton.setText("Tafel indeling");
-        tableLayoutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tableLayoutButtonActionPerformed(evt);
             }
         });
 
@@ -96,8 +88,7 @@ public class HomeFrame extends javax.swing.JFrame {
                     .addComponent(playersOverviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                     .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(plannedMasterclassButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tableLayoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(plannedMasterclassButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -116,8 +107,6 @@ public class HomeFrame extends javax.swing.JFrame {
                         .addComponent(plannedTournamentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addComponent(plannedMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tableLayoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -128,7 +117,6 @@ public class HomeFrame extends javax.swing.JFrame {
     private void playersOverviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playersOverviewButtonActionPerformed
         playersOverviewButton.setEnabled(false);
         plannedTournamentsButton.setEnabled(true);
-        tableLayoutButton.setEnabled(true);
         plannedMasterclassButton.setEnabled(true);
         homeButton.setEnabled(true);
         
@@ -141,7 +129,6 @@ public class HomeFrame extends javax.swing.JFrame {
     private void plannedTournamentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedTournamentsButtonActionPerformed
         plannedTournamentsButton.setEnabled(false);
         playersOverviewButton.setEnabled(true);
-        tableLayoutButton.setEnabled(true);
         plannedMasterclassButton.setEnabled(true);
         homeButton.setEnabled(true);
         
@@ -151,20 +138,9 @@ public class HomeFrame extends javax.swing.JFrame {
         TournamentPanel.subPanel = Panel.changeView(TournamentPanel, TournamentPanel.subPanel, new fullhouse.modules.tournament.TournamentCollectionPanel());
     }//GEN-LAST:event_plannedTournamentsButtonActionPerformed
 
-    private void tableLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableLayoutButtonActionPerformed
-        tableLayoutButton.setEnabled(false);
-        playersOverviewButton.setEnabled(true);
-        plannedTournamentsButton.setEnabled(true);
-        plannedMasterclassButton.setEnabled(true);
-        homeButton.setEnabled(true);
-        
-        // moet nog komen
-    }//GEN-LAST:event_tableLayoutButtonActionPerformed
-
     private void plannedMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plannedMasterclassButtonActionPerformed
         plannedMasterclassButton.setEnabled(false);
         playersOverviewButton.setEnabled(true);
-        tableLayoutButton.setEnabled(true);
         plannedTournamentsButton.setEnabled(true);
         homeButton.setEnabled(true);
         
@@ -177,7 +153,6 @@ public class HomeFrame extends javax.swing.JFrame {
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
         homeButton.setEnabled(false);
         playersOverviewButton.setEnabled(true);
-        tableLayoutButton.setEnabled(true);
         plannedMasterclassButton.setEnabled(true);
         plannedMasterclassButton.setEnabled(true);
 
@@ -192,6 +167,5 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JButton plannedMasterclassButton;
     private javax.swing.JButton plannedTournamentsButton;
     private javax.swing.JButton playersOverviewButton;
-    private javax.swing.JButton tableLayoutButton;
     // End of variables declaration//GEN-END:variables
 }
