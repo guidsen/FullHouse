@@ -70,8 +70,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
