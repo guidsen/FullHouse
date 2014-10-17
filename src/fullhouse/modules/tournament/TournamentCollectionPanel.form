@@ -36,7 +36,7 @@
         <Component class="javax.swing.JTable" name="TournamentCollectionTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="4" rowCount="4">
                 <Column editable="false" title="Naam" type="java.lang.Object">
                   <Data value="Toernooi #1"/>
                   <Data value="For the noobs #2"/>
@@ -60,12 +60,6 @@
                   <Data value="13/64"/>
                   <Data value="8/32"/>
                   <Data value="1/32"/>
-                </Column>
-                <Column editable="false" title="Min. ranking" type="java.lang.Object">
-                  <Data value="1000"/>
-                  <Data value="600"/>
-                  <Data value="800"/>
-                  <Data value="1600"/>
                 </Column>
               </Table>
             </Property>
