@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fullhouse.modules.player;
 
+import fullhouse.repositories.PlayerDbRepository;
+import java.util.Vector;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -15,15 +17,24 @@ import javax.swing.table.TableCellRenderer;
  */
 public class PlayerCollectionPanel extends javax.swing.JPanel {
 
+    private PlayerDbRepository repository = new PlayerDbRepository();
+
     /**
      * Creates new form PlayerCollectionPanel1
      */
     public PlayerCollectionPanel() {
         initComponents();
-        
+
         TableCellRenderer r = playerCollectionTable.getTableHeader().getDefaultRenderer();
         JLabel l = (JLabel) r;
         l.setHorizontalAlignment(JLabel.LEFT);
+
+//        DefaultTableModel tableModel = (DefaultTableModel) playerCollectionTable.getModel();
+//        Vector row = new Vector();
+//        row.addElement("test");
+//        tableModel.addRow(row);
+        this.repository.collection(playerCollectionTable);
+
     }
 
     /**
@@ -40,14 +51,20 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
 
         playerCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Piet", "1234", "15", "1400"},
-                {"Jan", "956", "3", "120"},
-                {"Kees", "1124", "6", "900"}
+
             },
             new String [] {
                 "Naam", "Rating", "Toernooi deelnamens", "Gewonnen inleggeld"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         playerCollectionTable.setAlignmentX(2.0F);
         jScrollPane1.setViewportView(playerCollectionTable);
 

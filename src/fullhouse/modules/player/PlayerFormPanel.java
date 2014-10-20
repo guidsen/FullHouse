@@ -4,6 +4,7 @@
  */
 package fullhouse.modules.player;
 
+import fullhouse.models.Player;
 import fullhouse.repositories.PlayerDbRepository;
 import java.awt.Color;
 
@@ -14,12 +15,27 @@ import java.awt.Color;
 public class PlayerFormPanel extends javax.swing.JPanel {
 
     private final PlayerDbRepository playerRepo = new PlayerDbRepository();
+    private int id;
     
     /**
      * Creates new form PlayerFormFrame
      */
-    public PlayerFormPanel(PlayerDbRepository repo) {
+    public PlayerFormPanel(PlayerDbRepository repo, int id) {
         initComponents();
+        
+        this.id = id;
+    }
+    
+    public Player getMap() {
+        Player player = new Player();
+        player.setFirstName(firstNameField.getText());
+        player.setLastName(lastNameField.getText());
+        player.setDateOfBirth(dateOfBirthField.getText());
+        player.setAddress(adressField.getText());
+        player.setPhoneNum(phoneNumField.getText());
+        player.setEmail(emailField.getText());
+        
+        return player;
     }
 
     /**
@@ -33,20 +49,20 @@ public class PlayerFormPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        firstname = new javax.swing.JTextField();
-        lastname = new javax.swing.JTextField();
+        firstNameField = new javax.swing.JTextField();
+        lastNameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        dateOfBirth = new javax.swing.JTextField();
+        dateOfBirthField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        adress = new javax.swing.JTextField();
+        adressField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        zipcode = new javax.swing.JTextField();
+        zipcodeField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        city = new javax.swing.JTextField();
+        cityField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        number = new javax.swing.JTextField();
+        phoneNumField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        mail = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         emailMessage = new javax.swing.JLabel();
 
@@ -54,41 +70,41 @@ public class PlayerFormPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Achternaam");
 
-        firstname.setText("Stan");
+        firstNameField.setText("Stan");
 
-        lastname.setText("van Swag");
+        lastNameField.setText("van Swag");
 
         jLabel3.setText("Geboortedatum");
 
-        dateOfBirth.setText("23-04-1987");
-        dateOfBirth.addActionListener(new java.awt.event.ActionListener() {
+        dateOfBirthField.setText("23-04-1987");
+        dateOfBirthField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateOfBirthActionPerformed(evt);
+                dateOfBirthFieldActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Adres");
 
-        adress.setText("Hodorlaan 24");
+        adressField.setText("Hodorlaan 24");
 
         jLabel5.setText("Postcode");
 
-        zipcode.setText("2571AB");
+        zipcodeField.setText("2571AB");
 
         jLabel6.setText("Plaats");
 
-        city.setText("Stadskanaal");
+        cityField.setText("Stadskanaal");
 
         jLabel7.setText("Telefoon");
 
-        number.setText("0619249402");
+        phoneNumField.setText("0619249402");
 
         jLabel8.setText("Email");
 
-        mail.setText("svswag@gmail.com");
-        mail.addFocusListener(new java.awt.event.FocusAdapter() {
+        emailField.setText("svswag@gmail.com");
+        emailField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                mailFocusLost(evt);
+                emailFieldFocusLost(evt);
             }
         });
 
@@ -111,14 +127,14 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(firstname)
-                    .addComponent(lastname)
-                    .addComponent(dateOfBirth)
-                    .addComponent(adress)
-                    .addComponent(zipcode)
-                    .addComponent(city)
-                    .addComponent(number)
-                    .addComponent(mail, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                    .addComponent(firstNameField)
+                    .addComponent(lastNameField)
+                    .addComponent(dateOfBirthField)
+                    .addComponent(adressField)
+                    .addComponent(zipcodeField)
+                    .addComponent(cityField)
+                    .addComponent(phoneNumField)
+                    .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -133,61 +149,62 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(firstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(lastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateOfBirthField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(adress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(zipcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(zipcodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(city, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phoneNumField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailMessage))
                 .addContainerGap(139, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mailFocusLost
+    private void emailFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFieldFocusLost
         // TODO add your handling code here:
-        if (mail.getText().trim().length()==0) { //spaties zijn ook leeg
+        if (emailField.getText().trim().length()==0) { //spaties zijn ook leeg
             emailMessage.setText("Email is verplicht");
         }
         else{
             emailMessage.setText("");
         }
-    }//GEN-LAST:event_mailFocusLost
+    }//GEN-LAST:event_emailFieldFocusLost
 
-    private void dateOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthActionPerformed
+    private void dateOfBirthFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dateOfBirthActionPerformed
+    }//GEN-LAST:event_dateOfBirthFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField adress;
-    private javax.swing.JTextField city;
-    private javax.swing.JTextField dateOfBirth;
+    protected javax.swing.JTextField adressField;
+    protected javax.swing.JTextField cityField;
+    protected javax.swing.JTextField dateOfBirthField;
+    protected javax.swing.JTextField emailField;
     private javax.swing.JLabel emailMessage;
-    private javax.swing.JTextField firstname;
+    protected javax.swing.JTextField firstNameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -197,9 +214,8 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField lastname;
-    private javax.swing.JTextField mail;
-    private javax.swing.JTextField number;
-    private javax.swing.JTextField zipcode;
+    protected javax.swing.JTextField lastNameField;
+    protected javax.swing.JTextField phoneNumField;
+    protected javax.swing.JTextField zipcodeField;
     // End of variables declaration//GEN-END:variables
 }

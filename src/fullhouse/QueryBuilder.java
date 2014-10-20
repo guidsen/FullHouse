@@ -8,7 +8,9 @@ package fullhouse;
 import fullhouse.repositories.DbRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,28 @@ public abstract class QueryBuilder<T extends DbRepository> {
         stat.close();
     }
 
+    public ArrayList<Object> all() throws SQLException {
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement("SELECT *, COUNT(deelname) FROM " + getRepository().getTable());
+        ResultSet rs = stat.executeQuery();
+
+        HashMap<Integer, String> columns = getRepository().getColumns();
+        
+        ArrayList<Object> collection = new ArrayList<>();
+        
+        while (rs.next()) {
+            HashMap<String, Object> resultMap = new HashMap<>();
+            for (Map.Entry<Integer, String> entry : columns.entrySet()) {
+                System.out.println(entry.getValue() + " : " + rs.getString(entry.getValue()));
+                resultMap.put(entry.getValue(), rs.getString(entry.getValue()));
+            }
+            collection.add(resultMap);
+        }
+
+        stat.close();
+        return collection;
+    }
+
     public HashMap<String, Object> find(int id) throws SQLException {
         Connection conn = DataSource.getConnection();
         PreparedStatement stat = conn.prepareStatement("SELECT * FROM " + getRepository().getTable() + " WHERE id = ?");
@@ -83,7 +107,7 @@ public abstract class QueryBuilder<T extends DbRepository> {
         return where(column, "=", value);
     }
 
-    public void delete(int id) throws SQLException{
+    public void delete(int id) throws SQLException {
         Connection conn = DataSource.getConnection();
         PreparedStatement stat = conn.prepareStatement("DELETE FROM " + getRepository().getTable() + " WHERE id = ?");
         stat.setInt(1, id);

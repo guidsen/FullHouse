@@ -16,11 +16,15 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
 
     private int id;
     private String firstName;
+    private String middleName;
     private String lastName;
     private String dateOfBirth;
     private String address;
     private String phoneNum;
     private String email;
+    private int rating;
+
+    public String[] guarded = {"rating"};
 
     @Override
     public PlayerDbRepository getRepository() {
@@ -83,4 +87,25 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
         this.email = email;
     }
 
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("%s %s %s", this.getFirstName(), this.getMiddleName(), this.getLastName()); 
+    }
 }

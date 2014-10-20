@@ -6,6 +6,9 @@
 package fullhouse.repositories;
 
 import fullhouse.DataSource;
+import fullhouse.models.Player;
+import java.lang.reflect.Field;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +16,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +34,7 @@ public abstract class DbRepository<T> {
     public String getInsertString() {
         StringBuilder columnsString = new StringBuilder();
         StringBuilder valuesString = new StringBuilder();
-
+        
         ArrayList<String> columns = getColumnNames();
 
         for (int i = 0; i < columns.size(); i++) {

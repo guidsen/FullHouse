@@ -30,14 +30,14 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="firstname" max="32767" attributes="0"/>
-                  <Component id="lastname" max="32767" attributes="0"/>
-                  <Component id="dateOfBirth" max="32767" attributes="0"/>
-                  <Component id="adress" alignment="0" max="32767" attributes="0"/>
-                  <Component id="zipcode" max="32767" attributes="0"/>
-                  <Component id="city" alignment="0" max="32767" attributes="0"/>
-                  <Component id="number" alignment="0" max="32767" attributes="0"/>
-                  <Component id="mail" alignment="0" pref="128" max="32767" attributes="0"/>
+                  <Component id="firstNameField" max="32767" attributes="0"/>
+                  <Component id="lastNameField" max="32767" attributes="0"/>
+                  <Component id="dateOfBirthField" max="32767" attributes="0"/>
+                  <Component id="adressField" alignment="0" max="32767" attributes="0"/>
+                  <Component id="zipcodeField" max="32767" attributes="0"/>
+                  <Component id="cityField" alignment="0" max="32767" attributes="0"/>
+                  <Component id="phoneNumField" alignment="0" max="32767" attributes="0"/>
+                  <Component id="emailField" alignment="0" pref="128" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -57,43 +57,43 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="firstname" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="firstNameField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lastname" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lastNameField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dateOfBirth" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dateOfBirthField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="adress" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="adressField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="zipcode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="zipcodeField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                  <Component id="city" min="-2" max="-2" attributes="0"/>
+                  <Component id="cityField" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="number" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="phoneNumField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="emailMessage" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="139" max="32767" attributes="0"/>
@@ -112,81 +112,105 @@
         <Property name="text" type="java.lang.String" value="Achternaam"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="firstname">
+    <Component class="javax.swing.JTextField" name="firstNameField">
       <Properties>
         <Property name="text" type="java.lang.String" value="Stan"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="lastname">
+    <Component class="javax.swing.JTextField" name="lastNameField">
       <Properties>
         <Property name="text" type="java.lang.String" value="van Swag"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Geboortedatum"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="dateOfBirth">
+    <Component class="javax.swing.JTextField" name="dateOfBirthField">
       <Properties>
         <Property name="text" type="java.lang.String" value="23-04-1987"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateOfBirthActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateOfBirthFieldActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Adres"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="adress">
+    <Component class="javax.swing.JTextField" name="adressField">
       <Properties>
         <Property name="text" type="java.lang.String" value="Hodorlaan 24"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Postcode"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="zipcode">
+    <Component class="javax.swing.JTextField" name="zipcodeField">
       <Properties>
         <Property name="text" type="java.lang.String" value="2571AB"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Plaats"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="city">
+    <Component class="javax.swing.JTextField" name="cityField">
       <Properties>
         <Property name="text" type="java.lang.String" value="Stadskanaal"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefoon"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="number">
+    <Component class="javax.swing.JTextField" name="phoneNumField">
       <Properties>
         <Property name="text" type="java.lang.String" value="0619249402"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="mail">
+    <Component class="javax.swing.JTextField" name="emailField">
       <Properties>
         <Property name="text" type="java.lang.String" value="svswag@gmail.com"/>
       </Properties>
       <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="mailFocusLost"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="emailFieldFocusLost"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>

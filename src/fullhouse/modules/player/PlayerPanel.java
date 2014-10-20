@@ -6,6 +6,7 @@
 package fullhouse.modules.player;
 
 import fullhouse.Panel;
+import fullhouse.models.Player;
 import fullhouse.repositories.PlayerDbRepository;
 import java.awt.event.ActionEvent;
 import java.sql.Timestamp;
@@ -16,7 +17,7 @@ import java.sql.Timestamp;
  */
 public class PlayerPanel extends javax.swing.JPanel {
 
-    private PlayerDbRepository playerRepo = new PlayerDbRepository();
+    private PlayerDbRepository repository = new PlayerDbRepository();
     private Panel panel = new Panel();
 
     /**
@@ -125,21 +126,28 @@ public class PlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerButtonActionPerformed
-        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
-        playerRepo.addPlayer();
-        System.out.println(fullhouse.FullHouse.fromSqlDate(Timestamp.valueOf("2014-10-14 14:50:00.0")));
+        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(repository, 10));
         panel.toForm();
     }//GEN-LAST:event_addPlayerButtonActionPerformed
 
     private void savePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePlayerButtonActionPerformed
-        // TODO add your handling code here:
+        Player player = new Player();
+        PlayerFormPanel form = (PlayerFormPanel) subPanel;
+        
+        this.repository.add(form.getMap());
+        
+        // zie je die errors, wil die subPanel gewoon casten naar PlayerFormPanel zodat ik die firstNameField goed kan aanroepen
+        // subPanel is niet altijd form, in dit geval wel toch? in deze action..
+        // ja maar dat weet netbeans niet. daarom cast ik t.
+        // collection kan je niet naar form casten
+        // en netbeans weet niet of het coll of form is dus error. hmmm ja ok. Panel.getSubPanel() maken? (als t kan) probeer maar w8 ik push eerst en dan ff pullen PULL MAAR!!
         subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
         panel.toCollection();
     }//GEN-LAST:event_savePlayerButtonActionPerformed
 
     private void editPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPlayerButtonActionPerformed
         // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(playerRepo));
+        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(repository, 15));
         panel.toForm();
     }//GEN-LAST:event_editPlayerButtonActionPerformed
 
