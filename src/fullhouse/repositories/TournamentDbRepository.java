@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Guido
+ * @author Steve
  */
 public class TournamentDbRepository extends DbRepository<Tournament> {
 
