@@ -4,19 +4,34 @@
  */
 package fullhouse.modules.tournament;
 
+import fullhouse.models.Tournament;
+import fullhouse.repositories.TournamentDbRepository;
+
 /**
  *
  * @author steve
  */
 public class TournamentInfoPanel extends javax.swing.JPanel {
 
+    private final TournamentDbRepository tournamentRepo = new TournamentDbRepository();
+    private int id;
     /**
      * Creates new form TournamentFormPanel
      */
-    public TournamentInfoPanel() {
+    public TournamentInfoPanel(TournamentDbRepository repo, int id) {
         initComponents();
     }
 
+    public Tournament getMap(){
+        Tournament tournament = new Tournament();
+        tournament.setName(tournamentName.getText());
+        tournament.setEntryFee(Double.parseDouble(tournamentEntryFee.getText()));
+        tournament.setPlayerPerTable(Integer.parseInt(tournamentPlayerPerTable.getText()));
+        tournament.setRoundAmount(Integer.parseInt(tournamentRounds.getText()));
+        tournament.setPlace(tournamentPlace.getText());
+        
+        return tournament;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

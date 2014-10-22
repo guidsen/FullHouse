@@ -7,12 +7,16 @@
 package fullhouse.modules.tournament;
 
 import fullhouse.Panel;
+import fullhouse.models.Tournament;
+import fullhouse.repositories.TournamentDbRepository;
 
 /**
  *
  * @author Liam Hubers
  */
 public class TournamentPanel extends javax.swing.JPanel {
+    
+    private TournamentDbRepository repository = new TournamentDbRepository();
     private Panel panel = new Panel();
     
     /**
@@ -118,12 +122,17 @@ public class TournamentPanel extends javax.swing.JPanel {
 
     private void addTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTournamentButtonActionPerformed
         // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new TournamentInfoPanel());
+        subPanel = Panel.changeView(this, subPanel, new TournamentInfoPanel(repository, 10));
         panel.toForm();
     }//GEN-LAST:event_addTournamentButtonActionPerformed
 
     private void saveTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTournamentButtonActionPerformed
         // TODO add your handling code here:
+        Tournament tournament = new Tournament();
+        TournamentInfoPanel form = (TournamentInfoPanel) subPanel;
+        
+        this.repository.add(form.getMap());
+        
         subPanel = Panel.changeView(this, subPanel, new TournamentCollectionPanel());
         panel.toCollection();
     }//GEN-LAST:event_saveTournamentButtonActionPerformed
