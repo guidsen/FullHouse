@@ -6,6 +6,7 @@
 
 package fullhouse.modules.tournament;
 
+import fullhouse.repositories.TournamentDbRepository;
 import javax.swing.JLabel;
 import javax.swing.table.TableCellRenderer;
 
@@ -14,7 +15,8 @@ import javax.swing.table.TableCellRenderer;
  * @author Guido
  */
 public class TournamentCollectionPanel extends javax.swing.JPanel {
-
+    
+    private TournamentDbRepository repository = new TournamentDbRepository();
     /**
      * Creates new form TournamentCollectionPanel
      */
@@ -24,6 +26,8 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
         TableCellRenderer r = TournamentCollectionTable.getTableHeader().getDefaultRenderer();
         JLabel l = (JLabel) r;
         l.setHorizontalAlignment(JLabel.LEFT);
+        
+        this.repository.collection(TournamentCollectionTable);
     }
 
     /**
@@ -40,23 +44,12 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
 
         TournamentCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Toernooi #1", "Den Haag", "24 december 2014", "37/256"},
-                {"For the noobs #2", "Almere", "29 december 2014", "13/64"},
-                {"Toernooi #3", "Eindhoven", "5 januari 2015", "8/32"},
-                {"Bazen only #4", "Ypenburg", "19 februari 2015", "1/32"}
+
             },
             new String [] {
-                "Naam", "Plaats", "Datum", "Aantal spelers (ingeschreven/max)"
+                "Naam", "Plaats", "Datum", "Inschrijvingen(aantal/max)"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(TournamentCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
