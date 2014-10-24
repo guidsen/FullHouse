@@ -6,26 +6,33 @@
 package fullhouse.modules.player;
 
 import fullhouse.Panel;
+import fullhouse.exceptions.FormValidationException;
 import fullhouse.models.Player;
 import fullhouse.repositories.PlayerDbRepository;
+import fullhouse.validation.PlayerValidator;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.Timestamp;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
  * @author Liam Hubers
  */
 public class PlayerPanel extends javax.swing.JPanel {
-
+    
     private PlayerDbRepository repository = new PlayerDbRepository();
     private Panel panel = new Panel();
+    private String action;
+    private Player player;
 
     /**
      * Creates new form PlayerPanel
      */
     public PlayerPanel() {
         initComponents();
-
+        
         panel.initializeButtons(
                 new javax.swing.JButton[]{addPlayerButton, editPlayerButton, deletePlayerButton},
                 new javax.swing.JButton[]{playerCancelButton, savePlayerButton}
@@ -126,29 +133,44 @@ public class PlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerButtonActionPerformed
-        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(repository, 10));
+        this.action = "CREATE";
+        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel());
         panel.toForm();
     }//GEN-LAST:event_addPlayerButtonActionPerformed
 
     private void savePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePlayerButtonActionPerformed
-        Player player = new Player();
         PlayerFormPanel form = (PlayerFormPanel) subPanel;
         
-        this.repository.add(form.getMap());
-        
-        // zie je die errors, wil die subPanel gewoon casten naar PlayerFormPanel zodat ik die firstNameField goed kan aanroepen
-        // subPanel is niet altijd form, in dit geval wel toch? in deze action..
-        // ja maar dat weet netbeans niet. daarom cast ik t.
-        // collection kan je niet naar form casten
-        // en netbeans weet niet of het coll of form is dus error. hmmm ja ok. Panel.getSubPanel() maken? (als t kan) probeer maar w8 ik push eerst en dan ff pullen PULL MAAR!!
-        subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
-        panel.toCollection();
+        try {
+            new PlayerValidator().validate(form);
+            
+            if (this.action == "CREATE") {
+                this.repository.add(form.getValues());
+            } else if (this.action == "EDIT") {
+                this.repository.update(form.getValues());
+            }
+            
+            subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
+            panel.toCollection();
+        } catch (FormValidationException e) {
+            e.setErrors();
+        }
     }//GEN-LAST:event_savePlayerButtonActionPerformed
 
     private void editPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPlayerButtonActionPerformed
-        // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(repository, 15));
-        panel.toForm();
+        try {
+            PlayerCollectionPanel collection = (PlayerCollectionPanel) subPanel;
+            JTable table = collection.playerCollectionTable;
+            Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            
+            this.action = "EDIT";
+            this.player = selectedPlayer;
+            
+            subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(selectedPlayer));
+            panel.toForm();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(panel, "Selecteer aub een speler");
+        }
     }//GEN-LAST:event_editPlayerButtonActionPerformed
 
     private void deletePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePlayerButtonActionPerformed

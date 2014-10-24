@@ -6,6 +6,7 @@
 package fullhouse.repositories;
 
 import fullhouse.DataSource;
+import fullhouse.FullHouse;
 import fullhouse.models.Player;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,18 +34,28 @@ public class PlayerDbRepository extends DbRepository<Player> {
     public void add(Player player) {
         try {
             System.out.println("Add player.");
-            HashMap<String, Object> playerMap = new HashMap<>();
-            playerMap.put("first_name", player.getFirstName());
-            playerMap.put("last_name", player.getLastName());
-            playerMap.put("address", player.getAddress());
-            playerMap.put("phonenum", player.getPhoneNum());
-            playerMap.put("email", player.getEmail());
-
-            player.insert(playerMap);
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO player VALUES (0,?,?,?,?,?,?,?,?,?, default)");
+            stat.setString(1, player.getFirstName());
+            stat.setString(2, player.getMiddleName());
+            stat.setString(3, player.getLastName());
+            stat.setString(4, FullHouse.textToSqlDate(player.getDateOfBirth()));
+            stat.setString(5, player.getAddress());
+            stat.setString(6, player.getZipcode());
+            stat.setString(7, player.getCity());
+            stat.setString(8, player.getPhoneNum());
+            stat.setString(9, player.getEmail());
+            stat.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void update(Player player) {
+        System.out.println("Update player.");
+        System.out.println(player.toString());
+        System.out.println("id: " + player.getId());
     }
 
     public void collection(JTable table) {
@@ -60,8 +71,14 @@ public class PlayerDbRepository extends DbRepository<Player> {
                 player.setFirstName(rs.getString("first_name"));
                 player.setMiddleName(rs.getString("middle_name"));
                 player.setLastName(rs.getString("last_name"));
+                player.setDateOfBirth(FullHouse.fromSqlDate(rs.getDate("date_of_birth")));
+                player.setAddress(rs.getString("address"));
+                player.setZipcode(rs.getString("zipcode"));
+                player.setCity(rs.getString("city"));
+                player.setPhoneNum(rs.getString("phonenum"));
+                player.setEmail(rs.getString("email"));
                 player.setRating(rs.getInt("rating"));
-                
+
                 Vector row = new Vector();
                 row.addElement(player);
                 row.addElement(player.getRating());
