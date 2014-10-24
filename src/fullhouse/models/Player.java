@@ -22,9 +22,9 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     private String address;
     private String phoneNum;
     private String email;
+    private String city;
+    private String zipcode;
     private int rating;
-
-    public String[] guarded = {"rating"};
 
     @Override
     public PlayerDbRepository getRepository() {
@@ -103,6 +103,22 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
         this.rating = rating;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+    
     @Override
     public String toString()
     {
