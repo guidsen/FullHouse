@@ -17,8 +17,8 @@ public class PlayerValidator {
     public void validate(PlayerFormPanel form) throws FormValidationException {
         FormValidator validator = FormValidator.getInstance();
         validator.resetErrors();
-        validator.add(new Rule(form.firstNameField.getText(), form.firstNameValidationLabel).required().minLength(2));
-        validator.add(new Rule(form.lastNameField.getText(), form.lastNameValidationLabel).minLength(5));
+        validator.addTextField(form.firstNameField, form.firstNameValidationLabel).required().minLength(2);
+        validator.addTextField(form.lastNameField, form.lastNameValidationLabel).minLength(5);
 
         if (validator.getErrorCount() > 0) {
             throw new FormValidationException(validator.getErrors());

@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.layout.Border;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 /**
@@ -29,8 +31,15 @@ public class FormValidator {
         return instance;
     }
 
-    public void add(Rule rule) {
+    public Rule addTextField(javax.swing.JTextField field, JLabel label) {
+        Rule rule = new Rule(field.getText(), label);
+        
+        javax.swing.border.Border border = BorderFactory.createLineBorder(Color.RED, 1);
+        field.setBorder(border);
+        
         rules.add(rule);
+        
+        return rule;
     }
 
     public void addError(JLabel label, String message) {
