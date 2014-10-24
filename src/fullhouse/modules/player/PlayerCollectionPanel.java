@@ -29,10 +29,6 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
         JLabel l = (JLabel) r;
         l.setHorizontalAlignment(JLabel.LEFT);
 
-//        DefaultTableModel tableModel = (DefaultTableModel) playerCollectionTable.getModel();
-//        Vector row = new Vector();
-//        row.addElement("test");
-//        tableModel.addRow(row);
         this.repository.collection(playerCollectionTable);
 
     }
@@ -83,6 +79,6 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable playerCollectionTable;
+    protected javax.swing.JTable playerCollectionTable;
     // End of variables declaration//GEN-END:variables
 }
