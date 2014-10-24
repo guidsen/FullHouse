@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -82,5 +84,9 @@ public class FullHouse {
 
     public static String fromSqlDate(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
+    }
+    
+    public static void deleteRowFromTable(JTable table) {
+        ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
     }
 }
