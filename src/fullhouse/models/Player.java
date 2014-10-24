@@ -118,10 +118,13 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
-    
+
     @Override
-    public String toString()
-    {
-        return String.format("%s %s %s", this.getFirstName(), this.getMiddleName(), this.getLastName()); 
+    public String toString() {
+        if (middleName.isEmpty()) {
+            return String.format("%s %s", this.getFirstName(), this.getLastName());
+        } else {
+            return String.format("%s %s %s", this.getFirstName(), this.getMiddleName(), this.getLastName());
+        }
     }
 }
