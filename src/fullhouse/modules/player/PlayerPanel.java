@@ -21,7 +21,7 @@ import javax.swing.JTable;
  * @author Liam Hubers
  */
 public class PlayerPanel extends javax.swing.JPanel {
-    
+
     private PlayerDbRepository repository = new PlayerDbRepository();
     private Panel panel = new Panel();
     private String action;
@@ -32,7 +32,7 @@ public class PlayerPanel extends javax.swing.JPanel {
      */
     public PlayerPanel() {
         initComponents();
-        
+
         panel.initializeButtons(
                 new javax.swing.JButton[]{addPlayerButton, editPlayerButton, deletePlayerButton},
                 new javax.swing.JButton[]{playerCancelButton, savePlayerButton}
@@ -140,16 +140,16 @@ public class PlayerPanel extends javax.swing.JPanel {
 
     private void savePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePlayerButtonActionPerformed
         PlayerFormPanel form = (PlayerFormPanel) subPanel;
-        
+
         try {
             new PlayerValidator().validate(form);
-            
+
             if (this.action == "CREATE") {
                 this.repository.add(form.getValues());
             } else if (this.action == "EDIT") {
-                this.repository.update(form.getValues());
+                this.repository.update(form.getValues(this.player.getId()));
             }
-            
+
             subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
             panel.toCollection();
         } catch (FormValidationException e) {
@@ -162,10 +162,10 @@ public class PlayerPanel extends javax.swing.JPanel {
             PlayerCollectionPanel collection = (PlayerCollectionPanel) subPanel;
             JTable table = collection.playerCollectionTable;
             Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
-            
+
             this.action = "EDIT";
             this.player = selectedPlayer;
-            
+
             subPanel = Panel.changeView(this, subPanel, new PlayerFormPanel(selectedPlayer));
             panel.toForm();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -174,7 +174,14 @@ public class PlayerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_editPlayerButtonActionPerformed
 
     private void deletePlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePlayerButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            PlayerCollectionPanel collection = (PlayerCollectionPanel) subPanel;
+            JTable table = collection.playerCollectionTable;
+            Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            this.repository.delete(selectedPlayer.getId(), table);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(panel, "Selecteer aub een speler");
+        }
     }//GEN-LAST:event_deletePlayerButtonActionPerformed
 
     private void playerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerCancelButtonActionPerformed

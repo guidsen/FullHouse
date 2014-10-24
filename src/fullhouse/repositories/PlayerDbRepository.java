@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
@@ -53,9 +54,26 @@ public class PlayerDbRepository extends DbRepository<Player> {
     }
 
     public void update(Player player) {
-        System.out.println("Update player.");
-        System.out.println(player.toString());
-        System.out.println("id: " + player.getId());
+        try {
+            System.out.println("Update player.");
+            Connection conn = DataSource.getConnection();
+            String queryString = "UPDATE player SET first_name=?,middle_name=?,last_name=?,date_of_birth=?,address=?,zipcode=?,city=?,phonenum=?,email=? WHERE player_id=?";
+            PreparedStatement stat = conn.prepareStatement(queryString);
+            stat.setString(1, player.getFirstName());
+            stat.setString(2, player.getMiddleName());
+            stat.setString(3, player.getLastName());
+            stat.setString(4, FullHouse.textToSqlDate(player.getDateOfBirth()));
+            stat.setString(5, player.getAddress());
+            stat.setString(6, player.getZipcode());
+            stat.setString(7, player.getCity());
+            stat.setString(8, player.getPhoneNum());
+            stat.setString(9, player.getEmail());
+            stat.setInt(10, player.getId());
+            stat.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void collection(JTable table) {
@@ -87,6 +105,20 @@ public class PlayerDbRepository extends DbRepository<Player> {
 
             table.setModel(tableModel);
 
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void delete(int id, JTable table) {
+        try {
+            System.out.println("Delete player.");
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("DELETE FROM player WHERE player_id = ?");
+            stat.setInt(1, id);
+            stat.executeUpdate();
+            
+            FullHouse.deleteRowFromTable(table);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
