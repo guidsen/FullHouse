@@ -28,7 +28,9 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
         TableCellRenderer r = playerCollectionTable.getTableHeader().getDefaultRenderer();
         JLabel l = (JLabel) r;
         l.setHorizontalAlignment(JLabel.LEFT);
-
+        
+        playerCollectionTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
         this.repository.collection(playerCollectionTable);
 
     }
