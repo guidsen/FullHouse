@@ -9,7 +9,6 @@ import fullhouse.modules.HomeFrame;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -71,23 +70,28 @@ public class FullHouse {
         String year = dateString.substring(6, 10);
         return year + "-" + month + "-" + day;
     }
+    
+    public static String textToSqlDateTime(String dateString) {
+        String day = dateString.substring(0, 2);
+        String month = dateString.substring(3, 5);
+        String year = dateString.substring(6, 10);
+        String hours = dateString.substring(11, 13);
+        String minutes = dateString.substring(14, 16);
+        return year + "-" + month + "-" + day + " " + hours + ":" + minutes;
+    }
 
-    public static String fromSqlDate(Timestamp date) {
+    public static String fromSqlDateTime(Timestamp date) {
         return new SimpleDateFormat("dd-MM-YYYY HH:mm").format(date);
     }
 
     public static String fromSqlDate(Date date) {
         return new SimpleDateFormat("dd-MM-YYYY").format(date);
     }
-
-    public static String fromSqlDate(Timestamp date, String format) {
-        return new SimpleDateFormat(format).format(date);
-    }
-
-    public static String fromSqlDate(Date date, String format) {
-        return new SimpleDateFormat(format).format(date);
-    }
     
+    public static String fromSqlDateTime(Timestamp date, String format) {
+        return new SimpleDateFormat(format).format(date);
+    }
+
     public static void deleteRowFromTable(JTable table) {
         ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
     }
