@@ -36,5 +36,14 @@ public class Rule {
         }
         return this;
     }
+    
+    public Rule email() throws FormValidationException {
+        if(input.contains("@")){
+            return this;
+        }else{
+            validator.addError(label, "Email moet @ bevatten");
+        }
+        return this;
+    }
 
 }

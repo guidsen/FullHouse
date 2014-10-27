@@ -54,6 +54,7 @@ public class TournamentInfoPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         tournamentRounds = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        tournamentNameValidationLabel = new javax.swing.JLabel();
 
         jLabel1.setText("Naam");
 
@@ -91,16 +92,20 @@ public class TournamentInfoPanel extends javax.swing.JPanel {
                     .addComponent(tournamentPlace)
                     .addComponent(tournamentRounds, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tournamentNameValidationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tournamentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(tournamentName))
+                    .addComponent(tournamentNameValidationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -135,7 +140,8 @@ public class TournamentInfoPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField tournamentDate;
     private javax.swing.JTextField tournamentEntryFee;
-    private javax.swing.JTextField tournamentName;
+    public javax.swing.JTextField tournamentName;
+    public javax.swing.JLabel tournamentNameValidationLabel;
     private javax.swing.JTextField tournamentPlace;
     private javax.swing.JTextField tournamentPlayerPerTable;
     private javax.swing.JTextField tournamentRounds;

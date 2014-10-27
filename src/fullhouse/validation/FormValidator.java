@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
