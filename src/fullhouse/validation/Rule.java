@@ -36,58 +36,42 @@ public class Rule {
         }
         return this;
     }
-    
+
     public Rule maxLength(int length) throws FormValidationException {
         if (input.length() > length) {
             validator.addError(label, "Dit veld mag maximaal een lengte van " + length + "hebben.");
         }
         return this;
     }
-    
+
     public Rule email() throws FormValidationException {
         regex("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", "Dit is geen geldig e-mail adres.");
         return this;
     }
-    
+
     public Rule date(String format) throws FormValidationException {
         String[] parts = format.split("(?!d|m|Y|H|i|s)");
 
-        if(format.length() == input.length()){
-            for(String part : parts){
+        if (format.length() == input.length()) {
+            for (String part : parts) {
                 int begin = format.indexOf(part);
                 int end = begin + part.length();
-                if(begin != 0){
-                    begin++;
-                }
-                try{
+                if (begin != 0) begin++;
+                
+                try {
                     int parser = Integer.parseInt(input.substring(begin, end));
-                    
-                    switch(format.substring(begin, end)){
-                        case "dd":
-                            if(parser > 31){
-                                validator.addError(label, "Een maand heeft maximaal 31 dagen.");
-                            }
-                            break;
-                        case "mm":
-                            if(parser > 12){
-                                validator.addError(label, "Een jaar heeft maar 12 maanden.");
-                            }
-                            break;
-                        case "HH":
-                            if(parser > 23){
-                                validator.addError(label, "Een dag heeft maar 24 uur.");
-                            }
-                            break;
-                        case "ii":
-                            if(parser > 59){
-                                validator.addError(label, "Een uur heeft maar 60 minuten.");
-                            }
-                            break;
-                        case "ss":
-                            if(parser > 59){
-                                validator.addError(label, "Een minuut heeft maar 60 seconden.");
-                            }
-                            break;
+                    String formatPart = format.substring(begin, end);
+
+                    if(formatPart == "dd") {
+                        if (parser > 31) validator.addError(label, "Een maand heeft maximaal 31 dagen.");
+                    } else if(formatPart == "mm") {
+                        if (parser > 12) validator.addError(label, "Een jaar heeft maar 12 maanden.");
+                    } else if(formatPart == "HH") {
+                        if (parser > 23) validator.addError(label, "Een dag heeft maar 24 uur.");
+                    } else if(formatPart == "ii") {
+                        if (parser > 59) validator.addError(label, "Een uur heeft maar 60 minuten.");
+                    } else if(formatPart == "ss") {
+                        if (parser > 59) validator.addError(label, "Een minuut heeft maar 60 seconden.");
                     }
                 } catch(Exception e){
                     validator.addError(label, "U heeft geen geldige datum ingevoerd.");
@@ -97,19 +81,19 @@ public class Rule {
             System.out.println("asd");
             validator.addError(label, "U heeft geen geldige datum ingevoerd.");
         }
-        
+
         return this;
     }
-    
+
     public Rule phonenumber() throws FormValidationException {
-        
+
         return this;
     }
-    
+
     public Rule numeric() throws FormValidationException {
-        try{
+        try {
             Integer.parseInt(input);
-        } catch(Exception e) {
+        } catch (Exception e) {
             validator.addError(label, "Dit is geen getal.");
         }
         return this;
@@ -121,12 +105,12 @@ public class Rule {
             
         }
     }
-    
+
     public Rule alpha() throws FormValidationException {
         regex("[a-zA-Z]+$", "U mag alleen letters gebruiken.");
         return this;
     }
-    
+
     public Rule money() throws FormValidationException {
         regex("^(((\\d{1,3})(.\\d{3})*)|(\\d+))(,\\d+)?$", "Dit is geen geldig bedrag.");
         return this;
