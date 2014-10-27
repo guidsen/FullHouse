@@ -23,11 +23,11 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
     public TournamentCollectionPanel() {
         initComponents();
         
-        TableCellRenderer r = TournamentCollectionTable.getTableHeader().getDefaultRenderer();
+        TableCellRenderer r = tournamentCollectionTable.getTableHeader().getDefaultRenderer();
         JLabel l = (JLabel) r;
         l.setHorizontalAlignment(JLabel.LEFT);
         
-        this.repository.collection(TournamentCollectionTable);
+        this.repository.collection(tournamentCollectionTable);
     }
 
     /**
@@ -40,9 +40,9 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        TournamentCollectionTable = new javax.swing.JTable();
+        tournamentCollectionTable = new javax.swing.JTable();
 
-        TournamentCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
+        tournamentCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -50,7 +50,7 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
                 "Naam", "Plaats", "Datum", "Inschrijvingen(aantal/max)"
             }
         ));
-        jScrollPane1.setViewportView(TournamentCollectionTable);
+        jScrollPane1.setViewportView(tournamentCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -66,7 +66,7 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TournamentCollectionTable;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable tournamentCollectionTable;
     // End of variables declaration//GEN-END:variables
 }
