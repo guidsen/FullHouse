@@ -19,7 +19,7 @@ public class TournamentTabsPanel extends javax.swing.JPanel {
     public TournamentTabsPanel() {
         initComponents();
         
-        jTabbedPane1.addTab("Gegevens", new TournamentInfoPanel(repository, 10));
+        jTabbedPane1.addTab("Gegevens", new TournamentFormPanel());
         jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutPanel());
         jTabbedPane1.addTab("Uitslag", new TournamentResultsPanel());
     }
