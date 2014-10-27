@@ -117,10 +117,32 @@ public class PlayerDbRepository extends DbRepository<Player> {
             PreparedStatement stat = conn.prepareStatement("DELETE FROM player WHERE player_id = ?");
             stat.setInt(1, id);
             stat.executeUpdate();
-            
+
             FullHouse.deleteRowFromTable(table);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ArrayList<Player> getLeaders() {
+        ArrayList<Player> leaders = new ArrayList<>();
+        try {
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM player WHERE teacher = 1");
+            ResultSet rs = stat.executeQuery();
+
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+
+                leaders.add(player);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return leaders;
     }
 }
