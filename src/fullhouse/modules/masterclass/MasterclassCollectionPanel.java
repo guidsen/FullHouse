@@ -4,6 +4,7 @@
  */
 package fullhouse.modules.masterclass;
 
+import fullhouse.repositories.MasterclassDbRepository;
 import javax.swing.JLabel;
 import javax.swing.table.TableCellRenderer;
 
@@ -13,15 +14,21 @@ import javax.swing.table.TableCellRenderer;
  */
 public class MasterclassCollectionPanel extends javax.swing.JPanel {
 
+    private MasterclassDbRepository repository = new MasterclassDbRepository();
+    
     /**
      * Creates new form MasterclassCollectionPanel
      */
     public MasterclassCollectionPanel() {
         initComponents();
         
-        TableCellRenderer r = MasterclassCollectionTable.getTableHeader().getDefaultRenderer();
+        TableCellRenderer r = masterclassCollectionTable.getTableHeader().getDefaultRenderer();
         JLabel l = (JLabel) r;
         l.setHorizontalAlignment(JLabel.LEFT);
+        
+        masterclassCollectionTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
+        this.repository.collection(masterclassCollectionTable);
     }
 
     /**
@@ -34,18 +41,17 @@ public class MasterclassCollectionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        MasterclassCollectionTable = new javax.swing.JTable();
+        masterclassCollectionTable = new javax.swing.JTable();
 
-        MasterclassCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
+        masterclassCollectionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Noobs les geven", "2 januari 2015", "5", "800"},
-                {"Tips voor de pros", "19 januari 2015", "9", "1400"}
+
             },
             new String [] {
                 "Naam", "Datum", "Aantal inschrijvingen", "Minimum rating"
             }
         ));
-        jScrollPane1.setViewportView(MasterclassCollectionTable);
+        jScrollPane1.setViewportView(masterclassCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -59,7 +65,7 @@ public class MasterclassCollectionPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable MasterclassCollectionTable;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable masterclassCollectionTable;
     // End of variables declaration//GEN-END:variables
 }

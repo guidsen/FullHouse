@@ -33,26 +33,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="MasterclassCollectionTable">
+        <Component class="javax.swing.JTable" name="masterclassCollectionTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="2">
-                <Column editable="true" title="Naam" type="java.lang.Object">
-                  <Data value="Noobs les geven"/>
-                  <Data value="Tips voor de pros"/>
-                </Column>
-                <Column editable="true" title="Datum" type="java.lang.Object">
-                  <Data value="2 januari 2015"/>
-                  <Data value="19 januari 2015"/>
-                </Column>
-                <Column editable="true" title="Aantal inschrijvingen" type="java.lang.Object">
-                  <Data value="5"/>
-                  <Data value="9"/>
-                </Column>
-                <Column editable="true" title="Minimum rating" type="java.lang.Object">
-                  <Data value="800"/>
-                  <Data value="1400"/>
-                </Column>
+              <Table columnCount="4" rowCount="0">
+                <Column editable="true" title="Naam" type="java.lang.Object"/>
+                <Column editable="true" title="Datum" type="java.lang.Object"/>
+                <Column editable="true" title="Aantal inschrijvingen" type="java.lang.Object"/>
+                <Column editable="true" title="Minimum rating" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -78,6 +66,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

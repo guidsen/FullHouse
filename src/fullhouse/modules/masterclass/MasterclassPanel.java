@@ -5,13 +5,22 @@
 package fullhouse.modules.masterclass;
 
 import fullhouse.Panel;
+import fullhouse.exceptions.FormValidationException;
+import fullhouse.models.Masterclass;
+import fullhouse.repositories.MasterclassDbRepository;
+import fullhouse.validation.MasterclassValidator;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
  * @author steve
  */
 public class MasterclassPanel extends javax.swing.JPanel {
+    private MasterclassDbRepository repository = new MasterclassDbRepository();
     private Panel panel = new Panel();
+    private String action;
+    private Masterclass masterclass;
     /**
      * Creates new form MasterClassPanel
      */
@@ -48,6 +57,11 @@ public class MasterclassPanel extends javax.swing.JPanel {
         });
 
         deleteMasterclassButton.setText("Verwijder masterclass");
+        deleteMasterclassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMasterclassButtonActionPerformed(evt);
+            }
+        });
 
         addMasterclassButton.setText("Voeg masterclass toe");
         addMasterclassButton.addActionListener(new java.awt.event.ActionListener() {
@@ -113,28 +127,61 @@ public class MasterclassPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMasterclassButtonActionPerformed
-        subPanel = Panel.changeView(this, subPanel, new fullhouse.modules.masterclass.MasterClassFormPanel());
+        this.action = "CREATE";
+        subPanel = Panel.changeView(this, subPanel, new fullhouse.modules.masterclass.MasterclassFormPanel());
         panel.toForm();
     }//GEN-LAST:event_addMasterclassButtonActionPerformed
 
     private void editMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMasterclassButtonActionPerformed
-        // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new fullhouse.modules.masterclass.MasterClassFormPanel());
-        panel.toForm();
-        
+        try {
+            MasterclassCollectionPanel collection = (MasterclassCollectionPanel) subPanel;
+            JTable table = collection.masterclassCollectionTable;
+            Masterclass selectedMasterclass = (Masterclass) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+
+            this.action = "EDIT";
+            this.masterclass = selectedMasterclass;
+
+            subPanel = Panel.changeView(this, subPanel, new MasterclassFormPanel(selectedMasterclass));
+            panel.toForm();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(panel, "Selecteer aub een masterclass");
+        }
     }//GEN-LAST:event_editMasterclassButtonActionPerformed
 
     private void saveMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMasterclassButtonActionPerformed
-        // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new fullhouse.modules.masterclass.MasterclassCollectionPanel());
-        panel.toCollection();
+        MasterclassFormPanel form = (MasterclassFormPanel) subPanel;
+
+        try {
+            new MasterclassValidator().validate(form);
+
+            if (this.action == "CREATE") {
+                this.repository.add(form.getValues());
+            } else if (this.action == "EDIT") {
+                this.repository.update(form.getValues(this.masterclass.getId()));
+            }
+
+            subPanel = Panel.changeView(this, subPanel, new MasterclassCollectionPanel());
+            panel.toCollection();
+        } catch (FormValidationException e) {
+            e.setErrors();
+        }
     }//GEN-LAST:event_saveMasterclassButtonActionPerformed
 
     private void cancelMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelMasterclassButtonActionPerformed
-        // TODO add your handling code here:
         subPanel = Panel.changeView(this, subPanel, new fullhouse.modules.masterclass.MasterclassCollectionPanel());
         panel.toCollection();
     }//GEN-LAST:event_cancelMasterclassButtonActionPerformed
+
+    private void deleteMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMasterclassButtonActionPerformed
+        try {
+            MasterclassCollectionPanel collection = (MasterclassCollectionPanel) subPanel;
+            JTable table = collection.masterclassCollectionTable;
+            Masterclass selectedMasterclass = (Masterclass) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            this.repository.delete(selectedMasterclass.getId(), table);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(panel, "Selecteer aub een masterclass");
+        }
+    }//GEN-LAST:event_deleteMasterclassButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMasterclassButton;
