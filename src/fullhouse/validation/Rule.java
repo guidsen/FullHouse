@@ -65,13 +65,13 @@ public class Rule {
                     if(formatPart == "dd") {
                         if (parser > 31) validator.addError(label, "Een maand heeft maximaal 31 dagen.");
                     } else if(formatPart == "mm") {
-                        if (parser > 12) validator.addError(label, "Een jaar heeft maar 12 maanden.");
+                        if (parser > 12) validator.addError(label, "Een jaar heeft 12 maanden.");
                     } else if(formatPart == "HH") {
-                        if (parser > 23) validator.addError(label, "Een dag heeft maar 24 uur.");
+                        if (parser > 23) validator.addError(label, "Een dag heeft 24 uur.");
                     } else if(formatPart == "ii") {
-                        if (parser > 59) validator.addError(label, "Een uur heeft maar 60 minuten.");
+                        if (parser > 59) validator.addError(label, "Een uur heeft 60 minuten.");
                     } else if(formatPart == "ss") {
-                        if (parser > 59) validator.addError(label, "Een minuut heeft maar 60 seconden.");
+                        if (parser > 59) validator.addError(label, "Een minuut heeft 60 seconden.");
                     }
                 } catch(Exception e){
                     validator.addError(label, "U heeft geen geldige datum ingevoerd.");
@@ -102,12 +102,16 @@ public class Rule {
     public void regex(String regex, String error) throws FormValidationException {
         if(!input.matches(regex)){
             validator.addError(label, error);
-            
         }
     }
 
     public Rule alpha() throws FormValidationException {
         regex("[a-zA-Z]+$", "U mag alleen letters gebruiken.");
+        return this;
+    }
+    
+    public Rule zipcode() throws FormValidationException {
+        // Moet nog worden gemaakt. 1234AB alleen mogelijk.
         return this;
     }
 
