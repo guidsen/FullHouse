@@ -6,6 +6,7 @@
 package fullhouse.repositories;
 
 import fullhouse.DataSource;
+import fullhouse.FullHouse;
 import fullhouse.models.Tournament;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,11 +36,31 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             HashMap<String, Object> tournamentMap = new HashMap<>();
             tournamentMap.put("name", tournament.getName());
             tournamentMap.put("entry_fee", tournament.getEntryFee());
-            tournamentMap.put("player_per_table", tournament.getPlayerPerTable());
+            tournamentMap.put("players_per_table", tournament.getPlayersPerTable());
             tournamentMap.put("round_amount", tournament.getRoundAmount());
             tournamentMap.put("place", tournament.getPlace());
 
             tournament.insert(tournamentMap);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void update(Tournament tournament) {
+        try {
+            System.out.println("Update tournament.");
+            Connection conn = DataSource.getConnection();
+            String queryString = "UPDATE tournament SET name=?,date=?,entry_fee=?,players_per_table=?,round_amount=?,place=? WHERE tournament_id=?";
+            PreparedStatement stat = conn.prepareStatement(queryString);
+            stat.setString(1, tournament.getName());
+            stat.setString(2, FullHouse.textToSqlDate(tournament.getDate()));
+            stat.setDouble(3, tournament.getEntryFee());
+            stat.setInt(4, tournament.getPlayersPerTable());
+            stat.setInt(5, tournament.getRoundAmount());
+            stat.setString(6, tournament.getPlace());
+            stat.setInt(7, tournament.getId());
+            stat.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,12 +79,12 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
                 tournament.setId(rs.getInt("tournament_id"));
                 tournament.setName(rs.getString("name"));
                 tournament.setEntryFee(rs.getDouble("entry_fee"));
-                tournament.setPlayerPerTable(rs.getInt("player_per_table"));
+                tournament.setPlayersPerTable(rs.getInt("players_per_table"));
                 tournament.setRoundAmount(rs.getInt("round_amount"));
                 tournament.setPlace(rs.getString("place"));
                 
                 Vector row = new Vector();
-                row.addElement(tournament.getName());
+                row.addElement(tournament);
                 row.addElement(tournament.getPlace());
                 tableModel.addRow(row);
             }
