@@ -45,10 +45,11 @@ public class Rule {
     }
     
     public Rule email() throws FormValidationException {
-        if(input.contains("@")){
+        String emailreg = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        if(input.matches(emailreg)){
             return this;
         }else{
-            validator.addError(label, "Email moet @ bevatten");
+            validator.addError(label, "Email klopt niet.");
         }
         return this;
     }
