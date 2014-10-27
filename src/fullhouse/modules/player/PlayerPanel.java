@@ -35,7 +35,7 @@ public class PlayerPanel extends javax.swing.JPanel {
 
         panel.initializeButtons(
                 new javax.swing.JButton[]{addPlayerButton, editPlayerButton, deletePlayerButton},
-                new javax.swing.JButton[]{playerCancelButton, savePlayerButton}
+                new javax.swing.JButton[]{cancelPlayerButton, savePlayerButton}
         );
     }
 
@@ -53,7 +53,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         editPlayerButton = new javax.swing.JButton();
         savePlayerButton = new javax.swing.JButton();
         subPanel = new javax.swing.JPanel();
-        playerCancelButton = new javax.swing.JButton();
+        cancelPlayerButton = new javax.swing.JButton();
 
         deletePlayerButton.setText("Verwijder speler");
         deletePlayerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -94,10 +94,10 @@ public class PlayerPanel extends javax.swing.JPanel {
             .addGap(0, 359, Short.MAX_VALUE)
         );
 
-        playerCancelButton.setText("Annuleer");
-        playerCancelButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelPlayerButton.setText("Annuleer");
+        cancelPlayerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playerCancelButtonActionPerformed(evt);
+                cancelPlayerButtonActionPerformed(evt);
             }
         });
 
@@ -114,7 +114,7 @@ public class PlayerPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(savePlayerButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(playerCancelButton)
+                .addComponent(cancelPlayerButton)
                 .addContainerGap(386, Short.MAX_VALUE))
             .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -126,7 +126,7 @@ public class PlayerPanel extends javax.swing.JPanel {
                     .addComponent(editPlayerButton)
                     .addComponent(deletePlayerButton)
                     .addComponent(savePlayerButton)
-                    .addComponent(playerCancelButton))
+                    .addComponent(cancelPlayerButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -184,17 +184,16 @@ public class PlayerPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deletePlayerButtonActionPerformed
 
-    private void playerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerCancelButtonActionPerformed
-        // TODO add your handling code here:
+    private void cancelPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelPlayerButtonActionPerformed
         subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
         panel.toCollection();
-    }//GEN-LAST:event_playerCancelButtonActionPerformed
+    }//GEN-LAST:event_cancelPlayerButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPlayerButton;
+    private javax.swing.JButton cancelPlayerButton;
     private javax.swing.JButton deletePlayerButton;
     private javax.swing.JButton editPlayerButton;
-    private javax.swing.JButton playerCancelButton;
     private javax.swing.JButton savePlayerButton;
     public javax.swing.JPanel subPanel;
     // End of variables declaration//GEN-END:variables

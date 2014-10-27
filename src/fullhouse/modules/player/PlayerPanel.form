@@ -25,7 +25,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="savePlayerButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="playerCancelButton" min="-2" max="-2" attributes="0"/>
+              <Component id="cancelPlayerButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="386" max="32767" attributes="0"/>
           </Group>
           <Component id="subPanel" alignment="0" max="32767" attributes="0"/>
@@ -39,7 +39,7 @@
                   <Component id="editPlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="deletePlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="savePlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="playerCancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelPlayerButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="subPanel" max="32767" attributes="0"/>
@@ -98,12 +98,12 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JButton" name="playerCancelButton">
+    <Component class="javax.swing.JButton" name="cancelPlayerButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Annuleer"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playerCancelButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelPlayerButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
