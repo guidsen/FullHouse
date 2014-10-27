@@ -3,32 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fullhouse.modules.tournament;
 
 import fullhouse.Panel;
+import fullhouse.exceptions.FormValidationException;
 import fullhouse.models.Tournament;
 import fullhouse.repositories.TournamentDbRepository;
+import fullhouse.validation.TournamentValidator;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
  * @author Liam Hubers
  */
 public class TournamentPanel extends javax.swing.JPanel {
-    
+
     private TournamentDbRepository repository = new TournamentDbRepository();
     private Panel panel = new Panel();
-    
+    private String action;
+    private Tournament tournament;
+
     /**
      * Creates new form TournamentPanel
      */
-    
     public TournamentPanel() {
         initComponents();
-        
+
         panel.initializeButtons(
-            new javax.swing.JButton[] { addTournamentButton, editTournamentButton, deleteTournamentButton },
-            new javax.swing.JButton[] { cancelTournamentButton, saveTournamentButton }  
+                new javax.swing.JButton[]{addTournamentButton, editTournamentButton, deleteTournamentButton},
+                new javax.swing.JButton[]{cancelTournamentButton, saveTournamentButton}
         );
     }
 
@@ -121,20 +125,28 @@ public class TournamentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTournamentButtonActionPerformed
-        // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new TournamentInfoPanel(repository, 10));
+        this.action = "CREATE";
+        subPanel = Panel.changeView(this, subPanel, new TournamentFormPanel());
         panel.toForm();
     }//GEN-LAST:event_addTournamentButtonActionPerformed
 
     private void saveTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTournamentButtonActionPerformed
-        // TODO add your handling code here:
-        Tournament tournament = new Tournament();
-        TournamentInfoPanel form = (TournamentInfoPanel) subPanel;
-        
-        this.repository.add(form.getMap());
-        
-        subPanel = Panel.changeView(this, subPanel, new TournamentCollectionPanel());
-        panel.toCollection();
+        TournamentFormPanel form = (TournamentFormPanel) subPanel;
+
+        try {
+            new TournamentValidator().validate(form);
+
+            if (this.action == "CREATE") {
+                this.repository.add(form.getValues());
+            } else if (this.action == "EDIT") {
+                this.repository.update(form.getValues(this.tournament.getId()));
+            }
+
+            subPanel = Panel.changeView(this, subPanel, new TournamentCollectionPanel());
+            panel.toCollection();
+        } catch (FormValidationException e) {
+            e.setErrors();
+        }
     }//GEN-LAST:event_saveTournamentButtonActionPerformed
 
     private void cancelTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelTournamentButtonActionPerformed
@@ -144,9 +156,19 @@ public class TournamentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelTournamentButtonActionPerformed
 
     private void editTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTournamentButtonActionPerformed
-        // TODO add your handling code here:
-        subPanel = Panel.changeView(this, subPanel, new TournamentTabsPanel());
-        panel.toForm();
+        try {
+            TournamentCollectionPanel collection = (TournamentCollectionPanel) subPanel;
+            JTable table = collection.tournamentCollectionTable;
+            Tournament selectedTournament = (Tournament) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            System.out.println("Edit tournament.");
+            this.action = "EDIT";
+            this.tournament = selectedTournament;
+            
+            subPanel = Panel.changeView(this, subPanel, new TournamentFormPanel(selectedTournament));
+            panel.toForm();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(panel, "Selecteer aub een toernooi");
+        }
     }//GEN-LAST:event_editTournamentButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
