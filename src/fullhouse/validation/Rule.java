@@ -25,37 +25,27 @@ public class Rule {
 
     public Rule required() throws FormValidationException {
         if (input.isEmpty()) {
-            validator.addError(label, "Veld is verplicht");
+            validator.addError(label, "Dit is een verplicht veld.");
         }
         return this;
     }
 
     public Rule minLength(int length) throws FormValidationException {
         if (input.length() < length) {
-            validator.addError(label, "Minimale lengte van " + length);
+            validator.addError(label, "Dit veld moet een lengte van minimaal " + length + "hebben.");
         }
         return this;
     }
     
     public Rule maxLength(int length) throws FormValidationException {
         if (input.length() > length) {
-            validator.addError(label, "Minimale lengte van " + length);
+            validator.addError(label, "Dit veld mag maximaal een lengte van " + length + "hebben.");
         }
         return this;
     }
     
     public Rule email() throws FormValidationException {
-        String mailreg = 
-	"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-	+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        
-        if(input.matches(mailreg)){
-            return this;
-        }
-        else{
-            validator.addError(label, "Email klopt niet" + mailreg);
-        }
-        
+        regex("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", "Dit is geen geldig e-mail adres.");
         return this;
     }
     
@@ -100,12 +90,12 @@ public class Rule {
                             break;
                     }
                 } catch(Exception e){
-                    validator.addError(label, "Ongeldige datum.");
+                    validator.addError(label, "U heeft geen geldige datum ingevoerd.");
                 }
             }
         } else {
             System.out.println("asd");
-            validator.addError(label, "Ongeldige datum.");
+            validator.addError(label, "U heeft geen geldige datum ingevoerd.");
         }
         
         return this;
@@ -125,23 +115,20 @@ public class Rule {
         return this;
     }
     
-    public Rule regex(String regex, String error) throws FormValidationException {
-        
-        return this;
+    public void regex(String regex, String error) throws FormValidationException {
+        if(!input.matches(regex)){
+            validator.addError(label, error);
+            
+        }
     }
     
     public Rule alpha() throws FormValidationException {
-        
+        regex("[a-zA-Z]+$", "U mag alleen letters gebruiken.");
         return this;
     }
     
     public Rule money() throws FormValidationException {
-        
-        return this;
-    }
-    
-    public Rule bool() throws FormValidationException {
-        
+        regex("^(((\\d{1,3})(.\\d{3})*)|(\\d+))(,\\d+)?$", "Dit is geen geldig bedrag");
         return this;
     }
 }
