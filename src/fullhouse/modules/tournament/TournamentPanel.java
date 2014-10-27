@@ -60,6 +60,11 @@ public class TournamentPanel extends javax.swing.JPanel {
         });
 
         deleteTournamentButton.setText("Verwijder toernooi");
+        deleteTournamentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteTournamentButtonActionPerformed(evt);
+            }
+        });
 
         addTournamentButton.setText("Voeg toernooi toe");
         addTournamentButton.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +175,17 @@ public class TournamentPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een toernooi");
         }
     }//GEN-LAST:event_editTournamentButtonActionPerformed
+
+    private void deleteTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTournamentButtonActionPerformed
+        try {
+            TournamentCollectionPanel collection = (TournamentCollectionPanel) subPanel;
+            JTable table = collection.tournamentCollectionTable;
+            Tournament selectedTournament = (Tournament) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            this.repository.delete(selectedTournament.getId(), table);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(panel, "Selecteer aub een toernooi");
+        }
+    }//GEN-LAST:event_deleteTournamentButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTournamentButton;
