@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,21 +31,22 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
 
     public void add(Tournament tournament) {
         try {
-            System.out.println("Add tournament");
-            HashMap<String, Object> tournamentMap = new HashMap<>();
-            tournamentMap.put("name", tournament.getName());
-            tournamentMap.put("entry_fee", tournament.getEntryFee());
-            tournamentMap.put("players_per_table", tournament.getPlayersPerTable());
-            tournamentMap.put("round_amount", tournament.getRoundAmount());
-            tournamentMap.put("place", tournament.getPlace());
-
-            tournament.insert(tournamentMap);
+            System.out.println("Add tournament.");
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO tournament VALUES (0,?,?,?,?,?,default,?)");
+            stat.setString(1, tournament.getName());
+            stat.setString(2, FullHouse.textToSqlDateTime(tournament.getDate()));
+            stat.setDouble(3, tournament.getEntryFee());
+            stat.setInt(4, tournament.getPlayersPerTable());
+            stat.setInt(5, tournament.getRoundAmount());
+            stat.setString(6, tournament.getPlace());
+            stat.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void update(Tournament tournament) {
         try {
             System.out.println("Update tournament.");
@@ -54,7 +54,7 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             String queryString = "UPDATE tournament SET name=?,date=?,entry_fee=?,players_per_table=?,round_amount=?,place=? WHERE tournament_id=?";
             PreparedStatement stat = conn.prepareStatement(queryString);
             stat.setString(1, tournament.getName());
-            stat.setString(2, FullHouse.textToSqlDate(tournament.getDate()));
+            stat.setString(2, FullHouse.textToSqlDateTime(tournament.getDate()));
             stat.setDouble(3, tournament.getEntryFee());
             stat.setInt(4, tournament.getPlayersPerTable());
             stat.setInt(5, tournament.getRoundAmount());
@@ -78,11 +78,12 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
                 Tournament tournament = new Tournament();
                 tournament.setId(rs.getInt("tournament_id"));
                 tournament.setName(rs.getString("name"));
+                tournament.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
                 tournament.setEntryFee(rs.getDouble("entry_fee"));
                 tournament.setPlayersPerTable(rs.getInt("players_per_table"));
                 tournament.setRoundAmount(rs.getInt("round_amount"));
                 tournament.setPlace(rs.getString("place"));
-                
+
                 Vector row = new Vector();
                 row.addElement(tournament);
                 row.addElement(tournament.getPlace());
@@ -93,6 +94,20 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
 
         } catch (SQLException ex) {
             Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void delete(int id, JTable table) {
+        try {
+            System.out.println("Delete tournament.");
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("DELETE FROM tournament WHERE tournament_id = ?");
+            stat.setInt(1, id);
+            stat.executeUpdate();
+
+            FullHouse.deleteRowFromTable(table);
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
