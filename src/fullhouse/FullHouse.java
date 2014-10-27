@@ -9,6 +9,7 @@ import fullhouse.modules.HomeFrame;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,7 @@ public class FullHouse {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         HomeFrame frame = new HomeFrame();
 
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

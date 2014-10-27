@@ -33,8 +33,8 @@ public class FormValidator {
     public Rule addTextField(javax.swing.JTextField field, JLabel label) {
         Rule rule = new Rule(field.getText(), label);
         
-        javax.swing.border.Border border = BorderFactory.createLineBorder(Color.RED, 1);
-        field.setBorder(border);
+        /*javax.swing.border.Border border = BorderFactory.createLineBorder(Color.RED, 1);
+        field.setBorder(border);*/
         
         rules.add(rule);
         

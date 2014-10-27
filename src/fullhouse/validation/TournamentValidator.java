@@ -19,6 +19,8 @@ public class TournamentValidator {
         validator.resetErrors();
         System.out.println(form.nameField.getText());
         validator.addTextField(form.nameField, form.nameValidationLabel).required();
+        validator.addTextField(form.dateField, form.dateValidationLabel).date("HH:ii");
+        //validator.addTextField(form.maxPlayersInfo, form.dateValidationLabel).date("HH:ii");
 
         if (validator.getErrorCount() > 0) {
             throw new FormValidationException(validator.getErrors());
