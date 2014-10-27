@@ -128,7 +128,7 @@ public class Rule {
     }
     
     public Rule money() throws FormValidationException {
-        regex("^(((\\d{1,3})(.\\d{3})*)|(\\d+))(,\\d+)?$", "Dit is geen geldig bedrag");
+        regex("^(((\\d{1,3})(.\\d{3})*)|(\\d+))(,\\d+)?$", "Dit is geen geldig bedrag.");
         return this;
     }
 }
