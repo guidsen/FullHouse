@@ -15,8 +15,9 @@ public class Tournament extends QueryBuilder<TournamentDbRepository> {
     
     private int id;
     private String name;
+    private String date;
     private double entryFee;
-    private int playerPerTable;
+    private int playersPerTable;
     private int roundAmount;
     private String gameType;
     private String place;
@@ -26,6 +27,14 @@ public class Tournament extends QueryBuilder<TournamentDbRepository> {
         return new TournamentDbRepository();
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
     public double getEntryFee() {
         return entryFee;
     }
@@ -66,12 +75,12 @@ public class Tournament extends QueryBuilder<TournamentDbRepository> {
         this.place = place;
     }
 
-    public int getPlayerPerTable() {
-        return playerPerTable;
+    public int getPlayersPerTable() {
+        return playersPerTable;
     }
 
-    public void setPlayerPerTable(int playerPerTable) {
-        this.playerPerTable = playerPerTable;
+    public void setPlayersPerTable(int playerPerTable) {
+        this.playersPerTable = playerPerTable;
     }
 
     public int getRoundAmount() {
@@ -82,5 +91,9 @@ public class Tournament extends QueryBuilder<TournamentDbRepository> {
         this.roundAmount = roundAmount;
     }
     
+    @Override
+    public String toString() {
+        return this.name;
+    }
     
 }
