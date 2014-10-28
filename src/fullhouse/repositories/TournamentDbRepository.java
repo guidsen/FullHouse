@@ -120,28 +120,30 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         try{    
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
-            System.out.println(sdf.format(date));
+            sdf.format(date);
             
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("SELECT * FROM tournament");
             ResultSet rs = stat.executeQuery();
-
+           
             while (rs.next()) {
-                Tournament tournament = new Tournament();
-                tournament.setId(rs.getInt("tournament_id"));
-                tournament.setName(rs.getString("name"));
-                tournament.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
-                tournament.setEntryFee(rs.getDouble("entry_fee"));
-                tournament.setPlayersPerTable(rs.getInt("players_per_table"));
-                tournament.setRoundAmount(rs.getInt("round_amount"));
-                tournament.setPlace(rs.getString("place"));
+                if(!sdf.format(date).equals(FullHouse.fromSqlDate(rs.getDate("date")))){
+                    Tournament tournament = new Tournament();
+                    tournament.setId(rs.getInt("tournament_id"));
+                    tournament.setName(rs.getString("name"));
+                    tournament.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
+                    tournament.setEntryFee(rs.getDouble("entry_fee"));
+                    tournament.setPlayersPerTable(rs.getInt("players_per_table"));
+                    tournament.setRoundAmount(rs.getInt("round_amount"));
+                    tournament.setPlace(rs.getString("place"));
 
-                Vector row = new Vector();
-                row.addElement(tournament);
-                row.addElement(tournament.getPlace());
-                row.addElement(tournament.getDate());
-                tableModel.addRow(row);
+                    Vector row = new Vector();
+                    row.addElement(tournament);
+                    row.addElement(tournament.getPlace());
+                    row.addElement(tournament.getDate());
+                    tableModel.addRow(row);
+                }
             }
 
             table.setModel(tableModel);
