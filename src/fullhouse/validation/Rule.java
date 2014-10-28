@@ -77,8 +77,7 @@ public class Rule {
                     validator.addError(label, "U heeft geen geldige datum ingevoerd.");
                 }
             }
-        } else {
-            System.out.println("asd");
+        } else if(format.length() != input.length() && input.length() > 0) {
             validator.addError(label, "U heeft geen geldige datum ingevoerd.");
         }
 
