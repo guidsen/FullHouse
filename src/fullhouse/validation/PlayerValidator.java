@@ -18,8 +18,9 @@ public class PlayerValidator {
         FormValidator validator = FormValidator.getInstance();
         validator.resetErrors();
         validator.addTextField(form.firstNameField, form.firstNameValidationLabel).alpha().required();
-        validator.addTextField(form.lastNameField, form.lastNameValidationLabel).required().money();
-        validator.addTextField(form.emailField, form.emailValidationLabel).email();
+        validator.addTextField(form.lastNameField, form.lastNameValidationLabel).alpha().required();
+        validator.addTextField(form.dateOfBirthField, form.dateOfBirthValidationLabel).date("dd-mm-YYYY");
+        validator.addTextField(form.emailField, form.emailValidationLabel).required().email();
 
         if (validator.getErrorCount() > 0) {
             throw new FormValidationException(validator.getErrors());
