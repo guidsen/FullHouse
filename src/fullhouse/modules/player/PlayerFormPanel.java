@@ -33,6 +33,11 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     
     public Player getValues() {
         Player player = new Player();
+        if(teacherCheckBox.isSelected()){
+            player.setTeacher(1);
+        }else{
+            player.setTeacher(0);
+        }
         player.setFirstName(firstNameField.getText());
         player.setMiddleName(middleNameField.getText());
         player.setLastName(lastNameField.getText());
@@ -49,6 +54,11 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     public Player getValues(int id) {
         Player player = new Player();
         player.setId(id);
+        if(teacherCheckBox.isSelected()){
+            player.setTeacher(1);
+        }else{
+            player.setTeacher(0);
+        }
         player.setFirstName(firstNameField.getText());
         player.setMiddleName(middleNameField.getText());
         player.setLastName(lastNameField.getText());
@@ -63,6 +73,9 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     }
     
     public void setValues() {
+        if(this.player.getTeacher() == 1){
+            teacherCheckBox.setSelected(true);
+        }
         firstNameField.setText(this.player.getFirstName());
         middleNameField.setText(this.player.getMiddleName());
         lastNameField.setText(this.player.getLastName());
@@ -100,7 +113,6 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        emailMessage = new javax.swing.JLabel();
         middleNameField = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         firstNameValidationLabel = new javax.swing.JLabel();
@@ -112,6 +124,8 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         cityValidationLabel = new javax.swing.JLabel();
         phoneNumValidationLabel = new javax.swing.JLabel();
         emailValidationLabel = new javax.swing.JLabel();
+        teacherCheckBox = new javax.swing.JCheckBox();
+        jLabel11 = new javax.swing.JLabel();
 
         jLabel1.setText("Voornaam");
 
@@ -147,6 +161,14 @@ public class PlayerFormPanel extends javax.swing.JPanel {
 
         jLabel10.setText("Tussenvoegsel");
 
+        teacherCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherCheckBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Pro speler");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,22 +184,27 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(firstNameField)
-                    .addComponent(lastNameField)
-                    .addComponent(dateOfBirthField)
-                    .addComponent(addressField)
-                    .addComponent(zipcodeField)
-                    .addComponent(cityField)
-                    .addComponent(phoneNumField)
-                    .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addComponent(middleNameField))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(emailMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(teacherCheckBox)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(firstNameField)
+                            .addComponent(lastNameField)
+                            .addComponent(dateOfBirthField)
+                            .addComponent(addressField)
+                            .addComponent(zipcodeField)
+                            .addComponent(cityField)
+                            .addComponent(phoneNumField)
+                            .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(middleNameField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
@@ -194,13 +221,19 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                                     .addComponent(firstNameValidationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(middleNameValidationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(62, 62, 62)))
-                        .addGap(54, 54, 54)))
-                .addContainerGap())
+                        .addGap(64, 64, 64))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(teacherCheckBox)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -245,7 +278,7 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cityField)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cityValidationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -258,25 +291,21 @@ public class PlayerFormPanel extends javax.swing.JPanel {
                         .addComponent(jLabel8)
                         .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(emailValidationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(emailMessage)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void emailFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFieldFocusLost
-        // TODO add your handling code here:
-        if (emailField.getText().trim().length()==0) { //spaties zijn ook leeg
-            emailMessage.setText("Email is verplicht");
-        }
-        else{
-            emailMessage.setText("");
-        }
+       
     }//GEN-LAST:event_emailFieldFocusLost
 
     private void dateOfBirthFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dateOfBirthFieldActionPerformed
+
+    private void teacherCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teacherCheckBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField addressField;
@@ -286,12 +315,12 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     public javax.swing.JTextField dateOfBirthField;
     public javax.swing.JLabel dateOfBirthValidationLabel;
     public javax.swing.JTextField emailField;
-    private javax.swing.JLabel emailMessage;
     public javax.swing.JLabel emailValidationLabel;
     public javax.swing.JTextField firstNameField;
     public javax.swing.JLabel firstNameValidationLabel;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel4;
@@ -306,6 +335,7 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     public javax.swing.JLabel middleNameValidationLabel;
     public javax.swing.JTextField phoneNumField;
     public javax.swing.JLabel phoneNumValidationLabel;
+    public javax.swing.JCheckBox teacherCheckBox;
     public javax.swing.JTextField zipcodeField;
     public javax.swing.JLabel zipcodeValidationLabel;
     // End of variables declaration//GEN-END:variables
