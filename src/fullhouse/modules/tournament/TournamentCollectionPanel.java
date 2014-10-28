@@ -27,6 +27,8 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
         JLabel l = (JLabel) r;
         l.setHorizontalAlignment(JLabel.LEFT);
         
+        tournamentCollectionTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
         this.repository.collection(tournamentCollectionTable);
     }
 
@@ -67,6 +69,6 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable tournamentCollectionTable;
+    protected javax.swing.JTable tournamentCollectionTable;
     // End of variables declaration//GEN-END:variables
 }
