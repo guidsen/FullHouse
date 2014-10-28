@@ -33,7 +33,9 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         try {
             System.out.println("Add tournament.");
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("INSERT INTO tournament VALUES (0,?,?,?,?,?,default,?)");
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO tournament "
+                    + "(name,date,entry_fee,players_per_table,round_amount,game_type,place)"
+                    + " VALUES (?,?,?,?,?,default,?)");
             stat.setString(1, tournament.getName());
             stat.setString(2, FullHouse.textToSqlDateTime(tournament.getDate()));
             stat.setDouble(3, tournament.getEntryFee());
