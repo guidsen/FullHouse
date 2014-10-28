@@ -33,8 +33,8 @@ public class TournamentFormPanel extends javax.swing.JPanel {
         tournament.setName(nameField.getText());
         tournament.setDate(dateField.getText());
         tournament.setEntryFee(Double.parseDouble(entryFeeField.getText()));
-        tournament.setPlayersPerTable(Integer.parseInt(playersPerTableBox.toString()));
-        tournament.setRoundAmount(Integer.parseInt(roundAmountBox.toString()));
+        tournament.setPlayersPerTable(Integer.parseInt(playersPerTableBox.getSelectedItem().toString()));
+        tournament.setRoundAmount(Integer.parseInt(roundAmountBox.getSelectedItem().toString()));
         tournament.setPlace(placeField.getText());
         
         return tournament;
