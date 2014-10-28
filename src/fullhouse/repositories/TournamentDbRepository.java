@@ -12,6 +12,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -116,6 +119,10 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
     
     public void collectionHome(JTable table){
         try{    
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+            System.out.println(sdf.format(date));
+            
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("SELECT * FROM tournament");
