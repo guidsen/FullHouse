@@ -113,4 +113,35 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void collectionHome(JTable table){
+        try{    
+            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM tournament");
+            ResultSet rs = stat.executeQuery();
+
+            while (rs.next()) {
+                Tournament tournament = new Tournament();
+                tournament.setId(rs.getInt("tournament_id"));
+                tournament.setName(rs.getString("name"));
+                tournament.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
+                tournament.setEntryFee(rs.getDouble("entry_fee"));
+                tournament.setPlayersPerTable(rs.getInt("players_per_table"));
+                tournament.setRoundAmount(rs.getInt("round_amount"));
+                tournament.setPlace(rs.getString("place"));
+
+                Vector row = new Vector();
+                row.addElement(tournament);
+                row.addElement(tournament.getPlace());
+                row.addElement(tournament.getDate());
+                tableModel.addRow(row);
+            }
+
+            table.setModel(tableModel);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
