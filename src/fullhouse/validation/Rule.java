@@ -62,16 +62,16 @@ public class Rule {
                     int parser = Integer.parseInt(input.substring(begin, end));
                     String formatPart = format.substring(begin, end);
 
-                    if(formatPart == "dd") {
-                        if (parser > 31) validator.addError(label, "Een maand heeft maximaal 31 dagen.");
-                    } else if(formatPart == "mm") {
-                        if (parser > 12) validator.addError(label, "Een jaar heeft 12 maanden.");
-                    } else if(formatPart == "HH") {
-                        if (parser > 23) validator.addError(label, "Een dag heeft 24 uur.");
-                    } else if(formatPart == "ii") {
-                        if (parser > 59) validator.addError(label, "Een uur heeft 60 minuten.");
-                    } else if(formatPart == "ss") {
-                        if (parser > 59) validator.addError(label, "Een minuut heeft 60 seconden.");
+                    if(formatPart.equals("dd") && parser > 31) {
+                        validator.addError(label, "Een maand heeft maximaal 31 dagen.");
+                    } else if(formatPart.equals("mm") && parser > 12) {
+                        validator.addError(label, "Een jaar heeft 12 maanden.");
+                    } else if(formatPart.equals("HH") && parser > 23) {
+                        validator.addError(label, "Een dag heeft 24 uur.");
+                    } else if(formatPart.equals("ii") && parser > 59) {
+                        validator.addError(label, "Een uur heeft 60 minuten.");
+                    } else if(formatPart.equals("ss") && parser > 59) {
+                        validator.addError(label, "Een minuut heeft 60 seconden.");
                     }
                 } catch(Exception e){
                     validator.addError(label, "U heeft geen geldige datum ingevoerd.");
