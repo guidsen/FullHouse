@@ -89,6 +89,7 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
                 Vector row = new Vector();
                 row.addElement(tournament);
                 row.addElement(tournament.getPlace());
+                row.addElement(tournament.getDate());
                 tableModel.addRow(row);
             }
 
