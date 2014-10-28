@@ -36,16 +36,20 @@ public class PlayerDbRepository extends DbRepository<Player> {
         try {
             System.out.println("Add player.");
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("INSERT INTO player VALUES (0,?,?,?,?,?,?,?,?,?, default)");
-            stat.setString(1, player.getFirstName());
-            stat.setString(2, player.getMiddleName());
-            stat.setString(3, player.getLastName());
-            stat.setString(4, FullHouse.textToSqlDate(player.getDateOfBirth()));
-            stat.setString(5, player.getAddress());
-            stat.setString(6, player.getZipcode());
-            stat.setString(7, player.getCity());
-            stat.setString(8, player.getPhoneNum());
-            stat.setString(9, player.getEmail());
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO player "
+                    + "(teacher, first_name, middle_name, last_name, date_of_birth, address, zipcode, city, phonenum, email, rating) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?, default)");
+            stat.setInt(1, player.getTeacher());
+            stat.setString(2, player.getFirstName());
+            stat.setString(3, player.getMiddleName());
+            stat.setString(4, player.getLastName());
+            stat.setString(5, FullHouse.textToSqlDate(player.getDateOfBirth()));
+            stat.setString(6, player.getAddress());
+            stat.setString(7, player.getZipcode());
+            stat.setString(8, player.getCity());
+            stat.setString(9, player.getPhoneNum());
+            stat.setString(10, player.getEmail());
+            System.out.println(stat);
             stat.executeUpdate();
 
         } catch (SQLException ex) {
@@ -57,7 +61,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
         try {
             System.out.println("Update player.");
             Connection conn = DataSource.getConnection();
-            String queryString = "UPDATE player SET first_name=?,middle_name=?,last_name=?,date_of_birth=?,address=?,zipcode=?,city=?,phonenum=?,email=? WHERE player_id=?";
+            String queryString = "UPDATE player SET first_name=?,middle_name=?,last_name=?,date_of_birth=?,address=?,zipcode=?,city=?,phonenum=?,email=?,teacher=? WHERE player_id=?";
             PreparedStatement stat = conn.prepareStatement(queryString);
             stat.setString(1, player.getFirstName());
             stat.setString(2, player.getMiddleName());
@@ -68,7 +72,8 @@ public class PlayerDbRepository extends DbRepository<Player> {
             stat.setString(7, player.getCity());
             stat.setString(8, player.getPhoneNum());
             stat.setString(9, player.getEmail());
-            stat.setInt(10, player.getId());
+            stat.setInt(10, player.getTeacher());
+            stat.setInt(11, player.getId());
             stat.executeUpdate();
 
         } catch (SQLException ex) {
@@ -86,6 +91,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             while (rs.next()) {
                 Player player = new Player();
                 player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
                 player.setFirstName(rs.getString("first_name"));
                 player.setMiddleName(rs.getString("middle_name"));
                 player.setLastName(rs.getString("last_name"));
