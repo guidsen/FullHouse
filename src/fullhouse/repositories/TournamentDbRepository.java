@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -111,6 +113,43 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             FullHouse.deleteRowFromTable(table);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void collectionHome(JTable table){
+        try{    
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+            sdf.format(date);
+            
+            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM tournament");
+            ResultSet rs = stat.executeQuery();
+           
+            while (rs.next()) {
+                if(!sdf.format(date).equals(FullHouse.fromSqlDate(rs.getDate("date")))){
+                    Tournament tournament = new Tournament();
+                    tournament.setId(rs.getInt("tournament_id"));
+                    tournament.setName(rs.getString("name"));
+                    tournament.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
+                    tournament.setEntryFee(rs.getDouble("entry_fee"));
+                    tournament.setPlayersPerTable(rs.getInt("players_per_table"));
+                    tournament.setRoundAmount(rs.getInt("round_amount"));
+                    tournament.setPlace(rs.getString("place"));
+
+                    Vector row = new Vector();
+                    row.addElement(tournament);
+                    row.addElement(tournament.getPlace());
+                    row.addElement(tournament.getDate());
+                    tableModel.addRow(row);
+                }
+            }
+
+            table.setModel(tableModel);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
