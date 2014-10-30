@@ -42,11 +42,11 @@ public class TournamentTableLayoutCollectionNotPaidPanel extends javax.swing.JPa
 
             },
             new String [] {
-                "Naam"
+                "Naam", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -68,6 +68,6 @@ public class TournamentTableLayoutCollectionNotPaidPanel extends javax.swing.JPa
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
