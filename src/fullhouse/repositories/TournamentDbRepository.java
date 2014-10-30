@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -154,13 +155,12 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         }
     }
     
-    public void addPlayerToTournament(int tournamentId, int playerId){
+    public void addPlayerToTournament(int id, JComboBox combobox){
         try{
         System.out.println("Add player to tournament");
         Connection conn = DataSource.getConnection();
         PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament VALUES(?,?,?)");
-        stat.setInt(1, tournamentId);
-        stat.setInt(2, playerId);
+        stat.setInt(1, id);
         stat.executeUpdate();
     
         } catch(SQLException ex){
