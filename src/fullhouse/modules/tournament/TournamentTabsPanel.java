@@ -25,7 +25,8 @@ public class TournamentTabsPanel extends javax.swing.JPanel {
         boolean test = true;
         
         jTabbedPane1.addTab("Gegevens", form);
-        jTabbedPane1.addTab("Speler inschrijven", new TournamentSignupPanel());
+        jTabbedPane1.addTab("Speler inschrijven", new TournamentSignupPanel(tournament));
+        jTabbedPane1.addTab("Spelers die nog niet betaald hebben", new TournamentTableLayoutCollectionNotPaidPanel(tournament.getId()));
         if(test)
         {
             jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutCollectionPanel());

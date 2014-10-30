@@ -50,7 +50,15 @@ public class MasterclassCollectionPanel extends javax.swing.JPanel {
             new String [] {
                 "Naam", "Datum", "Aantal inschrijvingen", "Minimum rating"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(masterclassCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
