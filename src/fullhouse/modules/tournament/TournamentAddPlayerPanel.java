@@ -25,9 +25,6 @@ public class TournamentAddPlayerPanel extends javax.swing.JPanel {
         initComponents();
         this.tournament_id = tournament_id;
         this.repository.comboboxCollection(tournament_id, playerField);
-        
-        //hier ergens? als jij hier kan toevoegen het moet hier wel komen, miss moet je dat eerst maken 
-        // je kan hier speler toevoegen maar hoe?
     }
     
     /**
