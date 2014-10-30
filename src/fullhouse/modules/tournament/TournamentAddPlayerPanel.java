@@ -6,7 +6,6 @@ package fullhouse.modules.tournament;
 
 import fullhouse.models.Player;
 import fullhouse.repositories.PlayerDbRepository;
-import fullhouse.models.Tournament;
 import fullhouse.repositories.TournamentDbRepository;
 
 /**
@@ -25,7 +24,6 @@ public class TournamentAddPlayerPanel extends javax.swing.JPanel {
     public TournamentAddPlayerPanel(int tournament_id) {
         initComponents();
         this.tournament_id = tournament_id;
-        System.out.println(tournament_id);
         this.repository.comboboxCollection(tournament_id, playerField);
         
         //hier ergens? als jij hier kan toevoegen het moet hier wel komen, miss moet je dat eerst maken 
@@ -113,6 +111,7 @@ public class TournamentAddPlayerPanel extends javax.swing.JPanel {
             paid = 1;
         }
         this.trepository.addPlayerToTournament(player.getId(), this.tournament_id, paid);
+        this.repository.comboboxCollection(tournament_id, playerField);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
