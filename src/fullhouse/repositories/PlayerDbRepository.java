@@ -154,7 +154,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
         return leaders;
     }
     
-    public void ComboboxCollection(JComboBox combobox){
+    public void comboboxCollection(JComboBox combobox){
         try {
             DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
             Connection conn = DataSource.getConnection();
