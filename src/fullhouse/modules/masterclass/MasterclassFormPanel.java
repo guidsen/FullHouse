@@ -36,9 +36,9 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
     }
     
     public void populateLeaderBox() {
-        PlayerDbRepository repo = new PlayerDbRepository();
+        PlayerDbRepository playerRepo = new PlayerDbRepository();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        ArrayList<Player> leaders = repo.getLeaders();
+        ArrayList<Player> leaders = playerRepo.getLeaders();
         
         for(Player leader : leaders) {
             model.addElement(leader);
