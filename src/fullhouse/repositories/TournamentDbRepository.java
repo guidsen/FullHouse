@@ -7,6 +7,7 @@ package fullhouse.repositories;
 
 import fullhouse.DataSource;
 import fullhouse.FullHouse;
+import fullhouse.models.Player;
 import fullhouse.models.Tournament;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -149,6 +150,20 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             table.setModel(tableModel);
 
         } catch (SQLException ex) {
+            Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addPlayerToTournament(int tournamentId, int playerId){
+        try{
+        System.out.println("Add player to tournament");
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament VALUES(?,?,?)");
+        stat.setInt(1, tournamentId);
+        stat.setInt(2, playerId);
+        stat.executeUpdate();
+    
+        } catch(SQLException ex){
             Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
