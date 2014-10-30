@@ -154,11 +154,13 @@ public class PlayerDbRepository extends DbRepository<Player> {
         return leaders;
     }
     
-    public void comboboxCollection(JComboBox combobox){
+    public void comboboxCollection(int tournament_id, JComboBox combobox){
         try {
             DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("SELECT * FROM player");
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM player WHERE player_id "
+                    + "NOT IN(SELECT player_id FROM player_tournament WHERE tournament_id = ?)");
+            stat.setInt(1, tournament_id);
             ResultSet rs = stat.executeQuery();
 
             while (rs.next()) {
