@@ -91,6 +91,10 @@ public class Tournament extends QueryBuilder<TournamentDbRepository> {
         this.roundAmount = roundAmount;
     }
     
+    public int getMaxPlayers() {
+        return getPlayersPerTable() * getRoundAmount();
+    }
+    
     @Override
     public String toString() {
         return this.name;

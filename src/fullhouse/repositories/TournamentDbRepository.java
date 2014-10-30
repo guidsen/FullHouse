@@ -7,12 +7,14 @@ package fullhouse.repositories;
 
 import fullhouse.DataSource;
 import fullhouse.FullHouse;
+import fullhouse.models.Player;
 import fullhouse.models.Tournament;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -75,7 +77,8 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("SELECT * FROM tournament");
+            String query = "SELECT t.*, COUNT(pt.tournament_id) as registered FROM tournament t LEFT JOIN player_tournament pt ON t.tournament_id = pt.tournament_id GROUP BY pt.tournament_id";
+            PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
             while (rs.next()) {
@@ -92,6 +95,8 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
                 row.addElement(tournament);
                 row.addElement(tournament.getPlace());
                 row.addElement(tournament.getDate());
+                row.addElement(rs.getInt("registered") + "/" + tournament.getMaxPlayers());
+
                 tableModel.addRow(row);
             }
 
@@ -115,20 +120,20 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void collectionHome(JTable table){
-        try{    
+
+    public void collectionHome(JTable table) {
+        try {
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
             sdf.format(date);
-            
+
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("SELECT * FROM tournament");
             ResultSet rs = stat.executeQuery();
-           
+
             while (rs.next()) {
-                if(!sdf.format(date).equals(FullHouse.fromSqlDate(rs.getDate("date")))){
+                if (!sdf.format(date).equals(FullHouse.fromSqlDate(rs.getDate("date")))) {
                     Tournament tournament = new Tournament();
                     tournament.setId(rs.getInt("tournament_id"));
                     tournament.setName(rs.getString("name"));
@@ -151,5 +156,54 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         } catch (SQLException ex) {
             Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ArrayList<Player> getSignups(int tournamentId) {
+        ArrayList<Player> signups = new ArrayList<>();
+        try {
+            Connection conn = DataSource.getConnection();
+            String query = "SELECT p.* FROM `player_tournament` pt LEFT JOIN player p ON pt.player_id = p.player_id WHERE pt.tournament_id = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, tournamentId);
+            ResultSet rs = stat.executeQuery();
+
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                player.setDateOfBirth(FullHouse.fromSqlDate(rs.getDate("date_of_birth")));
+                player.setAddress(rs.getString("address"));
+                player.setZipcode(rs.getString("zipcode"));
+                player.setCity(rs.getString("city"));
+                player.setPhoneNum(rs.getString("phonenum"));
+                player.setEmail(rs.getString("email"));
+                player.setRating(rs.getInt("rating"));
+
+                signups.add(player);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return signups;
+    }
+
+    public void populateSignups(JTable table) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+        ArrayList<Player> players = this.getSignups(4);
+
+        for (Player player : players) {
+            Vector row = new Vector();
+            row.addElement(player);
+            row.addElement(player.getEmail());
+            row.addElement(player.getRating());
+            row.addElement(player.getPhoneNum());
+            tableModel.addRow(row);
+        }
+
+        table.setModel(tableModel);
     }
 }
