@@ -155,12 +155,15 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         }
     }
     
-    public void addPlayerToTournament(int id, JComboBox combobox){
+    public void addPlayerToTournament(int player_id, int tournament_id, int paid){
         try{
         System.out.println("Add player to tournament");
         Connection conn = DataSource.getConnection();
-        PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament VALUES(?,?,?)");
-        stat.setInt(1, id);
+        PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament (player_id, tournament_id, paid) VALUES(?,?,?)");
+        stat.setInt(1, player_id);
+        stat.setInt(2, tournament_id);
+        stat.setInt(3, paid);
+                
         stat.executeUpdate();
     
         } catch(SQLException ex){
