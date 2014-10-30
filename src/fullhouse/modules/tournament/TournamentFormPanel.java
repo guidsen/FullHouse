@@ -52,7 +52,7 @@ public class TournamentFormPanel extends javax.swing.JPanel {
         
         return tournament;
     }
-    
+
     public void setValues() {
         System.out.println(this.tournament.getDate());
         nameField.setText(this.tournament.getName());
@@ -113,8 +113,18 @@ public class TournamentFormPanel extends javax.swing.JPanel {
         maxPlayersInfo.setEnabled(false);
 
         playersPerTableBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        playersPerTableBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateMax(evt);
+            }
+        });
 
         roundAmountBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        roundAmountBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateMax(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,6 +209,15 @@ public class TournamentFormPanel extends javax.swing.JPanel {
                 .addGap(115, 115, 115))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void calculateMax(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateMax
+        // TODO add your handling code here:
+        int players = Integer.parseInt(playersPerTableBox.getSelectedItem().toString());
+        int tables = Integer.parseInt(roundAmountBox.getSelectedItem().toString());
+        int max = players * tables;
+        maxPlayersInfo.setText(Integer.toString(max));
+    }//GEN-LAST:event_calculateMax
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField dateField;
     public javax.swing.JLabel dateValidationLabel;

@@ -169,7 +169,7 @@ public class TournamentPanel extends javax.swing.JPanel {
             this.action = "EDIT";
             this.tournament = selectedTournament;
             
-            subPanel = Panel.changeView(this, subPanel, new TournamentFormPanel(selectedTournament));
+            subPanel = Panel.changeView(this, subPanel, new TournamentTabsPanel(selectedTournament));
             panel.toForm();
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een toernooi");

@@ -5,17 +5,29 @@
  */
 package fullhouse.modules.tournament;
 
+import fullhouse.models.Round;
+import fullhouse.models.Tournament;
+import fullhouse.repositories.RoundDbRepository;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 /**
  *
  * @author Guido
  */
 public class TournamentTableLayoutPanel extends javax.swing.JPanel {
 
+    private RoundDbRepository repository = new RoundDbRepository();
+    private int tournament_id;
+    private TournamentFormPanel form;
+    
     /**
      * Creates new form TournamentTableLayoutPanel
      */
-    public TournamentTableLayoutPanel() {
+    public TournamentTableLayoutPanel(int tournament_id, TournamentFormPanel form) {
         initComponents();
+        this.tournament_id = tournament_id;
+        this.form = form;
     }
 
     /**
@@ -30,6 +42,11 @@ public class TournamentTableLayoutPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         jButton1.setText("Genereer tafelindeling");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -48,6 +65,18 @@ public class TournamentTableLayoutPanel extends javax.swing.JPanel {
                 .addContainerGap(257, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        for(int i = 1; i < Integer.parseInt(form.roundAmountBox.getSelectedItem().toString())+1; i++)
+        {
+            Round round = new Round();
+            round.setTournament_id(this.tournament_id);
+            round.setRound(i);
+            
+            repository.add(round);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

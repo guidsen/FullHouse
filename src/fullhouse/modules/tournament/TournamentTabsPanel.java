@@ -4,6 +4,7 @@
  */
 package fullhouse.modules.tournament;
 
+import fullhouse.models.Tournament;
 import fullhouse.repositories.TournamentDbRepository;
 
 /**
@@ -16,11 +17,20 @@ public class TournamentTabsPanel extends javax.swing.JPanel {
     /**
      * Creates new form TournamentFormPanel
      */
-    public TournamentTabsPanel() {
+    public TournamentTabsPanel(Tournament tournament) {
         initComponents();
         
-        jTabbedPane1.addTab("Gegevens", new TournamentFormPanel());
-        jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutPanel());
+        TournamentFormPanel form = new TournamentFormPanel(tournament);
+        
+        boolean test = true;
+        
+        jTabbedPane1.addTab("Gegevens", form);
+        if(test)
+        {
+            jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutCollectionPanel());
+        } else {
+            jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutPanel(tournament.getId(), form));
+        }
         jTabbedPane1.addTab("Uitslag", new TournamentResultsPanel());
     }
 
