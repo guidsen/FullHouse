@@ -19,9 +19,9 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="198" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
+          <Component id="tournamentCollectionPanel1" alignment="1" pref="526" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -30,7 +30,7 @@
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="321" max="32767" attributes="0"/>
+              <Component id="tournamentCollectionPanel1" pref="321" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,38 +44,7 @@
         <Property name="text" type="java.lang.String" value="Aankomende toernooien"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="TournamentCollectionTable1">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="2">
-                <Column editable="false" title="Naam" type="java.lang.Object">
-                  <Data value="Toernooi #1"/>
-                  <Data value="For the noobs #2"/>
-                </Column>
-                <Column editable="true" title="Plaats" type="java.lang.Object">
-                  <Data value="Den Haag"/>
-                  <Data value="Almere"/>
-                </Column>
-                <Column editable="false" title="Datum" type="java.lang.Object">
-                  <Data value="24 december 2014"/>
-                  <Data value="29 december 2014"/>
-                </Column>
-                <Column editable="false" title="Aantal spelers (ingeschreven/max)" type="java.lang.Object">
-                  <Data value="37/256"/>
-                  <Data value="13/64"/>
-                </Column>
-              </Table>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
+    <Component class="fullhouse.modules.tournament.TournamentCollectionPanel" name="tournamentCollectionPanel1">
+    </Component>
   </SubComponents>
 </Form>

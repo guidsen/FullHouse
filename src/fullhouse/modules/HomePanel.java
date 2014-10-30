@@ -29,30 +29,10 @@ public class HomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TournamentCollectionTable1 = new javax.swing.JTable();
+        tournamentCollectionPanel1 = new fullhouse.modules.tournament.TournamentCollectionPanel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Aankomende toernooien");
-
-        TournamentCollectionTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Toernooi #1", "Den Haag", "24 december 2014", "37/256"},
-                {"For the noobs #2", "Almere", "29 december 2014", "13/64"}
-            },
-            new String [] {
-                "Naam", "Plaats", "Datum", "Aantal spelers (ingeschreven/max)"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(TournamentCollectionTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,8 +41,8 @@ public class HomePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(198, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(tournamentCollectionPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,14 +50,13 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                .addComponent(tournamentCollectionPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TournamentCollectionTable1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private fullhouse.modules.tournament.TournamentCollectionPanel tournamentCollectionPanel1;
     // End of variables declaration//GEN-END:variables
 }
