@@ -214,6 +214,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
 
                 Vector row = new Vector();
                 row.addElement(player);
+                row.addElement(player.getEmail());
                 tableModel.addRow(row);
             }
                 table.setModel(tableModel);
