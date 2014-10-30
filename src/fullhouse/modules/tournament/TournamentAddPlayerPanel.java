@@ -5,6 +5,7 @@
 package fullhouse.modules.tournament;
 
 import fullhouse.repositories.PlayerDbRepository;
+import fullhouse.models.Tournament;
 
 /**
  *
@@ -13,16 +14,18 @@ import fullhouse.repositories.PlayerDbRepository;
 public class TournamentAddPlayerPanel extends javax.swing.JPanel {
     
     private PlayerDbRepository repository = new PlayerDbRepository();
+    private int tournament_id;
     
     /**
      * Creates new form TournamentAddPlayerPanel
      */
-    public TournamentAddPlayerPanel() {
+    public TournamentAddPlayerPanel(int tournament_id) {
         initComponents();
-        
+        this.tournament_id = tournament_id;
+        System.out.println(tournament_id);
         this.repository.comboboxCollection(jComboBox1);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
