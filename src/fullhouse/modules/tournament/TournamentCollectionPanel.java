@@ -51,7 +51,15 @@ public class TournamentCollectionPanel extends javax.swing.JPanel {
             new String [] {
                 "Naam", "Plaats", "Datum", "Inschrijvingen(aantal/max)"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tournamentCollectionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
