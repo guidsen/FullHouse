@@ -26,12 +26,13 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     private String city;
     private String zipcode;
     private int rating;
+    private int participations;
 
     @Override
     public PlayerDbRepository getRepository() {
         return new PlayerDbRepository();
     }
-
+    
     public int getId() {
         return id;
     }
@@ -128,6 +129,14 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
         this.zipcode = zipcode;
     }
 
+    public int getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(int participations) {
+        this.participations = participations;
+    }
+    
     @Override
     public String toString() {
         if (middleName.isEmpty()) {

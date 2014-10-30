@@ -19,6 +19,7 @@ public class Masterclass extends QueryBuilder<MasterclassDbRepository> {
     private int minRating;
     private String name;
     private String date;
+    private int signups;
     
     @Override
     public MasterclassDbRepository getRepository() {
@@ -63,6 +64,14 @@ public class Masterclass extends QueryBuilder<MasterclassDbRepository> {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getSignups() {
+        return signups;
+    }
+
+    public void setSignups(int signups) {
+        this.signups = signups;
     }
     
     @Override

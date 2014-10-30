@@ -67,7 +67,8 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("SELECT * FROM masterclass");
+            String query = "SELECT m.*, COUNT(ms.masterclass_id) as signups FROM `masterclass` m LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id ORDER BY ms.masterclass_id";
+            PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
             while (rs.next()) {
@@ -77,11 +78,12 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
                 masterclass.setMinRating(rs.getInt("min_rating"));
                 masterclass.setName(rs.getString("name"));
                 masterclass.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
+                masterclass.setSignups(rs.getInt("signups"));
 
                 Vector row = new Vector();
                 row.addElement(masterclass);
                 row.addElement(masterclass.getDate());
-                row.addElement("ok");
+                row.addElement(masterclass.getSignups());
                 row.addElement(masterclass.getMinRating());
                 tableModel.addRow(row);
             }
