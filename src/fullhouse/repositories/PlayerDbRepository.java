@@ -187,4 +187,39 @@ public class PlayerDbRepository extends DbRepository<Player> {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void collectionPlayersNotPaid(int tournament_id, JTable table){
+        try{
+            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM player WHERE player_id "
+                    + "IN(SELECT player_id FROM player_tournament WHERE tournament_id = ? AND paid = 0)");
+            stat.setInt(1, tournament_id);
+            ResultSet rs = stat.executeQuery();
+            
+            while(rs.next()){
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                player.setDateOfBirth(FullHouse.fromSqlDate(rs.getDate("date_of_birth")));
+                player.setAddress(rs.getString("address"));
+                player.setZipcode(rs.getString("zipcode"));
+                player.setCity(rs.getString("city"));
+                player.setPhoneNum(rs.getString("phonenum"));
+                player.setEmail(rs.getString("email"));
+                player.setRating(rs.getInt("rating"));
+
+                Vector row = new Vector();
+                row.addElement(player);
+                tableModel.addRow(row);
+            }
+                table.setModel(tableModel);
+                
+        } catch(SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
