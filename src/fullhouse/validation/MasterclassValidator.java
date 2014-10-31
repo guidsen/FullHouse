@@ -16,8 +16,8 @@ public class MasterclassValidator {
     public void validate(MasterclassFormPanel form) throws FormValidationException {
         FormValidator validator = FormValidator.getInstance();
         validator.resetErrors();
-        validator.addTextField(form.nameField, form.nameValidationLabel).required();
-        validator.addTextField(form.dateField, form.dateValidationLabel).date("dd-mm-YYYY HH:ii");
+        validator.addTextField(form.masterclassName, form.nameValidationLabel).required();
+        validator.addTextField(form.masterclassDate, form.dateValidationLabel).date("dd-mm-YYYY HH:ii");
 
         if (validator.getErrorCount() > 0) {
             throw new FormValidationException(validator.getErrors());
