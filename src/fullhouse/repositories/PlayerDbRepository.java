@@ -5,7 +5,6 @@
  */
 package fullhouse.repositories;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import fullhouse.DataSource;
 import fullhouse.FullHouse;
 import fullhouse.models.Player;

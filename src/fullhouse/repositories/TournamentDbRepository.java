@@ -190,10 +190,10 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         return signups;
     }
 
-    public void populateSignups(JTable table) {
+    public void populateSignups(JTable table, int tournamentId) {
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0);
-        ArrayList<Player> players = this.getSignups(4);
+        ArrayList<Player> players = this.getSignups(tournamentId);
 
         for (Player player : players) {
             Vector row = new Vector();

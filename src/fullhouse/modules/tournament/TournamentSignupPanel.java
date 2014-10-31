@@ -4,7 +4,6 @@
  */
 package fullhouse.modules.tournament;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import fullhouse.models.Player;
 import fullhouse.models.Tournament;
 import fullhouse.repositories.PlayerDbRepository;
@@ -31,7 +30,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
 
         this.selectedTournament = selectedTournament;
         this.playerRepo.comboboxCollection(playerCombobox);
-        this.tournamentRepo.populateSignups(tournamentSignupsTable);
+        this.tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId());
     }
 
     /**
@@ -148,7 +147,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         if (dialog == JOptionPane.YES_OPTION) {
             try {
                 this.playerRepo.signup(selectedPlayer.getId(), this.selectedTournament.getId(), jCheckBox1.isSelected());
-                this.tournamentRepo.populateSignups(tournamentSignupsTable);
+                this.tournamentRepo.populateSignups(tournamentSignupsTable, this.selectedTournament.getId());
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor dit toernooi.");
             }
