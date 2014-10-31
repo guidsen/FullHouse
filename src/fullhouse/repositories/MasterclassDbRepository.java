@@ -33,11 +33,14 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         try {
             System.out.println("Add masterclass.");
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("INSERT INTO masterclass VALUES (0,?,?,?,?)");
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO masterclass "
+                    + "(leader_id,min_rating,price,name,max_players,date) VALUES (?,?,?,?,?,?)");
             stat.setInt(1, masterclass.getLeaderId());
             stat.setInt(2, masterclass.getMinRating());
-            stat.setString(3, masterclass.getName());
-            stat.setString(4, FullHouse.textToSqlDateTime(masterclass.getDate()));
+            stat.setDouble(3, masterclass.getPrice());
+            stat.setString(4, masterclass.getName());
+            stat.setInt(5, masterclass.getMaxPlayers());
+            stat.setString(6, FullHouse.textToSqlDateTime(masterclass.getDate()));
             stat.executeUpdate();
 
         } catch (SQLException ex) {
@@ -49,13 +52,15 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         try {
             System.out.println("Update masterclass.");
             Connection conn = DataSource.getConnection();
-            String queryString = "UPDATE masterclass SET leader_id=?,min_rating=?,name=?,date=? WHERE masterclass_id=?";
+            String queryString = "UPDATE masterclass SET leader_id=?,min_rating=?,price=?,name=?,max_players=?,date=? WHERE masterclass_id=?";
             PreparedStatement stat = conn.prepareStatement(queryString);
             stat.setInt(1, masterclass.getLeaderId());
             stat.setInt(2, masterclass.getMinRating());
-            stat.setString(3, masterclass.getName());
-            stat.setString(4, FullHouse.textToSqlDateTime(masterclass.getDate()));
-            stat.setInt(5, masterclass.getId());
+            stat.setDouble(3, masterclass.getPrice());
+            stat.setString(4, masterclass.getName());
+            stat.setInt(5, masterclass.getMaxPlayers());
+            stat.setString(6, FullHouse.textToSqlDateTime(masterclass.getDate()));
+            stat.setInt(7, masterclass.getId());
             stat.executeUpdate();
 
         } catch (SQLException ex) {
@@ -67,7 +72,7 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
-            String query = "SELECT m.*, COUNT(ms.masterclass_id) as signups FROM `masterclass` m LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id ORDER BY ms.masterclass_id";
+            String query = "SELECT m.*, COUNT(ms.masterclass_id) as signups FROM `masterclass` m LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id GROUP BY m.masterclass_id ORDER BY ms.masterclass_id";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
@@ -76,7 +81,9 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
                 masterclass.setId(rs.getInt("masterclass_id"));
                 masterclass.setLeaderId(rs.getInt("leader_id"));
                 masterclass.setMinRating(rs.getInt("min_rating"));
+                masterclass.setPrice(rs.getDouble("price"));
                 masterclass.setName(rs.getString("name"));
+                masterclass.setMaxPlayers(rs.getInt("max_players"));
                 masterclass.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
                 masterclass.setSignups(rs.getInt("signups"));
 
