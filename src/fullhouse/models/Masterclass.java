@@ -17,7 +17,9 @@ public class Masterclass extends QueryBuilder<MasterclassDbRepository> {
     private int id;
     private int leaderId;
     private int minRating;
+    private double price;
     private String name;
+    private int maxPlayers;
     private String date;
     private int signups;
     
@@ -50,6 +52,14 @@ public class Masterclass extends QueryBuilder<MasterclassDbRepository> {
         this.minRating = minRating;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
     public String getName() {
         return name;
     }
@@ -58,6 +68,14 @@ public class Masterclass extends QueryBuilder<MasterclassDbRepository> {
         this.name = name;
     }
 
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+    
     public String getDate() {
         return date;
     }
