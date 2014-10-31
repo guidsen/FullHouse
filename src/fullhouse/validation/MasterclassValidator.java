@@ -17,8 +17,10 @@ public class MasterclassValidator {
         FormValidator validator = FormValidator.getInstance();
         validator.resetErrors();
         validator.addTextField(form.masterclassName, form.nameValidationLabel).required();
-        validator.addTextField(form.masterclassDate, form.dateValidationLabel).date("dd-mm-YYYY HH:ii");
-
+        validator.addTextField(form.masterclassDate, form.dateValidationLabel).required().date("dd-mm-YYYY HH:ii");
+        validator.addTextField(form.masterclassMaxPlayers, form.maxPlayersValidationLabel).required();
+        validator.addTextField(form.masterclassMinRating, form.minRatingValidationLabel).required().minLength(4).maxLength(4);
+        
         if (validator.getErrorCount() > 0) {
             throw new FormValidationException(validator.getErrors());
         }
