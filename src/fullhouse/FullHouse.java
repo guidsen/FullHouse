@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,6 +24,12 @@ public class FullHouse {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        try {
+            // Set cross-platform Java L&F (also called "Metal")
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } 
+        catch (Exception e) { }
         
         HomeFrame frame = new HomeFrame();
 
