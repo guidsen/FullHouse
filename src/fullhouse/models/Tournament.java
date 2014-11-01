@@ -21,6 +21,15 @@ public class Tournament extends QueryBuilder<TournamentDbRepository> {
     private int roundAmount;
     private String gameType;
     private String place;
+    private boolean generatedRounds;
+
+    public boolean isGeneratedRounds() {
+        return generatedRounds;
+    }
+
+    public void setGeneratedRounds(boolean generatedRounds) {
+        this.generatedRounds = generatedRounds;
+    }
     
     @Override
     public TournamentDbRepository getRepository() {

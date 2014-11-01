@@ -6,6 +6,11 @@
 
 package fullhouse.modules.tournament;
 
+import fullhouse.models.Round;
+import fullhouse.repositories.RoundDbRepository;
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,24 +20,25 @@ import javax.swing.table.DefaultTableModel;
  * @author Liam Hubers
  */
 public class TournamentTableLayoutCollectionPanel extends javax.swing.JPanel {
-
+    private RoundDbRepository repository = new RoundDbRepository();
     /**
      * Creates new form TournamentTableLayoutCollectionPanel
      */
-    public TournamentTableLayoutCollectionPanel() {
+    public TournamentTableLayoutCollectionPanel(int tournament_id) {
         initComponents();
         
-        for(int i = 0; i < 4; i++)
-        {
-            TournamentCollectionPanel panel1 = new TournamentCollectionPanel();
-            panel1.setSize(500, 300);
-            panel1.setLocation(0, i*310);
+        ArrayList<Round> list = this.repository.getAll(tournament_id);
         
-            this.add(panel1);
+        for(Round round : list){
+            roundComboBox.addItem(round);
         }
         
-        this.revalidate();
-        this.repaint();
+        if(!list.isEmpty())
+        {
+            this.repository.getTables(jTable1, list.get(0).getId());
+        }
+        
+        //roundComboBox.setModel(model);
     }
 
     /**
@@ -44,19 +50,68 @@ public class TournamentTableLayoutCollectionPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        roundComboBox = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        roundComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundComboBoxActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tafel", "Spelers", "Winnaar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(roundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(roundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void roundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundComboBoxActionPerformed
+        // TODO add your handling code here:
+        Round round = (Round) roundComboBox.getSelectedItem();
+        this.repository.getTables(jTable1, round.getId());
+    }//GEN-LAST:event_roundComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox roundComboBox;
     // End of variables declaration//GEN-END:variables
 }

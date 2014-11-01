@@ -77,7 +77,7 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
-            String query = "SELECT t.*, COUNT(pt.tournament_id) as registered FROM tournament t LEFT JOIN player_tournament pt ON t.tournament_id = pt.tournament_id GROUP BY pt.tournament_id";
+            String query = "SELECT t.*, COUNT(pt.tournament_id) as registered, (SELECT COUNT(round_id) FROM round WHERE tournament_id =  t.tournament_id) AS generatedRounds FROM tournament t LEFT JOIN player_tournament pt ON t.tournament_id = pt.tournament_id GROUP BY pt.tournament_id";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
@@ -90,6 +90,12 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
                 tournament.setPlayersPerTable(rs.getInt("players_per_table"));
                 tournament.setRoundAmount(rs.getInt("round_amount"));
                 tournament.setPlace(rs.getString("place"));
+                if(rs.getInt("generatedRounds") > 0)
+                {
+                    tournament.setGeneratedRounds(true);
+                } else {
+                    tournament.setGeneratedRounds(false);
+                }
 
                 Vector row = new Vector();
                 row.addElement(tournament);

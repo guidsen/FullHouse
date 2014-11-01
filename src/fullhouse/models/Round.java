@@ -40,4 +40,8 @@ public class Round {
         this.round = round;
     }   
     
+    public String toString()
+    {
+        return "Ronde "+this.getRound();
+    }
 }
