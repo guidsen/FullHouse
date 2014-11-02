@@ -19,6 +19,12 @@ public class HomeFrame extends javax.swing.JFrame {
     public HomeFrame() {
         initComponents();
         homeButton.setEnabled(false);
+        
+        /* Disable blue glow around buttons */
+        homeButton.setFocusable(false);
+        plannedTournamentsButton.setFocusable(false);
+        plannedMasterclassButton.setFocusable(false);
+        playersOverviewButton.setFocusable(false);
     }
 
     /**
@@ -153,7 +159,7 @@ public class HomeFrame extends javax.swing.JFrame {
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
         homeButton.setEnabled(false);
         playersOverviewButton.setEnabled(true);
-        plannedMasterclassButton.setEnabled(true);
+        plannedTournamentsButton.setEnabled(true);
         plannedMasterclassButton.setEnabled(true);
 
         HomePanel HomePanel = new HomePanel();

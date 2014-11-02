@@ -27,7 +27,7 @@ public class FullHouse {
         
         try {
             // Set cross-platform Java L&F (also called "Metal")
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } 
         catch (Exception e) { }
         
