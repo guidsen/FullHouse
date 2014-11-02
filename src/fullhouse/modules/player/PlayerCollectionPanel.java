@@ -52,11 +52,11 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Naam", "Rating", "Toernooi deelnamens", "Gewonnen inleggeld"
+                "Naam", "Email", "Rating", "Toernooi deelnamens", "Gewonnen inleggeld", "Te betalen bedrag"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

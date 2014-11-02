@@ -89,6 +89,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
         for (Player player : players) {
             Vector row = new Vector();
             row.addElement(player);
+            row.addElement(player.getEmail());
             row.addElement(player.getRating());
             row.addElement(player.getParticipations());
             tableModel.addRow(row);
@@ -176,31 +177,52 @@ public class PlayerDbRepository extends DbRepository<Player> {
         return leaders;
     }
 
-    public void setPaid(int id) {
-        //
+    public void setPaid(int playerId, int tournamentId, boolean paid) {
+        try {
+            int paidInt = (paid) ? 1 : 0;
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("UPDATE player_tournament SET paid = ? WHERE player_id = ? AND tournament_id = ?");
+            stat.setInt(1, paidInt);
+            stat.setInt(2, playerId);
+            stat.setInt(3, tournamentId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
     }
 
     public void signup(int playerId, int tournamentId, boolean paid) throws SQLException {
-            System.out.println(playerId);
-            int paidInt = (paid) ? 1 : 0;
+        int paidInt = (paid) ? 1 : 0;
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament (player_id, tournament_id, paid) VALUES (?, ?, ?)");
+        stat.setInt(1, playerId);
+        stat.setInt(2, tournamentId);
+        stat.setInt(3, paidInt);
+        stat.executeUpdate();
+    }
+
+    public void signOut(int playerId, int tournamentId) {
+        try {
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament (player_id, tournament_id, paid) VALUES (?, ?, ?)");
+            PreparedStatement stat = conn.prepareStatement("DELETE FROM player_tournament WHERE player_id = ? AND tournament_id = ?");
             stat.setInt(1, playerId);
             stat.setInt(2, tournamentId);
-            stat.setInt(3, paidInt);
             stat.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
     }
-    
-    public void collectionPlayersNotPaid(int tournament_id, JTable table){
-        try{
+
+    public void collectionPlayersNotPaid(int tournament_id, JTable table) {
+        try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("SELECT * FROM player WHERE player_id "
                     + "IN(SELECT player_id FROM player_tournament WHERE tournament_id = ? AND paid = 0)");
             stat.setInt(1, tournament_id);
             ResultSet rs = stat.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Player player = new Player();
                 player.setId(rs.getInt("player_id"));
                 player.setTeacher(rs.getInt("teacher"));
@@ -220,9 +242,9 @@ public class PlayerDbRepository extends DbRepository<Player> {
                 row.addElement(player.getEmail());
                 tableModel.addRow(row);
             }
-                table.setModel(tableModel);
-                
-        } catch(SQLException ex) {
+            table.setModel(tableModel);
+
+        } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

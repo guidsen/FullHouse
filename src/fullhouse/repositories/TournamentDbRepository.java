@@ -90,8 +90,7 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
                 tournament.setPlayersPerTable(rs.getInt("players_per_table"));
                 tournament.setRoundAmount(rs.getInt("round_amount"));
                 tournament.setPlace(rs.getString("place"));
-                if(rs.getInt("generatedRounds") > 0)
-                {
+                if (rs.getInt("generatedRounds") > 0) {
                     tournament.setGeneratedRounds(true);
                 } else {
                     tournament.setGeneratedRounds(false);
@@ -163,12 +162,52 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             Logger.getLogger(TournamentDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public ArrayList<Player> getSignups(int tournamentId) {
         ArrayList<Player> signups = new ArrayList<>();
         try {
             Connection conn = DataSource.getConnection();
             String query = "SELECT p.*, pt.paid FROM `player_tournament` pt LEFT JOIN player p ON pt.player_id = p.player_id WHERE pt.tournament_id = ?";
+
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, tournamentId);
+            ResultSet rs = stat.executeQuery();
+
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                player.setDateOfBirth(FullHouse.fromSqlDate(rs.getDate("date_of_birth")));
+                player.setAddress(rs.getString("address"));
+                player.setZipcode(rs.getString("zipcode"));
+                player.setCity(rs.getString("city"));
+                player.setPhoneNum(rs.getString("phonenum"));
+                player.setEmail(rs.getString("email"));
+                player.setRating(rs.getInt("rating"));
+                player.setPaid(rs.getBoolean("paid"));
+
+                signups.add(player);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return signups;
+    }
+
+    public ArrayList<Player> getSignups(int tournamentId, boolean hasPaid) {
+        ArrayList<Player> signups = new ArrayList<>();
+        try {
+            Connection conn = DataSource.getConnection();
+            String query;
+            if (hasPaid) {
+                query = "SELECT p.*, pt.paid FROM `player_tournament` pt LEFT JOIN player p ON pt.player_id = p.player_id WHERE pt.tournament_id = ? AND paid = 1";
+            } else {
+                query = "SELECT p.*, pt.paid FROM `player_tournament` pt LEFT JOIN player p ON pt.player_id = p.player_id WHERE pt.tournament_id = ? AND paid = 0";
+            }
+
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setInt(1, tournamentId);
             ResultSet rs = stat.executeQuery();
@@ -208,6 +247,26 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
             row.addElement(player.getEmail());
             row.addElement(player.getRating());
             row.addElement(player.getPhoneNum());
+            row.addElement((player.isPaid()) ? "Ja" : "Nee");
+            tableModel.addRow(row);
+        }
+
+        table.setModel(tableModel);
+    }
+    
+    public void populateSignups(JTable table, int tournamentId, boolean hasPaid) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+        
+        ArrayList<Player> players = this.getSignups(tournamentId, hasPaid);
+
+        for (Player player : players) {
+            Vector row = new Vector();
+            row.addElement(player);
+            row.addElement(player.getEmail());
+            row.addElement(player.getRating());
+            row.addElement(player.getPhoneNum());
+            row.addElement((player.isPaid()) ? "Ja" : "Nee");
             tableModel.addRow(row);
         }
 

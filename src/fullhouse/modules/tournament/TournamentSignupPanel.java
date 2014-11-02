@@ -21,6 +21,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
     private PlayerDbRepository playerRepo = new PlayerDbRepository();
     private TournamentDbRepository tournamentRepo = new TournamentDbRepository();
     private Tournament selectedTournament;
+    private Player selectedPlayer;
 
     /**
      * Creates new form TournamentAddPlayerPanel
@@ -28,9 +29,37 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
     public TournamentSignupPanel(Tournament selectedTournament) {
         initComponents();
 
+        selectedPlayerLabel.setVisible(false);
+        signOutPlayerButton.setVisible(false);
+        backButton.setVisible(false);
+
         this.selectedTournament = selectedTournament;
         this.playerRepo.comboboxCollection(playerCombobox);
         this.tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId());
+
+        tournamentSignupsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = tournamentSignupsTable.rowAtPoint(evt.getPoint());
+                int col = tournamentSignupsTable.columnAtPoint(evt.getPoint());
+                if (row >= 0 && col >= 0) {
+                    System.out.println(tournamentSignupsTable.getValueAt(row, 0));
+                    selectedPlayerLabel.setVisible(true);
+                    signOutPlayerButton.setVisible(true);
+                    backButton.setVisible(true);
+                    playerCombobox.setVisible(false);
+                    playerSignupButton.setVisible(false);
+
+                    this.setSelectedPlayer((Player) tournamentSignupsTable.getValueAt(row, 0));
+                }
+            }
+
+            private void setSelectedPlayer(Player player) {
+                selectedPlayerLabel.setText(player.toString());
+                selectedPlayer = player;
+                paidCheckbox.setSelected(player.isPaid());
+            }
+        });
     }
 
     /**
@@ -45,11 +74,16 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         playerCombobox = new javax.swing.JComboBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        paidCheckbox = new javax.swing.JCheckBox();
         playerSignupButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tournamentSignupsTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        selectedPlayerLabel = new javax.swing.JLabel();
+        signOutPlayerButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        filterCombobox = new javax.swing.JComboBox();
 
         jLabel1.setText("Speler");
 
@@ -57,9 +91,9 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
 
         playerCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        paidCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                paidCheckboxActionPerformed(evt);
             }
         });
 
@@ -90,6 +124,29 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Ingeschreven spelers voor dit toernooi");
 
+        signOutPlayerButton.setText("Speler uitschrijven");
+        signOutPlayerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signOutPlayerButtonActionPerformed(evt);
+            }
+        });
+
+        backButton.setText("Terug");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Filter:");
+
+        filterCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alle", "Hebben betaald", "Hebben niet betaald" }));
+        filterCombobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterComboboxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,47 +154,70 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(playerCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(playerSignupButton)))
-                        .addGap(40, 40, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(filterCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(paidCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(playerCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(playerSignupButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(selectedPlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(signOutPlayerButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(backButton)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(playerCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(playerSignupButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(playerCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(playerSignupButton)
+                        .addComponent(selectedPlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(signOutPlayerButton)
+                        .addComponent(backButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
+                    .addComponent(paidCheckbox)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(filterCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    private void paidCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paidCheckboxActionPerformed
+        if (this.selectedPlayer != null) {
+            playerRepo.setPaid(selectedPlayer.getId(), selectedTournament.getId(), paidCheckbox.isSelected());
+            //this.tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId());
+            filterComboboxActionPerformed(evt);
+        }
+    }//GEN-LAST:event_paidCheckboxActionPerformed
 
     private void playerSignupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerSignupButtonActionPerformed
         Player selectedPlayer = (Player) playerCombobox.getSelectedItem();
@@ -146,7 +226,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
 
         if (dialog == JOptionPane.YES_OPTION) {
             try {
-                this.playerRepo.signup(selectedPlayer.getId(), this.selectedTournament.getId(), jCheckBox1.isSelected());
+                this.playerRepo.signup(selectedPlayer.getId(), this.selectedTournament.getId(), paidCheckbox.isSelected());
                 this.tournamentRepo.populateSignups(tournamentSignupsTable, this.selectedTournament.getId());
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor dit toernooi.");
@@ -154,14 +234,49 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_playerSignupButtonActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        selectedPlayerLabel.setVisible(false);
+        signOutPlayerButton.setVisible(false);
+        backButton.setVisible(false);
+        playerCombobox.setVisible(true);
+        playerSignupButton.setVisible(true);
+
+        paidCheckbox.setSelected(false);
+        this.selectedPlayer = null;
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void signOutPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutPlayerButtonActionPerformed
+        playerRepo.signOut(selectedPlayer.getId(), selectedTournament.getId());
+        this.backButtonActionPerformed(evt);
+        this.tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId());
+    }//GEN-LAST:event_signOutPlayerButtonActionPerformed
+
+    private void filterComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboboxActionPerformed
+        int index = filterCombobox.getSelectedIndex();
+        if (index == 0) {
+            tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId());
+        } else if (index == 1) {
+            // betaald
+            tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId(), true);
+        } else if (index == 2) {
+            // niet betaald
+            tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId(), false);
+        }
+    }//GEN-LAST:event_filterComboboxActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton backButton;
+    private javax.swing.JComboBox filterCombobox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox paidCheckbox;
     private javax.swing.JComboBox playerCombobox;
     private javax.swing.JButton playerSignupButton;
+    private javax.swing.JLabel selectedPlayerLabel;
+    private javax.swing.JButton signOutPlayerButton;
     private javax.swing.JTable tournamentSignupsTable;
     // End of variables declaration//GEN-END:variables
 }
