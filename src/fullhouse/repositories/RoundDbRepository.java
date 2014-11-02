@@ -7,6 +7,7 @@ package fullhouse.repositories;
 
 import fullhouse.DataSource;
 import fullhouse.FullHouse;
+import fullhouse.models.Player;
 import fullhouse.models.Round;
 import fullhouse.models.Table;
 import java.sql.Connection;
@@ -31,19 +32,27 @@ public class RoundDbRepository extends DbRepository<Round> {
         return new Round();
     }
 
-    public void add(Round round) {
+    public int add(Round round) {
+        int id = 0;
         try {
             Connection conn = DataSource.getConnection();
-            PreparedStatement stat = conn.prepareStatement("INSERT INTO round (tournament_id, round) VALUES (?, ?)");
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO round (tournament_id, round) VALUES (?, ?)", java.sql.Statement.RETURN_GENERATED_KEYS);
             
             stat.setInt(1, round.getTournament_id());
             stat.setInt(2, round.getRound());
             
             stat.executeUpdate();
+            
+            ResultSet rs = stat.getGeneratedKeys();
+            if(rs.next()){
+                id = rs.getInt(1);
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return id;
     }
     
     public ArrayList<Round> getAll(int tournament_id)
@@ -130,6 +139,21 @@ public class RoundDbRepository extends DbRepository<Round> {
             stat.executeUpdate();
             
             FullHouse.deleteRowFromTable(table);
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addPlayer(int round_id, Player player, int table) {
+        try {
+            Connection conn = DataSource.getConnection();
+            
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO player_round (`player_id`, `round_id`, `table`) VALUES (?, ?, ?)");    
+            stat.setInt(1, player.getId());
+            stat.setInt(2, round_id);
+            stat.setInt(3, table);
+            
+            stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }

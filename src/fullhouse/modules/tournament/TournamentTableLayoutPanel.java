@@ -5,9 +5,13 @@
  */
 package fullhouse.modules.tournament;
 
+import fullhouse.models.Player;
 import fullhouse.models.Round;
 import fullhouse.models.Tournament;
 import fullhouse.repositories.RoundDbRepository;
+import fullhouse.repositories.TournamentDbRepository;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -18,6 +22,7 @@ import javax.swing.JTable;
 public class TournamentTableLayoutPanel extends javax.swing.JPanel {
 
     private RoundDbRepository repository = new RoundDbRepository();
+    private TournamentDbRepository tournamentRepository = new TournamentDbRepository();
     private int tournament_id;
     private TournamentFormPanel form;
     
@@ -68,13 +73,35 @@ public class TournamentTableLayoutPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        for(int i = 1; i < Integer.parseInt(form.roundAmountBox.getSelectedItem().toString())+1; i++)
-        {
-            Round round = new Round();
-            round.setTournament_id(this.tournament_id);
-            round.setRound(i);
-            
-            repository.add(round);
+        
+        int dialog = JOptionPane.showConfirmDialog(null, "Weet u zeker dat u de rondes wilt genereren?");
+
+        if (dialog == JOptionPane.YES_OPTION) {
+            ArrayList<Player> players = this.tournamentRepository.getSignups(this.tournament_id);
+
+            int perTable = Integer.parseInt(form.playersPerTableBox.getSelectedItem().toString());
+
+            for(int i = 1; i < Integer.parseInt(form.roundAmountBox.getSelectedItem().toString())+1; i++)
+            {
+                Round round = new Round();
+                round.setTournament_id(this.tournament_id);
+                round.setRound(i);
+
+                int id = repository.add(round);
+
+                if(i == 1)
+                {
+                    int y = 0;
+                    for(Player player : players)
+                    {
+                        if(player.isPaid())
+                        {
+                            this.repository.addPlayer(id, player, (int)Math.ceil(y / perTable) + 1);
+                            y++;
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

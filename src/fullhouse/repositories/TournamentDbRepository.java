@@ -168,7 +168,7 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         ArrayList<Player> signups = new ArrayList<>();
         try {
             Connection conn = DataSource.getConnection();
-            String query = "SELECT p.* FROM `player_tournament` pt LEFT JOIN player p ON pt.player_id = p.player_id WHERE pt.tournament_id = ?";
+            String query = "SELECT p.*, pt.paid FROM `player_tournament` pt LEFT JOIN player p ON pt.player_id = p.player_id WHERE pt.tournament_id = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setInt(1, tournamentId);
             ResultSet rs = stat.executeQuery();
@@ -187,6 +187,7 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
                 player.setPhoneNum(rs.getString("phonenum"));
                 player.setEmail(rs.getString("email"));
                 player.setRating(rs.getInt("rating"));
+                player.setPaid(rs.getBoolean("paid"));
 
                 signups.add(player);
             }
