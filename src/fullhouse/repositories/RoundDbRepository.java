@@ -50,6 +50,7 @@ public class RoundDbRepository extends DbRepository<Round> {
                 id = rs.getInt(1);
             }
 
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,13 +60,13 @@ public class RoundDbRepository extends DbRepository<Round> {
     
     public ArrayList<Round> getAll(int tournament_id)
     {
+        ArrayList<Round> list = new ArrayList<>();
+        
         try{
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("SELECT * FROM round WHERE tournament_id = ?");
             stat.setInt(1, tournament_id);
             ResultSet rs = stat.executeQuery();
-            
-            ArrayList<Round> list = new ArrayList<>();
             
             while (rs.next()) {
                 Round round = new Round();
@@ -76,12 +77,12 @@ public class RoundDbRepository extends DbRepository<Round> {
                 list.add(round);
             }
             
-            return list;
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return new ArrayList<Round>();
+        return list;
     }
     
     public ArrayList<Table> getTables(int round_id) {
@@ -97,7 +98,7 @@ public class RoundDbRepository extends DbRepository<Round> {
                 "( SELECT CONCAT(p.first_name,IF(p.middle_name = '', '', ' '),p.middle_name,' ',p.last_name) FROM player_round AS ps LEFT OUTER JOIN player AS p ON ps.player_id = p.player_id WHERE round_id = ? AND winner = 1 AND pr.table = ps.`table`) AS winner\n" +
                 "FROM player_round AS pr\n" +
                 "LEFT OUTER JOIN player AS p ON pr.player_id = p.player_id\n" +
-                "WHERE pr.round_id = ?\n AND (SELECT COUNT(player_id) FROM player_round WHERE winner = 1 AND round_id = pr.round_id AND `table` = pr.`table`) = 0 " +
+                "WHERE pr.round_id = ?\n AND (SELECT COUNT(player_id) FROM player_round WHERE winner = 4 AND round_id = pr.round_id AND `table` = pr.`table`) = 0 " +
                 "GROUP BY pr.`table`"
             );
             stat.setInt(1, round_id);
@@ -117,6 +118,8 @@ public class RoundDbRepository extends DbRepository<Round> {
                 
                 list.add(table);
             }
+            
+            rs.close();
             
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,13 +185,36 @@ public class RoundDbRepository extends DbRepository<Round> {
         }
     }
     
-    public void setWinner(int player_id, int round_id) {
+    public void setWinner(int player_id, int round_id, int next_round_id) {
         try {
             Connection conn = DataSource.getConnection();
             
-            PreparedStatement stat = conn.prepareStatement("UPDATE player_round SET winner = 1 WHERE player_id = ? AND round_id = ?");    
+            PreparedStatement stat = conn.prepareStatement("UPDATE player_round SET winner = 4 WHERE player_id = ? AND round_id = ?");    
             stat.setInt(1, player_id);
             stat.setInt(2, round_id);
+            
+            stat.executeUpdate();
+            
+            PreparedStatement insert = conn.prepareStatement("INSERT INTO player_round( player_id, round_id, `table`, winner) SELECT ? AS player_id, ? AS round_id, IF(CEIL(COUNT(player_id)/?) = 0, 1, CEIL(COUNT(player_id)/8)) AS `table`, 0 AS winner FROM `player_round` WHERE round_id = ?");
+            insert.setInt(1, player_id);
+            insert.setInt(2, next_round_id);
+            insert.setInt(3, 8);
+            insert.setInt(4, next_round_id);
+            
+            insert.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setTournamentWinner(int player_id, int round_id, int place) {
+        try {
+            Connection conn = DataSource.getConnection();
+            
+            PreparedStatement stat = conn.prepareStatement("UPDATE player_round SET winner = ? WHERE player_id = ? AND round_id = ?");    
+            stat.setInt(1, place);
+            stat.setInt(2, player_id);
+            stat.setInt(3, round_id);
             
             stat.executeUpdate();
         } catch (SQLException ex) {
