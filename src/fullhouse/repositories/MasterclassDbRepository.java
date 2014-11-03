@@ -74,12 +74,22 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
-            String query = "SELECT m.*, COUNT(ms.masterclass_id) as signups FROM `masterclass` m LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id GROUP BY m.masterclass_id ORDER BY m.date";
+            String query = "SELECT m.*, COUNT(ms.masterclass_id) as signups, p.player_id, p.first_name, p.middle_name, p.last_name "
+                    + "FROM `masterclass` m "
+                    + "LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id "
+                    + "LEFT JOIN player p ON m.leader_id = p.player_id "
+                    + "GROUP BY m.masterclass_id ORDER BY m.date";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
             while (rs.next()) {
                 Masterclass masterclass = new Masterclass();
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                
                 masterclass.setId(rs.getInt("masterclass_id"));
                 masterclass.setLeaderId(rs.getInt("leader_id"));
                 masterclass.setMinRating(rs.getInt("min_rating"));
@@ -88,7 +98,8 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
                 masterclass.setMaxPlayers(rs.getInt("max_players"));
                 masterclass.setDate(FullHouse.fromSqlDateTime(rs.getTimestamp("date")));
                 masterclass.setSignups(rs.getInt("signups"));
-
+                masterclass.setTeacher(player);
+                
                 Vector row = new Vector();
                 row.addElement(masterclass);
                 row.addElement(masterclass.getDate());
@@ -226,5 +237,9 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         }
 
         table.setModel(tableModel);
+    }
+
+    public void setSelectedTeacher() {
+        System.out.println("test");
     }
 }

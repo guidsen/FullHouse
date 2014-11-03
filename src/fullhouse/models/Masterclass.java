@@ -22,6 +22,7 @@ public class Masterclass extends QueryBuilder<MasterclassDbRepository> {
     private int maxPlayers;
     private String date;
     private int signups;
+    private Player teacher;
     
     @Override
     public MasterclassDbRepository getRepository() {
@@ -90,6 +91,14 @@ public class Masterclass extends QueryBuilder<MasterclassDbRepository> {
 
     public void setSignups(int signups) {
         this.signups = signups;
+    }
+
+    public Player getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Player teacher) {
+        this.teacher = teacher;
     }
     
     @Override

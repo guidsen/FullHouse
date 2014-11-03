@@ -16,25 +16,25 @@ import javax.swing.JOptionPane;
  * @author steve
  */
 public class MasterclassSignUpPanel extends javax.swing.JPanel {
+
     private MasterclassDbRepository masterclassRepo = new MasterclassDbRepository();
     private PlayerDbRepository playerRepo = new PlayerDbRepository();
     private Masterclass selectedMasterclass;
     private Player selectedPlayer;
-    
+
     /**
      * Creates new form MasterclassSignUpPanel
      */
-    public MasterclassSignUpPanel(Masterclass selectedMasterclass) throws SQLException {
+    public MasterclassSignUpPanel(Masterclass selectedMasterclass) {
         initComponents();
-        
+
         selectedPlayerLabel.setVisible(false);
         signOutPlayerButton.setVisible(false);
         backButton.setVisible(false);
-
         this.selectedMasterclass = selectedMasterclass;
         this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
         this.masterclassRepo.populateSignups(masterclassSignupsTable, selectedMasterclass.getId());
-
+        
         masterclassSignupsTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -231,10 +231,8 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
         if (index == 0) {
             masterclassRepo.populateSignups(masterclassSignupsTable, selectedMasterclass.getId());
         } else if (index == 1) {
-            // betaald
             masterclassRepo.populateSignups(masterclassSignupsTable, selectedMasterclass.getId(), true);
         } else if (index == 2) {
-            // niet betaald
             masterclassRepo.populateSignups(masterclassSignupsTable, selectedMasterclass.getId(), false);
         }
     }//GEN-LAST:event_filterComboboxActionPerformed

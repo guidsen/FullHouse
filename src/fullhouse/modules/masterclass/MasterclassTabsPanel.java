@@ -6,23 +6,27 @@ package fullhouse.modules.masterclass;
 
 import fullhouse.models.Masterclass;
 import fullhouse.repositories.MasterclassDbRepository;
+import java.awt.Component;
 
 /**
  *
  * @author steve
  */
 public class MasterclassTabsPanel extends javax.swing.JPanel {
+
     private final MasterclassDbRepository repository = new MasterclassDbRepository();
-    
+    public static Component selectedComponent;
+
     /**
      * Creates new form MasterclassTabsPanel
      */
     public MasterclassTabsPanel(Masterclass masterclass) {
         initComponents();
-        
-        MasterclassFormPanel form = new MasterclassFormPanel(masterclass);
-        masterclassTabs.addTab("Gegevens", form);
+
+        masterclassTabs.addTab("Gegevens", new MasterclassFormPanel(masterclass));
         masterclassTabs.addTab("Spelers inschrijven", new MasterclassSignUpPanel(masterclass));
+
+        selectedComponent = masterclassTabs.getSelectedComponent();
     }
 
     /**
@@ -48,6 +52,6 @@ public class MasterclassTabsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane masterclassTabs;
+    public javax.swing.JTabbedPane masterclassTabs;
     // End of variables declaration//GEN-END:variables
 }

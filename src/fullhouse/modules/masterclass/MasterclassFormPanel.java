@@ -19,7 +19,7 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
 
     private final MasterclassDbRepository masterclassRepo = new MasterclassDbRepository();
     private Masterclass masterclass;
-    
+
     /**
      * Creates new form MasteclassFormPanel
      */
@@ -27,39 +27,39 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
         initComponents();
         populateLeaderBox();
     }
-    
+
     public MasterclassFormPanel(Masterclass masterclass) {
         initComponents();
         populateLeaderBox();
         this.masterclass = masterclass;
         this.setValues();
     }
-    
+
     public void populateLeaderBox() {
         PlayerDbRepository playerRepo = new PlayerDbRepository();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         ArrayList<Player> leaders = playerRepo.getLeaders();
-        
-        for(Player leader : leaders) {
+
+        for (Player leader : leaders) {
             model.addElement(leader);
         }
-        
+
         leaderIdBox.setModel(model);
     }
-    
+
     public Masterclass getValues() {
         Player selectedLeader = (Player) leaderIdBox.getSelectedItem();
         Masterclass masterclass = new Masterclass();
         masterclass.setLeaderId(selectedLeader.getId());
-        masterclass.setMinRating(Integer.parseInt(masterclassMinRating.getText())); 
+        masterclass.setMinRating(Integer.parseInt(masterclassMinRating.getText()));
         masterclass.setPrice(Double.parseDouble(masterclassPrice.getText()));
         masterclass.setName(masterclassName.getText());
         masterclass.setMaxPlayers(Integer.parseInt(masterclassMaxPlayers.getText()));
         masterclass.setDate(masterclassDate.getText());
-        
+
         return masterclass;
     }
-    
+
     public Masterclass getValues(int id) {
         Player selectedLeader = (Player) leaderIdBox.getSelectedItem();
         Masterclass masterclass = new Masterclass();
@@ -70,13 +70,19 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
         masterclass.setName(masterclassName.getText());
         masterclass.setMaxPlayers(Integer.parseInt(masterclassMaxPlayers.getText()));
         masterclass.setDate(masterclassDate.getText());
-        
+
         return masterclass;
     }
-    
+
     public void setValues() {
-        System.out.println(this.masterclass.getLeaderId());
-        leaderIdBox.setSelectedItem(Integer.toString(this.masterclass.getLeaderId()));
+        for(int i = 0; i<leaderIdBox.getItemCount();i++) {
+            Player leader = (Player) leaderIdBox.getItemAt(i);
+            if(leader.getId() == this.masterclass.getTeacher().getId()) {
+                leaderIdBox.setSelectedIndex(i);
+            }
+        }
+        
+        leaderIdBox.setSelectedItem(this.masterclass.getTeacher());
         masterclassMinRating.setText(Integer.toString(this.masterclass.getMinRating()));
         masterclassPrice.setText(Double.toString(this.masterclass.getPrice()));
         masterclassName.setText(this.masterclass.getName());
@@ -125,6 +131,11 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
         jLabel6.setText("Gegeven door");
 
         leaderIdBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        leaderIdBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leaderIdBoxActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("(dd-mm-jjjj uu:mm)");
 
@@ -182,10 +193,11 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
                             .addComponent(masterclassPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(priceValidationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(masterclassMinRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(minRatingValidationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(minRatingValidationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(masterclassMinRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)

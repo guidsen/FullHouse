@@ -149,7 +149,7 @@ public class MasterclassPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_editMasterclassButtonActionPerformed
 
     private void saveMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMasterclassButtonActionPerformed
-        MasterclassFormPanel form = (MasterclassFormPanel) subPanel;
+        MasterclassFormPanel form = (MasterclassFormPanel) MasterclassTabsPanel.selectedComponent;
 
         try {
             new MasterclassValidator().validate(form);
