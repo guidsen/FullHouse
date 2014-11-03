@@ -33,7 +33,7 @@ public class TournamentTabsPanel extends javax.swing.JPanel {
         } else {
             jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutPanel(tournament.getId(), form));
         }
-        jTabbedPane1.addTab("Uitslag", new TournamentResultsPanel());
+        jTabbedPane1.addTab("Uitslag", new TournamentResultsPanel(tournament.getId()));
     }
 
     /**

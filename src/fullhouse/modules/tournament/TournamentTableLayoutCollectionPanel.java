@@ -35,7 +35,7 @@ public class TournamentTableLayoutCollectionPanel extends javax.swing.JPanel {
         
         if(!list.isEmpty())
         {
-            this.repository.getTables(jTable1, list.get(0).getId());
+            this.repository.fillTable(jTable1, list.get(0).getId());
         }
         
         //roundComboBox.setModel(model);
@@ -105,7 +105,7 @@ public class TournamentTableLayoutCollectionPanel extends javax.swing.JPanel {
     private void roundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundComboBoxActionPerformed
         // TODO add your handling code here:
         Round round = (Round) roundComboBox.getSelectedItem();
-        this.repository.getTables(jTable1, round.getId());
+        this.repository.fillTable(jTable1, round.getId());
     }//GEN-LAST:event_roundComboBoxActionPerformed
 
 

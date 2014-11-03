@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,38 +84,59 @@ public class RoundDbRepository extends DbRepository<Round> {
         return new ArrayList<Round>();
     }
     
-    public void getTables(JTable table, int round_id) {
-        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-        tableModel.setRowCount(0);
+    public ArrayList<Table> getTables(int round_id) {
+        ArrayList<Table> list = new ArrayList<>();
         
         try{
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement(
                 "SELECT\n" +
                 "pr.`table`,\n" +
-                "GROUP_CONCAT(CONCAT(p.first_name,IF(p.middle_name = '', '', ' '),p.middle_name,' ',p.last_name)) AS players,\n" +
-                "( SELECT CONCAT(p.first_name,IF(p.middle_name = '', '', ' '),p.middle_name,' ',p.last_name) FROM player_round AS ps LEFT OUTER JOIN player AS p ON ps.player_id = p.player_id WHERE round_id = ? AND winner > 0 AND pr.table = ps.`table`) AS winner\n" +
+                "GROUP_CONCAT(CONCAT(p.first_name,IF(p.middle_name = '', '', ' '),p.middle_name,' ',p.last_name) SEPARATOR ', ') AS players,\n" +
+                "GROUP_CONCAT(p.player_id) AS player_ids," + 
+                "( SELECT CONCAT(p.first_name,IF(p.middle_name = '', '', ' '),p.middle_name,' ',p.last_name) FROM player_round AS ps LEFT OUTER JOIN player AS p ON ps.player_id = p.player_id WHERE round_id = ? AND winner = 1 AND pr.table = ps.`table`) AS winner\n" +
                 "FROM player_round AS pr\n" +
                 "LEFT OUTER JOIN player AS p ON pr.player_id = p.player_id\n" +
-                "WHERE pr.round_id = ?\n" +
+                "WHERE pr.round_id = ?\n AND (SELECT COUNT(player_id) FROM player_round WHERE winner = 1 AND round_id = pr.round_id AND `table` = pr.`table`) = 0 " +
                 "GROUP BY pr.`table`"
             );
             stat.setInt(1, round_id);
             stat.setInt(2, round_id);
+            
             ResultSet rs = stat.executeQuery();
 
             while (rs.next()) {
-                Table tableObject = new Table();
+                Table table = new Table();
                 
-                Vector row = new Vector();
-                row.addElement("Tafel "+rs.getString("table"));
-                row.addElement(rs.getString("players"));
-                row.addElement(rs.getString("winner"));
-                tableModel.addRow(row);
+                table.setTable(rs.getInt("table"));
+                table.setPlayers(rs.getString("players"));
+                String[] idsString = rs.getString("player_ids").split(",");
+                List ids = Arrays.asList(idsString);
+                table.setIds(ids);
+                table.setWinner(rs.getString("winner"));
+                
+                list.add(table);
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return list;
+    }
+    
+    public void fillTable(JTable table, int round_id) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+        
+        ArrayList<Table> list = this.getTables(round_id);
+        
+        for(Table tableObject : list) {
+            Vector row = new Vector();
+            row.addElement("Tafel "+tableObject.getTable());
+            row.addElement(tableObject.getPlayers());
+            row.addElement(tableObject.getWinner());
+            tableModel.addRow(row);
         }
     }
 
@@ -152,6 +175,20 @@ public class RoundDbRepository extends DbRepository<Round> {
             stat.setInt(1, player.getId());
             stat.setInt(2, round_id);
             stat.setInt(3, table);
+            
+            stat.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setWinner(int player_id, int round_id) {
+        try {
+            Connection conn = DataSource.getConnection();
+            
+            PreparedStatement stat = conn.prepareStatement("UPDATE player_round SET winner = 1 WHERE player_id = ? AND round_id = ?");    
+            stat.setInt(1, player_id);
+            stat.setInt(2, round_id);
             
             stat.executeUpdate();
         } catch (SQLException ex) {

@@ -5,17 +5,50 @@
  */
 package fullhouse.modules.tournament;
 
+import fullhouse.models.Player;
+import fullhouse.models.Round;
+import fullhouse.models.Table;
+import fullhouse.repositories.RoundDbRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Guido
  */
 public class TournamentResultsPanel extends javax.swing.JPanel {
-
+    private RoundDbRepository repository = new RoundDbRepository();
+    
     /**
      * Creates new form TournamentResultsPanel
      */
-    public TournamentResultsPanel() {
+    public TournamentResultsPanel(int tournament_id) {
         initComponents();
+        
+        ArrayList<Round> list = this.repository.getAll(tournament_id);
+        
+        roundComboBox.removeAllItems();
+        for(Round round : list){
+            roundComboBox.addItem(round);
+        }
+        
+        ArrayList<Table> tables = this.repository.getTables(list.get(0).getId());
+        
+        tableComboBox.removeAllItems();
+        for(Table table : tables) {
+            tableComboBox.addItem(table);
+        }
+        
+        playerComboBox.removeAllItems();
+        if(!tables.isEmpty())
+        {
+            Table table = tables.get(0);
+            String[] players = table.getPlayers().split(", ");
+            
+            for(String player : players) {
+                playerComboBox.addItem(player);
+            }
+        }
     }
 
     /**
@@ -27,19 +60,25 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
+        roundComboBox = new javax.swing.JComboBox();
+        tableComboBox = new javax.swing.JComboBox();
+        playerComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ronde 1", "Ronde 2", "Ronde 3" }));
+        roundComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundComboBoxActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tafel 1", "Tafel 2", "Tafel 3" }));
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Jan", "Piet", "Kees", "Hodor", "Peter" }));
+        tableComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tableComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Ronde");
 
@@ -48,6 +87,11 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
         jLabel3.setText("Speler");
 
         jButton1.setText("Uitslag invoeren");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -64,9 +108,9 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(roundComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tableComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(playerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(184, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -74,30 +118,84 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tableComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(playerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void roundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundComboBoxActionPerformed
+        // TODO add your handling code here:
+        Round id = (Round) roundComboBox.getSelectedItem();
+        
+        ArrayList<Table> tables = this.repository.getTables(id.getId());
+        
+        tableComboBox.removeAllItems();        
+        for(Table table : tables) {
+            tableComboBox.addItem(table);
+        }
+        
+        playerComboBox.removeAllItems();
+        if(!tables.isEmpty())
+        {
+            Table table = tables.get(0);
+            if(table.getPlayers().length() > 0) {
+                String[] players = table.getPlayers().split(", ");
+                
+                for(String player : players) {
+                    playerComboBox.addItem(player);
+                }
+            }
+        }
+    }//GEN-LAST:event_roundComboBoxActionPerformed
+
+    private void tableComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableComboBoxActionPerformed
+        // TODO add your handling code here:
+        Table table = (Table) tableComboBox.getSelectedItem();
+        
+        playerComboBox.removeAllItems();
+        if(table != null) {            
+            if(table.getPlayers().length() > 0) {
+                String[] players = table.getPlayers().split(", ");
+
+                for(String player : players) {
+                    playerComboBox.addItem(player);
+                }
+            }
+        }
+    }//GEN-LAST:event_tableComboBoxActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Round round = (Round)roundComboBox.getSelectedItem();
+        Table table = (Table)tableComboBox.getSelectedItem();
+        int player = playerComboBox.getSelectedIndex();
+        List ids = table.getIds();
+        int player_id = Integer.parseInt((String)ids.get(player));
+        
+        this.repository.setWinner(player_id, round.getId());
+        
+        roundComboBox.setSelectedIndex(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JComboBox playerComboBox;
+    private javax.swing.JComboBox roundComboBox;
+    private javax.swing.JComboBox tableComboBox;
     // End of variables declaration//GEN-END:variables
 }

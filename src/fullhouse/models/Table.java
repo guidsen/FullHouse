@@ -6,6 +6,8 @@
 
 package fullhouse.models;
 
+import java.util.List;
+
 /**
  *
  * @author Liam Hubers
@@ -14,6 +16,15 @@ public class Table {
     private int table;
     private String players;
     private String winner;
+    private List ids;
+    
+    public List getIds() {
+        return this.ids;
+    }
+    
+    public void setIds(List ids) {
+        this.ids = ids;
+    }
 
     public int getTable() {
         return table;
@@ -38,4 +49,9 @@ public class Table {
     public void setWinner(String winner) {
         this.winner = winner;
     }    
+    
+    public String toString()
+    {
+        return "Tafel "+this.table;
+    }
 }
