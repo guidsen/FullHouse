@@ -5,6 +5,7 @@
 package fullhouse.modules;
 
 import fullhouse.Panel;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +19,7 @@ public class HomeFrame extends javax.swing.JFrame {
      */
     public HomeFrame() {
         initComponents();
+        setIcon();
         homeButton.setEnabled(false);
         
         /* Disable blue glow around buttons */
@@ -174,4 +176,8 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JButton plannedTournamentsButton;
     private javax.swing.JButton playersOverviewButton;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("favicon.png")));
+    }
 }
