@@ -110,7 +110,13 @@ public class Rule {
     }
     
     public Rule zipcode() throws FormValidationException {
-        // Moet nog worden gemaakt. 1234AB alleen mogelijk.
+        // Moet nog worden gemaakt. 1234 AB alleen mogelijk.
+        try{
+            Integer.parseInt(input.substring(0, 4));
+            input.substring(6, 7);
+        } catch(Exception e){
+            validator.addError(label, "Dit is geen geldige postcode.");
+        }
         return this;
     }
 
