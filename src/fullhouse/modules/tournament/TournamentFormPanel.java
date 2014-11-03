@@ -213,8 +213,8 @@ public class TournamentFormPanel extends javax.swing.JPanel {
     private void calculateMax(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateMax
         // TODO add your handling code here:
         int players = Integer.parseInt(playersPerTableBox.getSelectedItem().toString());
-        int tables = Integer.parseInt(roundAmountBox.getSelectedItem().toString());
-        int max = players * tables;
+        int rounds = Integer.parseInt(roundAmountBox.getSelectedItem().toString());
+        int max = (int)Math.pow(players, rounds);
         maxPlayersInfo.setText(Integer.toString(max));
     }//GEN-LAST:event_calculateMax
 
