@@ -242,6 +242,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         playerSignupButton.setVisible(true);
 
         paidCheckbox.setSelected(false);
+        tournamentSignupsTable.clearSelection();
         this.selectedPlayer = null;
     }//GEN-LAST:event_backButtonActionPerformed
 
