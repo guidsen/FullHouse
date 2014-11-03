@@ -136,14 +136,16 @@ public class TournamentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addTournamentButtonActionPerformed
 
     private void saveTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTournamentButtonActionPerformed
-        TournamentFormPanel form = (TournamentFormPanel) TournamentTabsPanel.selectedComponent;
-
         try {
-            new TournamentValidator().validate(form);
+            TournamentValidator validator = new TournamentValidator();
 
             if (this.action == "CREATE") {
+                TournamentFormPanel form = (TournamentFormPanel)subPanel;
+                validator.validate(form);
                 this.repository.add(form.getValues());
             } else if (this.action == "EDIT") {
+                TournamentFormPanel form = (TournamentFormPanel) TournamentTabsPanel.selectedComponent;
+                validator.validate(form);
                 this.repository.update(form.getValues(this.tournament.getId()));
             }
 

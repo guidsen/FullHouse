@@ -149,14 +149,16 @@ public class MasterclassPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_editMasterclassButtonActionPerformed
 
     private void saveMasterclassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMasterclassButtonActionPerformed
-        MasterclassFormPanel form = (MasterclassFormPanel) MasterclassTabsPanel.selectedComponent;
-
         try {
-            new MasterclassValidator().validate(form);
+            MasterclassValidator validator = new MasterclassValidator();
 
             if (this.action == "CREATE") {
+                MasterclassFormPanel form = (MasterclassFormPanel) subPanel;
+                validator.validate(form);
                 this.repository.add(form.getValues());
             } else if (this.action == "EDIT") {
+                MasterclassFormPanel form = (MasterclassFormPanel) MasterclassTabsPanel.selectedComponent;
+                validator.validate(form);
                 this.repository.update(form.getValues(this.masterclass.getId()));
             }
 
