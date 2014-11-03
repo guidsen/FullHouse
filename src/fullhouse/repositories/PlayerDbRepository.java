@@ -122,7 +122,18 @@ public class PlayerDbRepository extends DbRepository<Player> {
 
         combobox.setModel(comboboxModel);
     }
+    
+    public void comboboxCollectionMasterclass(int masterclassId, JComboBox combobox) {
+        DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
+        ArrayList<Player> players = this.getPlayersMasterclass(masterclassId);
 
+        for (Player player : players) {
+            comboboxModel.addElement(player);
+        }
+
+        combobox.setModel(comboboxModel);
+    }
+    
     public ArrayList<Player> getPlayers() {
         ArrayList<Player> players = new ArrayList<>();
         try {
@@ -148,6 +159,46 @@ public class PlayerDbRepository extends DbRepository<Player> {
                 player.setParticipations(rs.getInt("participations"));
 
                 players.add(player);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return players;
+    }
+    
+    public ArrayList<Player> getPlayersMasterclass(int masterclassId) {
+        ArrayList<Player> players = new ArrayList<>();
+        try {
+            Connection conn = DataSource.getConnection();
+            String query =  "SELECT p.*, COUNT(ms.masterclass_id) AS sign_ups, m.max_players " +
+                            "FROM player p " +
+                            "LEFT JOIN masterclass m ON p.rating >= m.min_rating " +
+                            "LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id " +
+                            "WHERE m.masterclass_id =? " +
+                            "AND p.rating >= m.min_rating " +
+                            "GROUP BY p.player_id";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, masterclassId);
+            ResultSet rs = stat.executeQuery();
+
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                player.setDateOfBirth(FullHouse.fromSqlDate(rs.getDate("date_of_birth")));
+                player.setAddress(rs.getString("address"));
+                player.setZipcode(rs.getString("zipcode"));
+                player.setCity(rs.getString("city"));
+                player.setPhoneNum(rs.getString("phonenum"));
+                player.setEmail(rs.getString("email"));
+                player.setRating(rs.getInt("rating"));
+                player.setParticipations(rs.getInt("sign_ups"));
+                
+                players.add(player);
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,7 +255,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             e.getMessage();
         }
     }
-
+    
     public void signup(int playerId, int tournamentId, boolean paid) throws SQLException {
         int paidInt = (paid) ? 1 : 0;
         Connection conn = DataSource.getConnection();

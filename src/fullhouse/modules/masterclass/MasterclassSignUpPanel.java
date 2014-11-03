@@ -24,7 +24,7 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
     /**
      * Creates new form MasterclassSignUpPanel
      */
-    public MasterclassSignUpPanel(Masterclass selectedMasterclass) {
+    public MasterclassSignUpPanel(Masterclass selectedMasterclass) throws SQLException {
         initComponents();
         
         selectedPlayerLabel.setVisible(false);
@@ -32,7 +32,7 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
         backButton.setVisible(false);
 
         this.selectedMasterclass = selectedMasterclass;
-        this.playerRepo.comboboxCollection(playerCombobox);
+        this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
         this.masterclassRepo.populateSignups(masterclassSignupsTable, selectedMasterclass.getId());
 
         masterclassSignupsTable.addMouseListener(new java.awt.event.MouseAdapter() {

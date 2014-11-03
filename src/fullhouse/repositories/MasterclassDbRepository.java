@@ -74,7 +74,7 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
-            String query = "SELECT m.*, COUNT(ms.masterclass_id) as signups FROM `masterclass` m LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id GROUP BY m.masterclass_id ORDER BY ms.masterclass_id";
+            String query = "SELECT m.*, COUNT(ms.masterclass_id) as signups FROM `masterclass` m LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id GROUP BY m.masterclass_id ORDER BY m.date";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
