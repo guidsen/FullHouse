@@ -136,7 +136,7 @@ public class MasterclassPanel extends javax.swing.JPanel {
         try {
             MasterclassCollectionPanel collection = (MasterclassCollectionPanel) subPanel;
             JTable table = collection.masterclassCollectionTable;
-            Masterclass selectedMasterclass = (Masterclass) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            Masterclass selectedMasterclass = (Masterclass) table.getValueAt(table.getSelectedRow(), 0);
 
             this.action = "EDIT";
             this.masterclass = selectedMasterclass;
@@ -176,7 +176,7 @@ public class MasterclassPanel extends javax.swing.JPanel {
         try {
             MasterclassCollectionPanel collection = (MasterclassCollectionPanel) subPanel;
             JTable table = collection.masterclassCollectionTable;
-            Masterclass selectedMasterclass = (Masterclass) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            Masterclass selectedMasterclass = (Masterclass) table.getValueAt(table.getSelectedRow(), 0);
             this.repository.delete(selectedMasterclass.getId(), table);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een masterclass");

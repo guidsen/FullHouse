@@ -161,7 +161,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         try {
             PlayerCollectionPanel collection = (PlayerCollectionPanel) subPanel;
             JTable table = collection.playerCollectionTable;
-            Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), 0);
 
             this.action = "EDIT";
             this.player = selectedPlayer;
@@ -177,7 +177,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         try {
             PlayerCollectionPanel collection = (PlayerCollectionPanel) subPanel;
             JTable table = collection.playerCollectionTable;
-            Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), 0);
             this.repository.delete(selectedPlayer.getId(), table);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een speler");

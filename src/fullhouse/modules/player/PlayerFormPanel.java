@@ -17,25 +17,25 @@ public class PlayerFormPanel extends javax.swing.JPanel {
 
     private final PlayerDbRepository playerRepo = new PlayerDbRepository();
     private Player player;
-    
+
     /**
      * Creates new form PlayerFormFrame
      */
     public PlayerFormPanel() {
         initComponents();
     }
-    
+
     public PlayerFormPanel(Player player) {
         initComponents();
         this.player = player;
         this.setValues();
     }
-    
+
     public Player getValues() {
         Player player = new Player();
-        if(teacherCheckBox.isSelected()){
+        if (teacherCheckBox.isSelected()) {
             player.setTeacher(1);
-        }else{
+        } else {
             player.setTeacher(0);
         }
         player.setFirstName(firstNameField.getText());
@@ -47,16 +47,16 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         player.setCity(cityField.getText());
         player.setPhoneNum(phoneNumField.getText());
         player.setEmail(emailField.getText());
-        
+
         return player;
     }
-    
+
     public Player getValues(int id) {
         Player player = new Player();
         player.setId(id);
-        if(teacherCheckBox.isSelected()){
+        if (teacherCheckBox.isSelected()) {
             player.setTeacher(1);
-        }else{
+        } else {
             player.setTeacher(0);
         }
         player.setFirstName(firstNameField.getText());
@@ -68,12 +68,12 @@ public class PlayerFormPanel extends javax.swing.JPanel {
         player.setCity(cityField.getText());
         player.setPhoneNum(phoneNumField.getText());
         player.setEmail(emailField.getText());
-        
+
         return player;
     }
-    
+
     public void setValues() {
-        if(this.player.getTeacher() == 1){
+        if (this.player.getTeacher() == 1) {
             teacherCheckBox.setSelected(true);
         }
         firstNameField.setText(this.player.getFirstName());
@@ -296,7 +296,7 @@ public class PlayerFormPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void emailFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFieldFocusLost
-       
+
     }//GEN-LAST:event_emailFieldFocusLost
 
     private void dateOfBirthFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthFieldActionPerformed

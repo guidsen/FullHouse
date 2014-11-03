@@ -112,15 +112,28 @@ public class PlayerDbRepository extends DbRepository<Player> {
         }
     }
 
-    public void comboboxCollection(JComboBox combobox) {
-        DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
-        ArrayList<Player> players = this.getPlayers();
+    public void comboboxCollection(JComboBox combobox, int tournamentId) {
+        try {
+            DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
+            Connection conn = DataSource.getConnection();
+            String query = "SELECT * FROM player p WHERE player_id NOT IN (SELECT player_id FROM player_tournament pt WHERE p.player_id = pt.player_id AND tournament_id = ?)";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, tournamentId);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                comboboxModel.addElement(player);
+            }
 
-        for (Player player : players) {
-            comboboxModel.addElement(player);
+            combobox.setModel(comboboxModel);
+        } catch (SQLException e) {
+            e.getMessage();
         }
-
-        combobox.setModel(comboboxModel);
     }
 
     public void comboboxCollectionMasterclass(int masterclassId, JComboBox combobox) {
@@ -257,13 +270,13 @@ public class PlayerDbRepository extends DbRepository<Player> {
     }
 
     public void signup(int playerId, int tournamentId, boolean paid) throws SQLException {
-        int paidInt = (paid) ? 1 : 0;
-        Connection conn = DataSource.getConnection();
-        PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament (player_id, tournament_id, paid) VALUES (?, ?, ?)");
-        stat.setInt(1, playerId);
-        stat.setInt(2, tournamentId);
-        stat.setInt(3, paidInt);
-        stat.executeUpdate();
+            int paidInt = (paid) ? 1 : 0;
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("INSERT INTO player_tournament (player_id, tournament_id, paid) VALUES (?, ?, ?)");
+            stat.setInt(1, playerId);
+            stat.setInt(2, tournamentId);
+            stat.setInt(3, paidInt);
+            stat.executeUpdate();
     }
 
     public void signupMasterclass(int playerId, int masterclassId, boolean paid) throws SQLException {

@@ -34,7 +34,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         backButton.setVisible(false);
 
         this.selectedTournament = selectedTournament;
-        this.playerRepo.comboboxCollection(playerCombobox);
+        this.playerRepo.comboboxCollection(playerCombobox, selectedTournament.getId());
         this.tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId());
 
         tournamentSignupsTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -90,6 +90,11 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         jLabel2.setText("Betaald");
 
         playerCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        playerCombobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playerComboboxActionPerformed(evt);
+            }
+        });
 
         paidCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,11 +230,23 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         int dialog = JOptionPane.showConfirmDialog(playerCombobox, String.format("Weet u zeker dat u %s wilt inschrijven voor dit toernooi? ", selectedPlayer.toString()));
 
         if (dialog == JOptionPane.YES_OPTION) {
-            try {
-                this.playerRepo.signup(selectedPlayer.getId(), this.selectedTournament.getId(), paidCheckbox.isSelected());
-                this.tournamentRepo.populateSignups(tournamentSignupsTable, this.selectedTournament.getId());
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor dit toernooi.");
+            if (selectedTournament.getMaxPlayers() != tournamentSignupsTable.getRowCount()) {
+                for (int row = 0; row < tournamentSignupsTable.getRowCount(); row++) {
+                    Player player = (Player) tournamentSignupsTable.getValueAt(row, 0);
+                    System.out.println(player.getId());
+                    System.out.println(selectedPlayer.getId());
+                    try {
+                        this.playerRepo.signup(selectedPlayer.getId(), this.selectedTournament.getId(), paidCheckbox.isSelected());
+                        this.tournamentRepo.populateSignups(tournamentSignupsTable, this.selectedTournament.getId());
+                        this.playerRepo.comboboxCollection(playerCombobox, selectedTournament.getId());
+                        break;
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor dit toernooi.");
+                        break;
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, String.format("Dit toernooi heeft een limiet van %d.", selectedTournament.getMaxPlayers()));
             }
         }
     }//GEN-LAST:event_playerSignupButtonActionPerformed
@@ -250,6 +267,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
         playerRepo.signOut(selectedPlayer.getId(), selectedTournament.getId());
         this.backButtonActionPerformed(evt);
         this.tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId());
+        this.playerRepo.comboboxCollection(playerCombobox, selectedTournament.getId());
     }//GEN-LAST:event_signOutPlayerButtonActionPerformed
 
     private void filterComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboboxActionPerformed
@@ -264,6 +282,10 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
             tournamentRepo.populateSignups(tournamentSignupsTable, selectedTournament.getId(), false);
         }
     }//GEN-LAST:event_filterComboboxActionPerformed
+
+    private void playerComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerComboboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playerComboboxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;

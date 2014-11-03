@@ -101,7 +101,7 @@ public class Tournament extends QueryBuilder<TournamentDbRepository> {
     }
     
     public int getMaxPlayers() {
-        return getPlayersPerTable() * getRoundAmount();
+        return (int) Math.pow(getPlayersPerTable(), getRoundAmount());
     }
     
     @Override

@@ -164,7 +164,7 @@ public class TournamentPanel extends javax.swing.JPanel {
         try {
             TournamentCollectionPanel collection = (TournamentCollectionPanel) subPanel;
             JTable table = collection.tournamentCollectionTable;
-            Tournament selectedTournament = (Tournament) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            Tournament selectedTournament = (Tournament) table.getValueAt(table.getSelectedRow(), 0);
             System.out.println("Edit tournament.");
             this.action = "EDIT";
             this.tournament = selectedTournament;
@@ -180,7 +180,7 @@ public class TournamentPanel extends javax.swing.JPanel {
         try {
             TournamentCollectionPanel collection = (TournamentCollectionPanel) subPanel;
             JTable table = collection.tournamentCollectionTable;
-            Tournament selectedTournament = (Tournament) table.getValueAt(table.getSelectedRow(), table.getSelectedColumn());
+            Tournament selectedTournament = (Tournament) table.getValueAt(table.getSelectedRow(), 0);
             this.repository.delete(selectedTournament.getId(), table);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een toernooi");
