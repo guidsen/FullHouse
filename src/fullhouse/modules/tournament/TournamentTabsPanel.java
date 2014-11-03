@@ -5,35 +5,39 @@
 package fullhouse.modules.tournament;
 
 import fullhouse.models.Tournament;
+import static fullhouse.modules.masterclass.MasterclassTabsPanel.selectedComponent;
 import fullhouse.repositories.TournamentDbRepository;
+import java.awt.Component;
 
 /**
  *
  * @author steve
  */
 public class TournamentTabsPanel extends javax.swing.JPanel {
+
     private final TournamentDbRepository repository = new TournamentDbRepository();
+    public static Component selectedComponent;
 
     /**
      * Creates new form TournamentFormPanel
      */
     public TournamentTabsPanel(Tournament tournament) {
         initComponents();
-        
+
         TournamentFormPanel form = new TournamentFormPanel(tournament);
-        
+
         boolean test = tournament.isGeneratedRounds();
-        
-        jTabbedPane1.addTab("Gegevens", form);
-        jTabbedPane1.addTab("Speler inschrijven", new TournamentSignupPanel(tournament));
-        jTabbedPane1.addTab("Spelers die nog niet betaald hebben", new TournamentTableLayoutCollectionNotPaidPanel(tournament.getId()));
-        if(test)
-        {
-            jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutCollectionPanel(tournament.getId()));
+
+        tournamentTabs.addTab("Gegevens", form);
+        tournamentTabs.addTab("Speler inschrijven", new TournamentSignupPanel(tournament));
+        if (test) {
+            tournamentTabs.addTab("Tafelindeling", new TournamentTableLayoutCollectionPanel(tournament.getId()));
         } else {
-            jTabbedPane1.addTab("Tafelindeling", new TournamentTableLayoutPanel(tournament.getId(), form));
+            tournamentTabs.addTab("Tafelindeling", new TournamentTableLayoutPanel(tournament.getId(), form));
         }
-        jTabbedPane1.addTab("Uitslag", new TournamentResultsPanel(tournament.getId()));
+        tournamentTabs.addTab("Uitslag", new TournamentResultsPanel(tournament.getId()));
+        
+        selectedComponent = tournamentTabs.getSelectedComponent();
     }
 
     /**
@@ -45,20 +49,20 @@ public class TournamentTabsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tournamentTabs = new javax.swing.JTabbedPane();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(tournamentTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(tournamentTabs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tournamentTabs;
     // End of variables declaration//GEN-END:variables
 }

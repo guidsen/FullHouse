@@ -136,7 +136,7 @@ public class TournamentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addTournamentButtonActionPerformed
 
     private void saveTournamentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTournamentButtonActionPerformed
-        TournamentFormPanel form = (TournamentFormPanel) subPanel;
+        TournamentFormPanel form = (TournamentFormPanel) TournamentTabsPanel.selectedComponent;
 
         try {
             new TournamentValidator().validate(form);
