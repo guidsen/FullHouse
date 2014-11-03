@@ -33,6 +33,7 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
         populateLeaderBox();
         this.masterclass = masterclass;
         this.setValues();
+        System.out.println("test");
     }
 
     public void populateLeaderBox() {
@@ -70,7 +71,7 @@ public class MasterclassFormPanel extends javax.swing.JPanel {
         masterclass.setName(masterclassName.getText());
         masterclass.setMaxPlayers(Integer.parseInt(masterclassMaxPlayers.getText()));
         masterclass.setDate(masterclassDate.getText());
-
+ 
         return masterclass;
     }
 
