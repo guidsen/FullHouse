@@ -20,6 +20,8 @@ public class PlayerValidator {
         validator.addTextField(form.firstNameField, form.firstNameValidationLabel).alpha().required();
         validator.addTextField(form.lastNameField, form.lastNameValidationLabel).alpha().required();
         validator.addTextField(form.dateOfBirthField, form.dateOfBirthValidationLabel).date("dd-mm-YYYY");
+        validator.addTextField(form.zipcodeField, form.zipcodeValidationLabel).zipcode();
+        validator.addTextField(form.phoneNumField, form.phoneNumValidationLabel).phonenumber().maxLength(10);
         validator.addTextField(form.emailField, form.emailValidationLabel).required().email();
 
         if (validator.getErrorCount() > 0) {
