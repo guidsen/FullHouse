@@ -190,6 +190,20 @@ public class PlayerDbRepository extends DbRepository<Player> {
             e.getMessage();
         }
     }
+    
+    public void setPaidMasterclass(int playerId, int masterclassId, boolean paid) {
+        try {
+            int paidInt = (paid) ? 1 : 0;
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("UPDATE masterclass_signup SET paid = ? WHERE player_id = ? AND masterclass_id = ?");
+            stat.setInt(1, paidInt);
+            stat.setInt(2, playerId);
+            stat.setInt(3, masterclassId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+    }
 
     public void signup(int playerId, int tournamentId, boolean paid) throws SQLException {
         int paidInt = (paid) ? 1 : 0;
@@ -200,6 +214,16 @@ public class PlayerDbRepository extends DbRepository<Player> {
         stat.setInt(3, paidInt);
         stat.executeUpdate();
     }
+    
+    public void signupMasterclass(int playerId, int masterclassId, boolean paid) throws SQLException {
+        int paidInt = (paid) ? 1 : 0;
+        Connection conn = DataSource.getConnection();
+        PreparedStatement stat = conn.prepareStatement("INSERT INTO masterclass_signup (player_id, masterclass_id, paid) VALUES (?, ?, ?)");
+        stat.setInt(1, playerId);
+        stat.setInt(2, masterclassId);
+        stat.setInt(3, paidInt);
+        stat.executeUpdate();
+    }
 
     public void signOut(int playerId, int tournamentId) {
         try {
@@ -207,6 +231,18 @@ public class PlayerDbRepository extends DbRepository<Player> {
             PreparedStatement stat = conn.prepareStatement("DELETE FROM player_tournament WHERE player_id = ? AND tournament_id = ?");
             stat.setInt(1, playerId);
             stat.setInt(2, tournamentId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+    }
+    
+    public void signOutMasterclass(int playerId, int masterclassId) {
+        try {
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("DELETE FROM masterclass_signup WHERE player_id = ? AND masterclass_id = ?");
+            stat.setInt(1, playerId);
+            stat.setInt(2, masterclassId);
             stat.executeUpdate();
         } catch (SQLException e) {
             e.getMessage();

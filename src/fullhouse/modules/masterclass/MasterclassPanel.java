@@ -141,7 +141,7 @@ public class MasterclassPanel extends javax.swing.JPanel {
             this.action = "EDIT";
             this.masterclass = selectedMasterclass;
 
-            subPanel = Panel.changeView(this, subPanel, new MasterclassFormPanel(selectedMasterclass));
+            subPanel = Panel.changeView(this, subPanel, new MasterclassTabsPanel(selectedMasterclass));
             panel.toForm();
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een masterclass");

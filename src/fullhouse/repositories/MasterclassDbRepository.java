@@ -8,10 +8,12 @@ package fullhouse.repositories;
 import fullhouse.DataSource;
 import fullhouse.FullHouse;
 import fullhouse.models.Masterclass;
+import fullhouse.models.Player;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -114,5 +116,115 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ArrayList<Player> getSignups(int masterclassId) {
+        ArrayList<Player> signups = new ArrayList<>();
+        try {
+            Connection conn = DataSource.getConnection();
+            String query = "SELECT p.*, ms.paid FROM `masterclass_signup` ms LEFT JOIN player p ON ms.player_id = p.player_id WHERE ms.masterclass_id = ?";
+
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, masterclassId);
+            ResultSet rs = stat.executeQuery();
+
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                player.setDateOfBirth(FullHouse.fromSqlDate(rs.getDate("date_of_birth")));
+                player.setAddress(rs.getString("address"));
+                player.setZipcode(rs.getString("zipcode"));
+                player.setCity(rs.getString("city"));
+                player.setPhoneNum(rs.getString("phonenum"));
+                player.setEmail(rs.getString("email"));
+                player.setRating(rs.getInt("rating"));
+                player.setPaid(rs.getBoolean("paid"));
+
+                signups.add(player);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return signups;
+    }
+
+    public ArrayList<Player> getSignups(int masterclassId, boolean hasPaid) {
+        ArrayList<Player> signups = new ArrayList<>();
+        try {
+            Connection conn = DataSource.getConnection();
+            String query;
+            if (hasPaid) {
+                query = "SELECT p.*, ms.paid FROM `masterclass_signup` ms LEFT JOIN player p ON ms.player_id = p.player_id WHERE ms.masterclass_id = ? AND paid = 1";
+            } else {
+                query = "SELECT p.*, ms.paid FROM `masterclass_signup` ms LEFT JOIN player p ON ms.player_id = p.player_id WHERE ms.masterclass_id = ? AND paid = 0";
+            }
+
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, masterclassId);
+            ResultSet rs = stat.executeQuery();
+
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                player.setDateOfBirth(FullHouse.fromSqlDate(rs.getDate("date_of_birth")));
+                player.setAddress(rs.getString("address"));
+                player.setZipcode(rs.getString("zipcode"));
+                player.setCity(rs.getString("city"));
+                player.setPhoneNum(rs.getString("phonenum"));
+                player.setEmail(rs.getString("email"));
+                player.setRating(rs.getInt("rating"));
+                player.setPaid(rs.getBoolean("paid"));
+
+                signups.add(player);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return signups;
+    }
+
+    public void populateSignups(JTable table, int masterclassId) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+        ArrayList<Player> players = this.getSignups(masterclassId);
+
+        for (Player player : players) {
+            Vector row = new Vector();
+            row.addElement(player);
+            row.addElement(player.getEmail());
+            row.addElement(player.getRating());
+            row.addElement(player.getPhoneNum());
+            row.addElement((player.isPaid()) ? "Ja" : "Nee");
+            tableModel.addRow(row);
+        }
+
+        table.setModel(tableModel);
+    }
+    
+    public void populateSignups(JTable table, int masterclassId, boolean hasPaid) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+        
+        ArrayList<Player> players = this.getSignups(masterclassId, hasPaid);
+
+        for (Player player : players) {
+            Vector row = new Vector();
+            row.addElement(player); 
+            row.addElement(player.getEmail());
+            row.addElement(player.getRating());
+            row.addElement(player.getPhoneNum());
+            row.addElement((player.isPaid()) ? "Ja" : "Nee");
+            tableModel.addRow(row);
+        }
+
+        table.setModel(tableModel);
     }
 }
