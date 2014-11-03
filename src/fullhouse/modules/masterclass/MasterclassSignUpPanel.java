@@ -217,6 +217,7 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
         playerSignupButton.setVisible(true);
 
         paidCheckbox.setSelected(false);
+        masterclassSignupsTable.clearSelection();
         this.selectedPlayer = null;
     }//GEN-LAST:event_backButtonActionPerformed
 
