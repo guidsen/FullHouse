@@ -12,6 +12,7 @@ import fullhouse.models.Table;
 import fullhouse.repositories.RoundDbRepository;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -214,29 +215,33 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Round round = (Round)roundComboBox.getSelectedItem();
-        int roundIndex = roundComboBox.getSelectedIndex();
-        Table table = (Table)tableComboBox.getSelectedItem();
-        int player = playerComboBox.getSelectedIndex();
-        Model placeModel = (Model)placeComboBox.getSelectedItem();
-        int place = placeModel.getId();
-        
-        int player_id = 0;
-        try{
-            List ids = table.getIds();
-            if(!ids.isEmpty())
-            {
-                player_id = Integer.parseInt((String)ids.get(player));
+        int dialog = JOptionPane.showConfirmDialog(null, "Weet u zeker dat u de uitslag wilt invoeren?");
+
+        if (dialog == JOptionPane.YES_OPTION) {
+            Round round = (Round)roundComboBox.getSelectedItem();
+            int roundIndex = roundComboBox.getSelectedIndex();
+            Table table = (Table)tableComboBox.getSelectedItem();
+            int player = playerComboBox.getSelectedIndex();
+            Model placeModel = (Model)placeComboBox.getSelectedItem();
+            int place = placeModel.getId();
+
+            int player_id = 0;
+            try{
+                List ids = table.getIds();
+                if(!ids.isEmpty())
+                {
+                    player_id = Integer.parseInt((String)ids.get(player));
+                }
+            } catch(Exception e){}
+
+            if(roundIndex < list.size() - 1 && player_id > 0) {
+                this.repository.setWinner(player_id, round.getId(), list.get(roundIndex+1).getId());
+            } else {
+                this.repository.setTournamentWinner(tournament_id, player_id, round.getId(), place);
             }
-        } catch(Exception e){}
-        
-        if(roundIndex < list.size() - 1 && player_id > 0) {
-            this.repository.setWinner(player_id, round.getId(), list.get(roundIndex+1).getId());
-        } else {
-            this.repository.setTournamentWinner(player_id, round.getId(), place);
+
+            roundComboBox.setSelectedIndex(0);
         }
-        
-        roundComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

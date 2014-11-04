@@ -207,7 +207,7 @@ public class RoundDbRepository extends DbRepository<Round> {
         }
     }
     
-    public void setTournamentWinner(int player_id, int round_id, int place) {
+    public void setTournamentWinner(int tournament_id, int player_id, int round_id, int place) {
         try {
             Connection conn = DataSource.getConnection();
             
@@ -217,6 +217,27 @@ public class RoundDbRepository extends DbRepository<Round> {
             stat.setInt(3, round_id);
             
             stat.executeUpdate();
+            
+            PreparedStatement money = conn.prepareStatement("SELECT (SELECT COUNT(player_id) FROM player_tournament WHERE tournament_id = t.tournament_id AND paid = 1) * t.entry_fee AS total FROM `tournament` AS t WHERE tournament_id = ?");
+            money.setInt(1, tournament_id);
+            
+            ResultSet rs = money.executeQuery();
+
+            double priceMoney = 0.0;
+            while (rs.next()) {
+                priceMoney = rs.getDouble("total");
+            }
+            
+            double updateMoney = 0.0;
+            if(place == 1) updateMoney = priceMoney*0.4;
+            if(place == 2) updateMoney = priceMoney*0.25;
+            if(place == 3) updateMoney = priceMoney*0.1;
+            
+            PreparedStatement update = conn.prepareStatement("UPDATE player SET money_won = money_won + ? WHERE player_id = ?");
+            update.setDouble(1, updateMoney);
+            update.setInt(2, player_id);
+            
+            update.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }

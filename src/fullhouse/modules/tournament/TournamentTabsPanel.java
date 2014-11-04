@@ -32,10 +32,10 @@ public class TournamentTabsPanel extends javax.swing.JPanel {
         tournamentTabs.addTab("Speler inschrijven", new TournamentSignupPanel(tournament));
         if (test) {
             tournamentTabs.addTab("Tafelindeling", new TournamentTableLayoutCollectionPanel(tournament.getId()));
+            tournamentTabs.addTab("Uitslag", new TournamentResultsPanel(tournament.getId()));
         } else {
-            tournamentTabs.addTab("Tafelindeling", new TournamentTableLayoutPanel(tournament.getId(), form));
+            tournamentTabs.addTab("Tafelindeling", new TournamentTableLayoutPanel(tournament.getId(), form, tournamentTabs));
         }
-        tournamentTabs.addTab("Uitslag", new TournamentResultsPanel(tournament.getId()));
         
         selectedComponent = tournamentTabs.getSelectedComponent();
     }
