@@ -6,6 +6,8 @@
 package fullhouse;
 
 import fullhouse.modules.HomeFrame;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -102,4 +104,10 @@ public class FullHouse {
     public static void deleteRowFromTable(JTable table) {
         ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
     }
+    
+    public static double money(double value) {
+    BigDecimal bd = new BigDecimal(value);
+    bd = bd.setScale(2, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+}
 }
