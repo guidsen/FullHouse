@@ -252,11 +252,21 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
         int dialog = JOptionPane.showConfirmDialog(playerCombobox, String.format("Weet u zeker dat u %s wilt inschrijven voor deze masterclass? ", selectedPlayer.toString()));
 
         if (dialog == JOptionPane.YES_OPTION) {
-            try {
-                this.playerRepo.signupMasterclass(selectedPlayer.getId(), this.selectedMasterclass.getId(), paidCheckbox.isSelected());
-                this.masterclassRepo.populateSignups(masterclassSignupsTable, this.selectedMasterclass.getId());
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor deze masterclass.");
+            if(selectedMasterclass.getMaxPlayers() != masterclassSignupsTable.getRowCount()){
+                for(int row=0; row < masterclassSignupsTable.getRowCount(); row++){
+                    Player player = (Player) masterclassSignupsTable.getValueAt(row, 0);
+                    try {
+                        this.playerRepo.signupMasterclass(selectedPlayer.getId(), this.selectedMasterclass.getId(), paidCheckbox.isSelected());
+                        this.masterclassRepo.populateSignups(masterclassSignupsTable, this.selectedMasterclass.getId());
+                        this.playerRepo.comboboxCollection(playerCombobox, selectedMasterclass.getId());
+                        break;
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor deze masterclass.");
+                        break;
+                    }
+                }
+            } else{
+                JOptionPane.showMessageDialog(this, String.format("Deze masterclass heeft een limiet van %d.", selectedMasterclass.getMaxPlayers()));
             }
         }
     }//GEN-LAST:event_playerSignupButtonActionPerformed
