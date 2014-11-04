@@ -25,14 +25,16 @@ public class TournamentTableLayoutPanel extends javax.swing.JPanel {
     private TournamentDbRepository tournamentRepository = new TournamentDbRepository();
     private int tournament_id;
     private TournamentFormPanel form;
+    private javax.swing.JTabbedPane tabs;
     
     /**
      * Creates new form TournamentTableLayoutPanel
      */
-    public TournamentTableLayoutPanel(int tournament_id, TournamentFormPanel form) {
+    public TournamentTableLayoutPanel(int tournament_id, TournamentFormPanel form, javax.swing.JTabbedPane tabs) {
         initComponents();
         this.tournament_id = tournament_id;
         this.form = form;
+        this.tabs = tabs;
     }
 
     /**
@@ -102,6 +104,10 @@ public class TournamentTableLayoutPanel extends javax.swing.JPanel {
                     }
                 }
             }
+            
+            tabs.removeTabAt(2);
+            tabs.addTab("Tafelindeling", new TournamentTableLayoutCollectionPanel(tournament_id));
+            tabs.addTab("Uitslag", new TournamentResultsPanel(tournament_id));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

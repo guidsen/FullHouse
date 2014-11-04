@@ -216,7 +216,7 @@ public class RoundDbRepository extends DbRepository<Round> {
             stat.setInt(2, player_id);
             stat.setInt(3, round_id);
             
-            //stat.executeUpdate();
+            stat.executeUpdate();
             
             PreparedStatement money = conn.prepareStatement("SELECT (SELECT COUNT(player_id) FROM player_tournament WHERE tournament_id = t.tournament_id AND paid = 1) * t.entry_fee AS total FROM `tournament` AS t WHERE tournament_id = ?");
             money.setInt(1, tournament_id);
@@ -238,10 +238,6 @@ public class RoundDbRepository extends DbRepository<Round> {
             update.setInt(2, player_id);
             
             update.executeUpdate();
-            
-            System.out.println(updateMoney);
-            
-            System.out.println(priceMoney);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
