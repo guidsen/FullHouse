@@ -136,14 +136,27 @@ public class PlayerDbRepository extends DbRepository<Player> {
     }
 
     public void comboboxCollectionMasterclass(int masterclassId, JComboBox combobox) {
-        DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
-        ArrayList<Player> players = this.getPlayersMasterclass(masterclassId);
+        try {
+            DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
+            Connection conn = DataSource.getConnection();
+            String query = "SELECT * FROM player p WHERE player_id NOT IN (SELECT player_id FROM masterclass_signup ms WHERE p.player_id = ms.player_id AND masterclass_id = ?)";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setInt(1, masterclassId);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setTeacher(rs.getInt("teacher"));
+                player.setFirstName(rs.getString("first_name"));
+                player.setMiddleName(rs.getString("middle_name"));
+                player.setLastName(rs.getString("last_name"));
+                comboboxModel.addElement(player);
+            }
 
-        for (Player player : players) {
-            comboboxModel.addElement(player);
+            combobox.setModel(comboboxModel);
+        } catch (SQLException e) {
+            e.getMessage();
         }
-
-        combobox.setModel(comboboxModel);
     }
 
     public ArrayList<Player> getPlayers() {

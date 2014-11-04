@@ -34,7 +34,7 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
         this.selectedMasterclass = selectedMasterclass;
         this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
         this.masterclassRepo.populateSignups(masterclassSignupsTable, selectedMasterclass.getId());
-        
+
         masterclassSignupsTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -252,8 +252,8 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
         int dialog = JOptionPane.showConfirmDialog(playerCombobox, String.format("Weet u zeker dat u %s wilt inschrijven voor deze masterclass? ", selectedPlayer.toString()));
 
         if (dialog == JOptionPane.YES_OPTION) {
-            if(selectedMasterclass.getMaxPlayers() != masterclassSignupsTable.getRowCount()){
-                if(masterclassSignupsTable.getRowCount() == 0){
+            if (selectedMasterclass.getMaxPlayers() != masterclassSignupsTable.getRowCount()) {
+                if (masterclassSignupsTable.getRowCount() == 0) {
                     try {
                         this.playerRepo.signupMasterclass(selectedPlayer.getId(), this.selectedMasterclass.getId(), paidCheckbox.isSelected());
                         this.masterclassRepo.populateSignups(masterclassSignupsTable, this.selectedMasterclass.getId());
@@ -262,19 +262,20 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor deze masterclass.");
                     }
                 } else {
-                for(int row= 0; row < masterclassSignupsTable.getRowCount(); row++){
-                    Player player = (Player) masterclassSignupsTable.getValueAt(row, 0);
-                    try {
-                        this.playerRepo.signupMasterclass(selectedPlayer.getId(), this.selectedMasterclass.getId(), paidCheckbox.isSelected());
-                        this.masterclassRepo.populateSignups(masterclassSignupsTable, this.selectedMasterclass.getId());
-                        this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
-                        break;
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor deze masterclass.");
-                        break;
+                    for (int row = 0; row < masterclassSignupsTable.getRowCount(); row++) {
+                        Player player = (Player) masterclassSignupsTable.getValueAt(row, 0);
+                        try {
+                            this.playerRepo.signupMasterclass(selectedPlayer.getId(), this.selectedMasterclass.getId(), paidCheckbox.isSelected());
+                            this.masterclassRepo.populateSignups(masterclassSignupsTable, this.selectedMasterclass.getId());
+                            this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
+                            break;
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor deze masterclass.");
+                            break;
+                        }
                     }
-                }}
-            } else{
+                }
+            } else {
                 JOptionPane.showMessageDialog(this, String.format("Deze masterclass heeft een limiet van %d.", selectedMasterclass.getMaxPlayers()));
             }
         }
