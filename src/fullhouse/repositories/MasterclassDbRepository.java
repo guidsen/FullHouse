@@ -78,7 +78,7 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
                     + "FROM `masterclass` m "
                     + "LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id "
                     + "LEFT JOIN player p ON m.leader_id = p.player_id "
-                    + "GROUP BY m.masterclass_id ORDER BY m.date";
+                    + "GROUP BY m.masterclass_id ORDER BY m.name";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 

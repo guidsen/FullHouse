@@ -231,6 +231,15 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
 
         if (dialog == JOptionPane.YES_OPTION) {
             if (selectedTournament.getMaxPlayers() != tournamentSignupsTable.getRowCount()) {
+                if(tournamentSignupsTable.getRowCount() == 0){
+                    try {
+                        this.playerRepo.signup(selectedPlayer.getId(), this.selectedTournament.getId(), paidCheckbox.isSelected());
+                        this.tournamentRepo.populateSignups(tournamentSignupsTable, this.selectedTournament.getId());
+                        this.playerRepo.comboboxCollection(playerCombobox, selectedTournament.getId());
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor dit toernooi.");
+                    }
+                }else{
                 for (int row = 0; row < tournamentSignupsTable.getRowCount(); row++) {
                     Player player = (Player) tournamentSignupsTable.getValueAt(row, 0);
                     System.out.println(player.getId());
@@ -244,7 +253,7 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor dit toernooi.");
                         break;
                     }
-                }
+                }}
             } else {
                 JOptionPane.showMessageDialog(this, String.format("Dit toernooi heeft een limiet van %d.", selectedTournament.getMaxPlayers()));
             }
