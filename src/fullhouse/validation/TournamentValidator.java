@@ -18,7 +18,9 @@ public class TournamentValidator {
         FormValidator validator = FormValidator.getInstance();
         validator.resetErrors();
         validator.addTextField(form.nameField, form.nameValidationLabel).required();
-        validator.addTextField(form.dateField, form.dateValidationLabel).date("dd-mm-YYYY HH:ii");
+        validator.addTextField(form.dateField, form.dateValidationLabel).required().date("dd-mm-YYYY HH:ii");
+        validator.addTextField(form.placeField, form.placeValidationLabel).required();
+        validator.addTextField(form.entryFeeField, form.entryFeeValidationLabel).required();
 
         if (validator.getErrorCount() > 0) {
             throw new FormValidationException(validator.getErrors());

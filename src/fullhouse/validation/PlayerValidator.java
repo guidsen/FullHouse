@@ -17,10 +17,10 @@ public class PlayerValidator {
     public void validate(PlayerFormPanel form) throws FormValidationException {
         FormValidator validator = FormValidator.getInstance();
         validator.resetErrors();
-        validator.addTextField(form.firstNameField, form.firstNameValidationLabel).alpha().required();
-        validator.addTextField(form.lastNameField, form.lastNameValidationLabel).alpha().required();
-        validator.addTextField(form.dateOfBirthField, form.dateOfBirthValidationLabel).date("dd-mm-YYYY");
-        validator.addTextField(form.zipcodeField, form.zipcodeValidationLabel).zipcode();
+        validator.addTextField(form.firstNameField, form.firstNameValidationLabel).required().alpha();
+        validator.addTextField(form.lastNameField, form.lastNameValidationLabel).required().alpha();
+        validator.addTextField(form.dateOfBirthField, form.dateOfBirthValidationLabel).required().date("dd-mm-YYYY");
+        validator.addTextField(form.zipcodeField, form.zipcodeValidationLabel).required().zipcode();
         validator.addTextField(form.phoneNumField, form.phoneNumValidationLabel).phonenumber().numeric().maxLength(10);
         validator.addTextField(form.emailField, form.emailValidationLabel).required().email();
 

@@ -28,12 +28,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Guido
  */
 public class PlayerDbRepository extends DbRepository<Player> {
-    
+
     @Override
     public Player getModel() {
         return new Player();
     }
-    
+
     public void add(Player player) {
         try {
             System.out.println("Add player.");
@@ -53,12 +53,12 @@ public class PlayerDbRepository extends DbRepository<Player> {
             stat.setString(10, player.getEmail());
             System.out.println(stat);
             stat.executeUpdate();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void update(Player player) {
         try {
             System.out.println("Update player.");
@@ -77,16 +77,16 @@ public class PlayerDbRepository extends DbRepository<Player> {
             stat.setInt(10, player.getTeacher());
             stat.setInt(11, player.getId());
             stat.executeUpdate();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void collection(JTable table) {
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         ArrayList<Player> players = this.getPlayers();
-        
+
         for (Player player : players) {
             Vector row = new Vector();
             row.addElement(player);
@@ -94,12 +94,13 @@ public class PlayerDbRepository extends DbRepository<Player> {
             row.addElement(player.getRating());
             row.addElement(player.getParticipations());
             row.addElement(String.format("%.2f", player.getMoneyWon()));
+            row.addElement(String.format("%.2f", player.getOwnsMoney()));
             tableModel.addRow(row);
         }
-        
+
         table.setModel(tableModel);
     }
-    
+
     public void delete(int id, JTable table) {
         try {
             System.out.println("Delete player.");
@@ -107,13 +108,13 @@ public class PlayerDbRepository extends DbRepository<Player> {
             PreparedStatement stat = conn.prepareStatement("DELETE FROM player WHERE player_id = ?");
             stat.setInt(1, id);
             stat.executeUpdate();
-            
+
             FullHouse.deleteRowFromTable(table);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void comboboxCollection(JComboBox combobox, int tournamentId) {
         try {
             DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
@@ -131,32 +132,37 @@ public class PlayerDbRepository extends DbRepository<Player> {
                 player.setLastName(rs.getString("last_name"));
                 comboboxModel.addElement(player);
             }
-            
+
             combobox.setModel(comboboxModel);
         } catch (SQLException e) {
             e.getMessage();
         }
     }
-    
+
     public void comboboxCollectionMasterclass(int masterclassId, JComboBox combobox) {
         DefaultComboBoxModel comboboxModel = new DefaultComboBoxModel();
         ArrayList<Player> players = this.getPlayersMasterclass(masterclassId);
-        
+
         for (Player player : players) {
             comboboxModel.addElement(player);
         }
-        
+
         combobox.setModel(comboboxModel);
     }
-    
+
     public ArrayList<Player> getPlayers() {
         ArrayList<Player> players = new ArrayList<>();
         try {
             Connection conn = DataSource.getConnection();
-            String query = "SELECT p.*, COUNT(pt.player_id) as participations FROM player p LEFT JOIN player_tournament pt ON p.player_id = pt.player_id GROUP BY p.player_id";
+            // SELECT p.*, SUM(t.entry_fee) AS owns_money FROM player p LEFT JOIN player_tournament pt ON p.player_id = pt.player_id LEFT JOIN tournament t ON pt.tournament_id = t.tournament_id WHERE pt.paid = 0 GROUP BY p.player_id
+            //String query = "SELECT p.*, COUNT(pt.player_id) as participations FROM player p LEFT JOIN player_tournament pt ON p.player_id = pt.player_id GROUP BY p.player_id";
+            String query = "SELECT p.*, COUNT(pt.player_id) as participations, IF(SUM(t.entry_fee) IS NULL, 0.00, SUM(t.entry_fee)) AS owns_money FROM player p "
+                    + "LEFT JOIN player_tournament pt ON p.player_id = pt.player_id AND pt.paid = 0 "
+                    + "LEFT JOIN tournament t ON pt.tournament_id = t.tournament_id "
+                    + "GROUP BY p.player_id";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
-            
+
             while (rs.next()) {
                 Player player = new Player();
                 player.setId(rs.getInt("player_id"));
@@ -173,7 +179,8 @@ public class PlayerDbRepository extends DbRepository<Player> {
                 player.setRating(rs.getInt("rating"));
                 player.setParticipations(rs.getInt("participations"));
                 player.setMoneyWon(rs.getDouble("money_won"));
-                
+                player.setOwnsMoney(rs.getDouble("owns_money"));
+
                 players.add(player);
             }
         } catch (SQLException ex) {
@@ -181,7 +188,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
         }
         return players;
     }
-    
+
     public ArrayList<Player> getPlayersMasterclass(int masterclassId) {
         ArrayList<Player> players = new ArrayList<>();
         try {
@@ -196,7 +203,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setInt(1, masterclassId);
             ResultSet rs = stat.executeQuery();
-            
+
             while (rs.next()) {
                 Player player = new Player();
                 player.setId(rs.getInt("player_id"));
@@ -212,30 +219,30 @@ public class PlayerDbRepository extends DbRepository<Player> {
                 player.setEmail(rs.getString("email"));
                 player.setRating(rs.getInt("rating"));
                 player.setParticipations(rs.getInt("participations"));
-                
+
                 players.add(player);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return players;
     }
-    
+
     public ArrayList<Player> getLeaders() {
         ArrayList<Player> leaders = new ArrayList<>();
         try {
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("SELECT * FROM player WHERE teacher = 1");
             ResultSet rs = stat.executeQuery();
-            
+
             while (rs.next()) {
                 Player player = new Player();
                 player.setId(rs.getInt("player_id"));
                 player.setFirstName(rs.getString("first_name"));
                 player.setMiddleName(rs.getString("middle_name"));
                 player.setLastName(rs.getString("last_name"));
-                
+
                 leaders.add(player);
             }
         } catch (SQLException ex) {
@@ -243,7 +250,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
         }
         return leaders;
     }
-    
+
     public void setPaid(int playerId, int tournamentId, boolean paid) {
         try {
             int paidInt = (paid) ? 1 : 0;
@@ -257,7 +264,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             e.getMessage();
         }
     }
-    
+
     public void setPaidMasterclass(int playerId, int masterclassId, boolean paid) {
         try {
             int paidInt = (paid) ? 1 : 0;
@@ -271,7 +278,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             e.getMessage();
         }
     }
-    
+
     public void signup(int playerId, int tournamentId, boolean paid) throws SQLException {
         int paidInt = (paid) ? 1 : 0;
         Connection conn = DataSource.getConnection();
@@ -281,7 +288,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
         stat.setInt(3, paidInt);
         stat.executeUpdate();
     }
-    
+
     public void signupMasterclass(int playerId, int masterclassId, boolean paid) throws SQLException {
         int paidInt = (paid) ? 1 : 0;
         Connection conn = DataSource.getConnection();
@@ -291,7 +298,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
         stat.setInt(3, paidInt);
         stat.executeUpdate();
     }
-    
+
     public void signOut(int playerId, int tournamentId) {
         try {
             Connection conn = DataSource.getConnection();
@@ -303,7 +310,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             e.getMessage();
         }
     }
-    
+
     public void signOutMasterclass(int playerId, int masterclassId) {
         try {
             Connection conn = DataSource.getConnection();
@@ -315,7 +322,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
             e.getMessage();
         }
     }
-    
+
     public void collectionPlayersNotPaid(int tournament_id, JTable table) {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
@@ -324,7 +331,7 @@ public class PlayerDbRepository extends DbRepository<Player> {
                     + "IN(SELECT player_id FROM player_tournament WHERE tournament_id = ? AND paid = 0)");
             stat.setInt(1, tournament_id);
             ResultSet rs = stat.executeQuery();
-            
+
             while (rs.next()) {
                 Player player = new Player();
                 player.setId(rs.getInt("player_id"));
@@ -339,14 +346,14 @@ public class PlayerDbRepository extends DbRepository<Player> {
                 player.setPhoneNum(rs.getString("phonenum"));
                 player.setEmail(rs.getString("email"));
                 player.setRating(rs.getInt("rating"));
-                
+
                 Vector row = new Vector();
                 row.addElement(player);
                 row.addElement(player.getEmail());
                 tableModel.addRow(row);
             }
             table.setModel(tableModel);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }

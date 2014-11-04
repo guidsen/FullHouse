@@ -22,7 +22,7 @@ import javax.swing.JTable;
  */
 public class PlayerPanel extends javax.swing.JPanel {
 
-    private PlayerDbRepository repository = new PlayerDbRepository();
+    private PlayerDbRepository playerRepo = new PlayerDbRepository();
     private Panel panel = new Panel();
     private String action;
     private Player player;
@@ -145,11 +145,11 @@ public class PlayerPanel extends javax.swing.JPanel {
             new PlayerValidator().validate(form);
 
             if (this.action == "CREATE") {
-                this.repository.add(form.getValues());
+                this.playerRepo.add(form.getValues());
             } else if (this.action == "EDIT") {
-                this.repository.update(form.getValues(this.player.getId()));
+                this.playerRepo.update(form.getValues(this.player.getId()));
             }
-
+            this.playerRepo.collection(PlayerCollectionPanel.playerCollectionTable);
             subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
             panel.toCollection();
         } catch (FormValidationException e) {
@@ -178,7 +178,7 @@ public class PlayerPanel extends javax.swing.JPanel {
             PlayerCollectionPanel collection = (PlayerCollectionPanel) subPanel;
             JTable table = collection.playerCollectionTable;
             Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), 0);
-            this.repository.delete(selectedPlayer.getId(), table);
+            this.playerRepo.delete(selectedPlayer.getId(), table);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een speler");
         }
