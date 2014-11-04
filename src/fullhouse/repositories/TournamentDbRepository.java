@@ -77,7 +77,7 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
             Connection conn = DataSource.getConnection();
-            String query = "SELECT t.*, COUNT(pt.tournament_id) as registered, (SELECT COUNT(round_id) FROM round WHERE tournament_id =  t.tournament_id) AS generatedRounds FROM tournament t LEFT JOIN player_tournament pt ON t.tournament_id = pt.tournament_id GROUP BY pt.tournament_id";
+            String query = "SELECT t.*, COUNT(pt.tournament_id) as registered, (SELECT COUNT(round_id) FROM round WHERE tournament_id =  t.tournament_id) AS generatedRounds FROM tournament t LEFT JOIN player_tournament pt ON t.tournament_id = pt.tournament_id GROUP BY t.tournament_id";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
