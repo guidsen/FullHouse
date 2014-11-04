@@ -7,8 +7,10 @@ package fullhouse.modules.tournament;
 
 import fullhouse.models.Model;
 import fullhouse.models.Player;
+import fullhouse.models.Rating;
 import fullhouse.models.Round;
 import fullhouse.models.Table;
+import fullhouse.repositories.PlayerDbRepository;
 import fullhouse.repositories.RoundDbRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class TournamentResultsPanel extends javax.swing.JPanel {
     private RoundDbRepository repository = new RoundDbRepository();
+    private PlayerDbRepository playerRepository = new PlayerDbRepository();
     private ArrayList<Round> list;
     private int tournament_id;
     
@@ -225,6 +228,7 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
             Model placeModel = (Model)placeComboBox.getSelectedItem();
             int place = placeModel.getId();
 
+            // set the winner
             int player_id = 0;
             try{
                 List ids = table.getIds();
@@ -239,7 +243,33 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
             } else {
                 this.repository.setTournamentWinner(tournament_id, player_id, round.getId(), place);
             }
-
+            
+            // update rating
+            ArrayList<Player> list = this.repository.getPlayerPerTable(round.getId(), table.getTable());
+            int total = 0;
+            int oldRating = 0;
+            ArrayList<Player> opponents = new ArrayList<>();
+            Player winner = new Player();
+            for(Player playerObject : list) {
+                if(playerObject.getWinner() > 0)
+                {
+                    winner = playerObject;
+                    oldRating = playerObject.getRating();
+                } else {
+                    opponents.add(playerObject);
+                    total += playerObject.getRating();
+                }
+            }
+            
+            int result = new Rating(winner.getRating(), total / opponents.size()).calculate();
+            winner.setRating(winner.getRating() + result);
+            playerRepository.updateRating(winner);
+            for(Player playerObject : opponents) {
+                int res = new Rating(oldRating, playerObject.getRating()).calculate();
+                playerObject.setRating(playerObject.getRating() - res);
+                playerRepository.updateRating(playerObject);
+            }
+            
             roundComboBox.setSelectedIndex(0);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

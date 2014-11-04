@@ -316,6 +316,18 @@ public class PlayerDbRepository extends DbRepository<Player> {
         }
     }
     
+    public void updateRating(Player player) {
+        try {
+            Connection conn = DataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement("UPDATE player SET rating = ? WHERE player_id = ?");
+            stat.setInt(1, player.getRating());
+            stat.setInt(2, player.getId());
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+    }
+    
     public void collectionPlayersNotPaid(int tournament_id, JTable table) {
         try {
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
