@@ -33,7 +33,6 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
 
     public void add(Masterclass masterclass) {
         try {
-            System.out.println("Add masterclass.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("INSERT INTO masterclass "
                     + "(leader_id,min_rating,price,name,max_players,date) VALUES (?,?,?,?,?,?)");
@@ -52,7 +51,6 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
 
     public void update(Masterclass masterclass) {
         try {
-            System.out.println("Update masterclass.");
             Connection conn = DataSource.getConnection();
             String queryString = "UPDATE masterclass SET leader_id=?,min_rating=?,price=?,name=?,max_players=?,date=? WHERE masterclass_id=?";
             PreparedStatement stat = conn.prepareStatement(queryString);
@@ -78,7 +76,7 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
                     + "FROM `masterclass` m "
                     + "LEFT JOIN masterclass_signup ms ON m.masterclass_id = ms.masterclass_id "
                     + "LEFT JOIN player p ON m.leader_id = p.player_id "
-                    + "GROUP BY m.masterclass_id ORDER BY m.name";
+                    + "GROUP BY m.masterclass_id ORDER BY m.date";
             PreparedStatement stat = conn.prepareStatement(query);
             ResultSet rs = stat.executeQuery();
 
@@ -117,7 +115,6 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
 
     public void delete(int id, JTable table) {
         try {
-            System.out.println("Delete masterclass.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("DELETE FROM masterclass WHERE masterclass_id = ?");
             stat.setInt(1, id);
@@ -237,9 +234,5 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         }
 
         table.setModel(tableModel);
-    }
-
-    public void setSelectedTeacher() {
-        System.out.println("test");
     }
 }

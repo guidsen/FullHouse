@@ -242,4 +242,31 @@ public class RoundDbRepository extends DbRepository<Round> {
             Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public ArrayList<Player> getPlayerPerTable(int round_id, int table) {
+        ArrayList<Player> list = new ArrayList<>();
+        
+        try{
+            Connection conn = DataSource.getConnection();
+
+            PreparedStatement stat = conn.prepareStatement("SELECT p.*, pr.winner FROM player_round AS pr LEFT JOIN player AS p ON pr.player_id = p.player_id WHERE pr.round_id = ? AND pr.`table` = ?");
+            stat.setInt(1, round_id);
+            stat.setInt(2, table);
+            
+            ResultSet rs = stat.executeQuery();
+            
+            while(rs.next()) {
+                Player player = new Player();
+                player.setId(rs.getInt("player_id"));
+                player.setRating(rs.getInt("rating"));
+                player.setWinner(rs.getInt("winner"));
+                
+                list.add(player);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerDbRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return list;
+    }
 }

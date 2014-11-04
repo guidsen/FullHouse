@@ -29,6 +29,15 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     private int participations;
     private boolean paid;
     private double moneyWon;
+    private int winner;
+
+    public int getWinner() {
+        return winner;
+    }
+
+    public void setWinner(int winner) {
+        this.winner = winner;
+    }
     private double ownsMoney;
 
     public boolean isPaid() {
@@ -121,6 +130,11 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     }
 
     public void setRating(int rating) {
+        if(rating > (int)Rating.max) {
+            rating = (int)Rating.max;
+        } else if(rating < (int)Rating.min) {
+            rating = (int)Rating.min;
+        }
         this.rating = rating;
     }
 

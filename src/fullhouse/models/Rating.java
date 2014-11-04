@@ -1,4 +1,4 @@
-package fullhouse;
+package fullhouse.models;
 
 /**
  * This class represents the calculation of the ratings in the tournament.
@@ -11,8 +11,8 @@ public class Rating {
     private int opponents;
     private int result;
     
-    private double min = 500;
-    private double max = 2000;
+    public static double min = 500;
+    public static double max = 2000;
     private double score = 0.8;
     private int max_score = 150;
     
@@ -20,8 +20,6 @@ public class Rating {
     {
         this.own = own;
         this.opponents = opponents;
-        
-        calculate();
     }
     
     public int calculate()
@@ -29,15 +27,13 @@ public class Rating {
 	double defider = max / opponents;
 	double own_score = max / own;
         
-	result = (int) Math.round( score * 100 / defider * own_score / ( ( max / min + 1 ) - ( max / own ) ) );	
+        result = (int) Math.round( score * 100 / defider * own_score / ( ( max / min + 1 ) - ( max / own ) ) );
 
 	if(result > max_score)
 	{
             result = max_score; 
 	}
-        
-        System.out.println(opponents+" "+result);
-        
+
         return result;
     }
 
