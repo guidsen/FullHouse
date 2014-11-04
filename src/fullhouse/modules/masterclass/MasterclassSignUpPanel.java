@@ -41,6 +41,7 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
                 int row = masterclassSignupsTable.rowAtPoint(evt.getPoint());
                 int col = masterclassSignupsTable.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
+                    System.out.println(masterclassSignupsTable.getValueAt(row, 0));
                     selectedPlayerLabel.setVisible(true);
                     signOutPlayerButton.setVisible(true);
                     backButton.setVisible(true);
@@ -224,6 +225,7 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
         playerRepo.signOutMasterclass(selectedPlayer.getId(), selectedMasterclass.getId());
         this.backButtonActionPerformed(evt);
         this.masterclassRepo.populateSignups(masterclassSignupsTable, selectedMasterclass.getId());
+        this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
     }//GEN-LAST:event_signOutPlayerButtonActionPerformed
 
     private void filterComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboboxActionPerformed
@@ -252,18 +254,27 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
 
         if (dialog == JOptionPane.YES_OPTION) {
             if(selectedMasterclass.getMaxPlayers() != masterclassSignupsTable.getRowCount()){
-                for(int row=0; row < masterclassSignupsTable.getRowCount(); row++){
+                if(masterclassSignupsTable.getRowCount() == 0){
+                    try {
+                        this.playerRepo.signupMasterclass(selectedPlayer.getId(), this.selectedMasterclass.getId(), paidCheckbox.isSelected());
+                        this.masterclassRepo.populateSignups(masterclassSignupsTable, this.selectedMasterclass.getId());
+                        this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor deze masterclass.");
+                    }
+                } else {
+                for(int row= 0; row < masterclassSignupsTable.getRowCount(); row++){
                     Player player = (Player) masterclassSignupsTable.getValueAt(row, 0);
                     try {
                         this.playerRepo.signupMasterclass(selectedPlayer.getId(), this.selectedMasterclass.getId(), paidCheckbox.isSelected());
                         this.masterclassRepo.populateSignups(masterclassSignupsTable, this.selectedMasterclass.getId());
-                        this.playerRepo.comboboxCollection(playerCombobox, selectedMasterclass.getId());
+                        this.playerRepo.comboboxCollectionMasterclass(selectedMasterclass.getId(), playerCombobox);
                         break;
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(this, "Deze gebruiker is al ingeschreven voor deze masterclass.");
                         break;
                     }
-                }
+                }}
             } else{
                 JOptionPane.showMessageDialog(this, String.format("Deze masterclass heeft een limiet van %d.", selectedMasterclass.getMaxPlayers()));
             }
