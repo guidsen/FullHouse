@@ -36,7 +36,6 @@ public class PlayerDbRepository extends DbRepository<Player> {
     
     public void add(Player player) {
         try {
-            System.out.println("Add player.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("INSERT INTO player "
                     + "(teacher, first_name, middle_name, last_name, date_of_birth, address, zipcode, city, phonenum, email, rating) "
@@ -51,7 +50,6 @@ public class PlayerDbRepository extends DbRepository<Player> {
             stat.setString(8, player.getCity());
             stat.setString(9, player.getPhoneNum());
             stat.setString(10, player.getEmail());
-            System.out.println(stat);
             stat.executeUpdate();
             
         } catch (SQLException ex) {
@@ -61,7 +59,6 @@ public class PlayerDbRepository extends DbRepository<Player> {
     
     public void update(Player player) {
         try {
-            System.out.println("Update player.");
             Connection conn = DataSource.getConnection();
             String queryString = "UPDATE player SET first_name=?,middle_name=?,last_name=?,date_of_birth=?,address=?,zipcode=?,city=?,phonenum=?,email=?,teacher=? WHERE player_id=?";
             PreparedStatement stat = conn.prepareStatement(queryString);
@@ -102,7 +99,6 @@ public class PlayerDbRepository extends DbRepository<Player> {
     
     public void delete(int id, JTable table) {
         try {
-            System.out.println("Delete player.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("DELETE FROM player WHERE player_id = ?");
             stat.setInt(1, id);

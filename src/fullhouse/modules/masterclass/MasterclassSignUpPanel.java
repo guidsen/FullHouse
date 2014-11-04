@@ -41,7 +41,6 @@ public class MasterclassSignUpPanel extends javax.swing.JPanel {
                 int row = masterclassSignupsTable.rowAtPoint(evt.getPoint());
                 int col = masterclassSignupsTable.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
-                    System.out.println(masterclassSignupsTable.getValueAt(row, 0));
                     selectedPlayerLabel.setVisible(true);
                     signOutPlayerButton.setVisible(true);
                     backButton.setVisible(true);

@@ -54,7 +54,6 @@ public class TournamentFormPanel extends javax.swing.JPanel {
     }
 
     public void setValues() {
-        System.out.println(this.tournament.getDate());
         nameField.setText(this.tournament.getName());
         dateField.setText(this.tournament.getDate());
         entryFeeField.setText(Double.toString(this.tournament.getEntryFee()));

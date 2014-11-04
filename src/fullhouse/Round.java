@@ -20,11 +20,8 @@ public class Round {
     
     public static void main(String[] args)
     {
-        //System.out.println(sqlDate);
-        
         while(!finals)
         {
-            System.out.println(Math.ceil((double)players / (double)table));
             if(players <= table)
             {
                 finals = true;
@@ -33,7 +30,5 @@ public class Round {
             }
             round++;
         }
-        
-        System.out.println(round);
     }
 }

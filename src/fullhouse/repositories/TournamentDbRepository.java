@@ -35,7 +35,6 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
 
     public void add(Tournament tournament) {
         try {
-            System.out.println("Add tournament.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("INSERT INTO tournament "
                     + "(name,date,entry_fee,players_per_table,round_amount,game_type,place)"
@@ -55,7 +54,6 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
 
     public void update(Tournament tournament) {
         try {
-            System.out.println("Update tournament.");
             Connection conn = DataSource.getConnection();
             String queryString = "UPDATE tournament SET name=?,date=?,entry_fee=?,players_per_table=?,round_amount=?,place=? WHERE tournament_id=?";
             PreparedStatement stat = conn.prepareStatement(queryString);
@@ -114,7 +112,6 @@ public class TournamentDbRepository extends DbRepository<Tournament> {
 
     public void delete(int id, JTable table) {
         try {
-            System.out.println("Delete tournament.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("DELETE FROM tournament WHERE tournament_id = ?");
             stat.setInt(1, id);

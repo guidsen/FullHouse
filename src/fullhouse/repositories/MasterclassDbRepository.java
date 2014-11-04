@@ -33,7 +33,6 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
 
     public void add(Masterclass masterclass) {
         try {
-            System.out.println("Add masterclass.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("INSERT INTO masterclass "
                     + "(leader_id,min_rating,price,name,max_players,date) VALUES (?,?,?,?,?,?)");
@@ -52,7 +51,6 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
 
     public void update(Masterclass masterclass) {
         try {
-            System.out.println("Update masterclass.");
             Connection conn = DataSource.getConnection();
             String queryString = "UPDATE masterclass SET leader_id=?,min_rating=?,price=?,name=?,max_players=?,date=? WHERE masterclass_id=?";
             PreparedStatement stat = conn.prepareStatement(queryString);
@@ -117,7 +115,6 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
 
     public void delete(int id, JTable table) {
         try {
-            System.out.println("Delete masterclass.");
             Connection conn = DataSource.getConnection();
             PreparedStatement stat = conn.prepareStatement("DELETE FROM masterclass WHERE masterclass_id = ?");
             stat.setInt(1, id);
@@ -237,9 +234,5 @@ public class MasterclassDbRepository extends DbRepository<Masterclass> {
         }
 
         table.setModel(tableModel);
-    }
-
-    public void setSelectedTeacher() {
-        System.out.println("test");
     }
 }

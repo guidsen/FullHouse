@@ -43,7 +43,6 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
                 int row = tournamentSignupsTable.rowAtPoint(evt.getPoint());
                 int col = tournamentSignupsTable.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
-                    System.out.println(tournamentSignupsTable.getValueAt(row, 0));
                     selectedPlayerLabel.setVisible(true);
                     signOutPlayerButton.setVisible(true);
                     backButton.setVisible(true);
@@ -233,8 +232,6 @@ public class TournamentSignupPanel extends javax.swing.JPanel {
             if (selectedTournament.getMaxPlayers() != tournamentSignupsTable.getRowCount()) {
                 for (int row = 0; row < tournamentSignupsTable.getRowCount(); row++) {
                     Player player = (Player) tournamentSignupsTable.getValueAt(row, 0);
-                    System.out.println(player.getId());
-                    System.out.println(selectedPlayer.getId());
                     try {
                         this.playerRepo.signup(selectedPlayer.getId(), this.selectedTournament.getId(), paidCheckbox.isSelected());
                         this.tournamentRepo.populateSignups(tournamentSignupsTable, this.selectedTournament.getId());

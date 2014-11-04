@@ -167,7 +167,6 @@ public class TournamentPanel extends javax.swing.JPanel {
             TournamentCollectionPanel collection = (TournamentCollectionPanel) subPanel;
             JTable table = collection.tournamentCollectionTable;
             Tournament selectedTournament = (Tournament) table.getValueAt(table.getSelectedRow(), 0);
-            System.out.println("Edit tournament.");
             this.action = "EDIT";
             this.tournament = selectedTournament;
             
