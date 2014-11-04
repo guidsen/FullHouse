@@ -28,6 +28,7 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
     private int rating;
     private int participations;
     private boolean paid;
+    private double moneyWon;
 
     public boolean isPaid() {
         return paid;
@@ -144,6 +145,14 @@ public class Player extends QueryBuilder<PlayerDbRepository> {
 
     public void setParticipations(int participations) {
         this.participations = participations;
+    }
+
+    public double getMoneyWon() {
+        return moneyWon;
+    }
+
+    public void setMoneyWon(double moneyWon) {
+        this.moneyWon = moneyWon;
     }
     
     @Override
