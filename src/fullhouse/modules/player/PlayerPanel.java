@@ -149,7 +149,6 @@ public class PlayerPanel extends javax.swing.JPanel {
             } else if (this.action == "EDIT") {
                 this.playerRepo.update(form.getValues(this.player.getId()));
             }
-            this.playerRepo.collection(PlayerCollectionPanel.playerCollectionTable);
             subPanel = Panel.changeView(this, subPanel, new PlayerCollectionPanel());
             panel.toCollection();
         } catch (FormValidationException e) {
@@ -178,7 +177,10 @@ public class PlayerPanel extends javax.swing.JPanel {
             PlayerCollectionPanel collection = (PlayerCollectionPanel) subPanel;
             JTable table = collection.playerCollectionTable;
             Player selectedPlayer = (Player) table.getValueAt(table.getSelectedRow(), 0);
-            this.playerRepo.delete(selectedPlayer.getId(), table);
+            int dialog = JOptionPane.showConfirmDialog(panel, String.format("Weet u zeker dat u %s wilt verwijderen?", selectedPlayer.toString()));
+            if (dialog == JOptionPane.YES_OPTION) {
+                this.playerRepo.delete(selectedPlayer.getId(), table);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(panel, "Selecteer aub een speler");
         }

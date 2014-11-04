@@ -21,50 +21,50 @@ import javax.swing.JOptionPane;
  * @author Guido
  */
 public class TournamentResultsPanel extends javax.swing.JPanel {
+
     private RoundDbRepository repository = new RoundDbRepository();
     private PlayerDbRepository playerRepository = new PlayerDbRepository();
     private ArrayList<Round> list;
     private int tournament_id;
-    
+
     /**
      * Creates new form TournamentResultsPanel
      */
     public TournamentResultsPanel(int tournament_id) {
         initComponents();
-        
+
         this.tournament_id = tournament_id;
-        
+
         list = this.repository.getAll(tournament_id);
-        
+
         roundComboBox.removeAllItems();
-        for(Round round : list){
+        for (Round round : list) {
             roundComboBox.addItem(round);
         }
-        
-        if(!list.isEmpty()) {
+
+        if (!list.isEmpty()) {
             ArrayList<Table> tables = this.repository.getTables(list.get(0).getId());
 
             tableComboBox.removeAllItems();
-            for(Table table : tables) {
+            for (Table table : tables) {
                 tableComboBox.addItem(table);
             }
 
             playerComboBox.removeAllItems();
-            if(!tables.isEmpty())
-            {
+            if (!tables.isEmpty()) {
                 Table table = tables.get(0);
                 String[] players = table.getPlayers().split(", ");
 
-                for(String player : players) {
+                for (String player : players) {
                     playerComboBox.addItem(player);
                 }
             }
         }
-        
+
         placeComboBox.addItem(new Model(1, "1e plaats"));
         placeComboBox.addItem(new Model(2, "2e plaats"));
         placeComboBox.addItem(new Model(3, "3e plaats"));
-        
+
         placeLabel.setVisible(false);
         placeComboBox.setVisible(false);
     }
@@ -169,29 +169,28 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
     private void roundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundComboBoxActionPerformed
         // TODO add your handling code here:
         Round id = (Round) roundComboBox.getSelectedItem();
-        
+
         ArrayList<Table> tables = this.repository.getTables(id.getId());
-        
-        tableComboBox.removeAllItems();        
-        for(Table table : tables) {
+
+        tableComboBox.removeAllItems();
+        for (Table table : tables) {
             tableComboBox.addItem(table);
         }
-        
+
         playerComboBox.removeAllItems();
-        if(!tables.isEmpty())
-        {
+        if (!tables.isEmpty()) {
             Table table = tables.get(0);
-            if(table.getPlayers().length() > 0) {
+            if (table.getPlayers().length() > 0) {
                 String[] players = table.getPlayers().split(", ");
-                
-                for(String player : players) {
+
+                for (String player : players) {
                     playerComboBox.addItem(player);
                 }
             }
         }
-        
+
         int roundIndex = roundComboBox.getSelectedIndex();
-        if(roundIndex == list.size() - 1) {
+        if (roundIndex == list.size() - 1) {
             placeLabel.setVisible(true);
             placeComboBox.setVisible(true);
         } else {
@@ -203,13 +202,13 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
     private void tableComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableComboBoxActionPerformed
         // TODO add your handling code here:
         Table table = (Table) tableComboBox.getSelectedItem();
-        
+
         playerComboBox.removeAllItems();
-        if(table != null) {            
-            if(table.getPlayers().length() > 0) {
+        if (table != null) {
+            if (table.getPlayers().length() > 0) {
                 String[] players = table.getPlayers().split(", ");
 
-                for(String player : players) {
+                for (String player : players) {
                     playerComboBox.addItem(player);
                 }
             }
@@ -221,55 +220,56 @@ public class TournamentResultsPanel extends javax.swing.JPanel {
         int dialog = JOptionPane.showConfirmDialog(null, "Weet u zeker dat u de uitslag wilt invoeren?");
 
         if (dialog == JOptionPane.YES_OPTION) {
-            Round round = (Round)roundComboBox.getSelectedItem();
+            Round round = (Round) roundComboBox.getSelectedItem();
             int roundIndex = roundComboBox.getSelectedIndex();
-            Table table = (Table)tableComboBox.getSelectedItem();
+            Table table = (Table) tableComboBox.getSelectedItem();
             int player = playerComboBox.getSelectedIndex();
-            Model placeModel = (Model)placeComboBox.getSelectedItem();
+            Model placeModel = (Model) placeComboBox.getSelectedItem();
             int place = placeModel.getId();
 
             // set the winner
             int player_id = 0;
-            try{
+            try {
                 List ids = table.getIds();
-                if(!ids.isEmpty())
-                {
-                    player_id = Integer.parseInt((String)ids.get(player));
+                if (!ids.isEmpty()) {
+                    player_id = Integer.parseInt((String) ids.get(player));
                 }
-            } catch(Exception e){}
+            } catch (Exception e) {
+            }
 
-            if(roundIndex < list.size() - 1 && player_id > 0) {
-                this.repository.setWinner(player_id, round.getId(), list.get(roundIndex+1).getId());
+            if (roundIndex < list.size() - 1 && player_id > 0) {
+                this.repository.setWinner(player_id, round.getId(), list.get(roundIndex + 1).getId());
             } else {
                 this.repository.setTournamentWinner(tournament_id, player_id, round.getId(), place);
             }
-            
+
             // update rating
             ArrayList<Player> list = this.repository.getPlayerPerTable(round.getId(), table.getTable());
-            int total = 0;
-            int oldRating = 0;
-            ArrayList<Player> opponents = new ArrayList<>();
-            Player winner = new Player();
-            for(Player playerObject : list) {
-                if(playerObject.getWinner() > 0)
-                {
-                    winner = playerObject;
-                    oldRating = playerObject.getRating();
-                } else {
-                    opponents.add(playerObject);
-                    total += playerObject.getRating();
+            if (list != null && list.size() > 1) {
+                int total = 0;
+                int oldRating = 0;
+                ArrayList<Player> opponents = new ArrayList<>();
+                Player winner = new Player();
+                for (Player playerObject : list) {
+                    if (playerObject.getWinner() > 0) {
+                        winner = playerObject;
+                        oldRating = playerObject.getRating();
+                    } else {
+                        opponents.add(playerObject);
+                        total += playerObject.getRating();
+                    }
+                }
+
+                int result = new Rating(winner.getRating(), total / opponents.size()).calculate();
+                winner.setRating(winner.getRating() + result);
+                playerRepository.updateRating(winner);
+                for (Player playerObject : opponents) {
+                    int res = new Rating(oldRating, playerObject.getRating()).calculate();
+                    playerObject.setRating(playerObject.getRating() - res);
+                    playerRepository.updateRating(playerObject);
                 }
             }
-            
-            int result = new Rating(winner.getRating(), total / opponents.size()).calculate();
-            winner.setRating(winner.getRating() + result);
-            playerRepository.updateRating(winner);
-            for(Player playerObject : opponents) {
-                int res = new Rating(oldRating, playerObject.getRating()).calculate();
-                playerObject.setRating(playerObject.getRating() - res);
-                playerRepository.updateRating(playerObject);
-            }
-            
+
             roundComboBox.setSelectedIndex(0);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -56,21 +56,24 @@ public class MasterclassPanel extends javax.swing.JPanel {
             }
         });
 
-        deleteMasterclassButton.setText("Verwijder masterclass");
+        deleteMasterclassButton.setText("Verwijder class");
         deleteMasterclassButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteMasterclassButtonActionPerformed(evt);
             }
         });
 
-        addMasterclassButton.setText("Voeg masterclass toe");
+        addMasterclassButton.setText("Voeg class toe");
+        addMasterclassButton.setMaximumSize(new java.awt.Dimension(119, 23));
+        addMasterclassButton.setMinimumSize(new java.awt.Dimension(119, 23));
+        addMasterclassButton.setPreferredSize(new java.awt.Dimension(119, 23));
         addMasterclassButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addMasterclassButtonActionPerformed(evt);
             }
         });
 
-        editMasterclassButton.setText("Wijzig masterclass");
+        editMasterclassButton.setText("Wijzig class");
         editMasterclassButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editMasterclassButtonActionPerformed(evt);
@@ -100,23 +103,23 @@ public class MasterclassPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(addMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saveMasterclassButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelMasterclassButton)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 143, Short.MAX_VALUE))
             .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addMasterclassButton)
+                    .addComponent(addMasterclassButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editMasterclassButton)
                     .addComponent(deleteMasterclassButton)
                     .addComponent(saveMasterclassButton)

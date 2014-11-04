@@ -17,18 +17,18 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="addMasterclassButton" min="-2" pref="204" max="-2" attributes="0"/>
+              <Component id="addMasterclassButton" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="editMasterclassButton" min="-2" pref="189" max="-2" attributes="0"/>
+              <Component id="editMasterclassButton" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="deleteMasterclassButton" min="-2" pref="180" max="-2" attributes="0"/>
+              <Component id="deleteMasterclassButton" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="saveMasterclassButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="cancelMasterclassButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="143" max="32767" attributes="0"/>
           </Group>
-          <Component id="subPanel" alignment="0" max="32767" attributes="0"/>
+          <Component id="subPanel" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -58,7 +58,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="deleteMasterclassButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Verwijder masterclass"/>
+        <Property name="text" type="java.lang.String" value="Verwijder class"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteMasterclassButtonActionPerformed"/>
@@ -66,7 +66,16 @@
     </Component>
     <Component class="javax.swing.JButton" name="addMasterclassButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Voeg masterclass toe"/>
+        <Property name="text" type="java.lang.String" value="Voeg class toe"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[119, 23]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[119, 23]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[119, 23]"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMasterclassButtonActionPerformed"/>
@@ -74,7 +83,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="editMasterclassButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Wijzig masterclass"/>
+        <Property name="text" type="java.lang.String" value="Wijzig class"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editMasterclassButtonActionPerformed"/>

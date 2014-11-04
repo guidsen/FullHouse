@@ -108,6 +108,7 @@ public class TournamentTableLayoutPanel extends javax.swing.JPanel {
             tabs.removeTabAt(2);
             tabs.addTab("Tafelindeling", new TournamentTableLayoutCollectionPanel(tournament_id));
             tabs.addTab("Uitslag", new TournamentResultsPanel(tournament_id));
+            tabs.setSelectedIndex(2);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

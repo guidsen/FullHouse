@@ -195,11 +195,24 @@ public class RoundDbRepository extends DbRepository<Round> {
             
             stat.executeUpdate();
             
-            PreparedStatement insert = conn.prepareStatement("INSERT INTO player_round( player_id, round_id, `table`, winner) SELECT ? AS player_id, ? AS round_id, IF(CEIL(COUNT(player_id)/?) = 0, 1, CEIL(COUNT(player_id)/8)) AS `table`, 0 AS winner FROM `player_round` WHERE round_id = ?");
+            PreparedStatement tournament = conn.prepareStatement("SELECT players_per_table FROM tournament WHERE tournament_id = (SELECT tournament_id FROM round WHERE round_id = ?)");    
+            tournament.setInt(1, round_id);
+            
+            ResultSet rs = tournament.executeQuery();
+            
+            int players_per_table = 1;
+            while(rs.next()) {
+                players_per_table = rs.getInt("players_per_table");
+            }
+            
+            stat.executeUpdate();
+            
+            PreparedStatement insert = conn.prepareStatement("INSERT INTO player_round( player_id, round_id, `table`, winner) SELECT ? AS player_id, ? AS round_id, IF(CEIL((COUNT(player_id)+1)/?) = 0, 1, CEIL((COUNT(player_id)+1)/?)) AS `table`, 0 AS winner FROM `player_round` WHERE round_id = ?");
             insert.setInt(1, player_id);
             insert.setInt(2, next_round_id);
-            insert.setInt(3, 8);
-            insert.setInt(4, next_round_id);
+            insert.setInt(3, players_per_table);
+            insert.setInt(4, players_per_table);
+            insert.setInt(5, next_round_id);
             
             insert.executeUpdate();
         } catch (SQLException ex) {

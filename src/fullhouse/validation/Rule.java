@@ -120,7 +120,7 @@ public class Rule {
 
     public Rule alpha() throws FormValidationException {
         if (!input.isEmpty()) {
-            regex("[a-zA-Z]+$", "U mag alleen letters gebruiken.");
+            regex("[a-zA-Z ]+$", "U mag alleen letters gebruiken.");
         }
         return this;
     }

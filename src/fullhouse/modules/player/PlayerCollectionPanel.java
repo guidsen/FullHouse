@@ -81,6 +81,6 @@ public class PlayerCollectionPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable playerCollectionTable;
+    public javax.swing.JTable playerCollectionTable;
     // End of variables declaration//GEN-END:variables
 }
