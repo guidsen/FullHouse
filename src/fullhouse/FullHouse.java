@@ -40,24 +40,6 @@ public class FullHouse {
         frame.revalidate();
 
         frame.mainPanel = Panel.changeView(frame, frame.mainPanel, new fullhouse.modules.HomePanel());
-
-        /*System.out.println("Punten op 500");
-         for(int i = 5; i <= 20; i++)
-         {
-         new Rating(500, i*100);
-         }
-         System.out.println("------------------");
-         System.out.println("Punten op 1000");
-         for(int i = 5; i <= 20; i++)
-         {
-         new Rating(1000, i*100);
-         }
-         System.out.println("------------------");
-         System.out.println("Punten op 2000");
-         for(int i = 5; i <= 20; i++)
-         {
-         new Rating(2000, i*100);
-         }*/
     }
 
     public static Timestamp toSqlDate(int year, int month, int day, int hour, int minute) {
