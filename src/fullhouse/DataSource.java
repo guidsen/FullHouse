@@ -33,7 +33,7 @@ public class DataSource {
         dbport = 3306;
         database = "fullhouse";
         username = "root";
-        password = "test123";
+        password = "krijgaids";
     }
 
     public static Connection getConnection() throws SQLException {
